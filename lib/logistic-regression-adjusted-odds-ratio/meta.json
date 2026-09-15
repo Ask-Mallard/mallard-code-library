@@ -1,0 +1,78 @@
+{
+  "id": "logistic-regression-adjusted-odds-ratio",
+  "title": "Logistic regression for an adjusted odds ratio",
+  "summary": "Estimates an adjusted odds ratio for a binary outcome by maximum likelihood, with both profile-likelihood and Wald confidence intervals. The odds ratio it returns is conditional on the covariates in the model: it is not a risk ratio, and it is not collapsible.",
+  "estimand": {
+    "target": [
+      "causal",
+      "associational"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "assignment": [
+      "randomized",
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.logistic_regression",
+  "sizing": {
+    "calc": "twoProportions",
+    "_why": "The effect-based form for a binary outcome compared between two groups. It sizes the MARGINAL two-group comparison while this entry estimates a CONDITIONAL odds ratio, which is a real limitation of the available catalog rather than a match: with covariates in the model the conditional effect is further from the null than the marginal one, so this form is not automatically conservative. logisticEPV is a per-variable FLOOR under Statistical correctness and is not a substitute for an effect-based calculation; Riley (Stat Med 2019) is the modern route where a floor is genuinely what is wanted."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "R: confint() on a glm returns PROFILE-LIKELIHOOD intervals; confint.default() returns WALD. Python's statsmodels .conf_int() is WALD. The obvious one-line call therefore returns a different KIND of interval in each language, and neither output says which. Both files report both intervals and the harness compares both.",
+    "R and Python: link = 'logit' is written out. binomial()/Binomial() do default to the logit, but probit and cloglog are one edit away and only the logit parameterises an ODDS ratio.",
+    "R: glm(family = binomial) models the SECOND level of a factor outcome. Both executed files require a 0/1 numeric outcome and check it, rather than trusting level order.",
+    "SAS: PROC LOGISTIC models the LOWER ordered response level, so a 0/1 outcome without event='1' reports the reciprocal of every odds ratio with nothing in the listing to say so. SAS also defaults to WALD limits; cl=pl is what requests the profile-likelihood interval the R file prints.",
+    "Stata: `logit` reports coefficients and `logistic` reports odds ratios from the identical fit. Stata's limits are Wald; it has no built-in profile-likelihood interval, and stata.do does not claim one."
+  ],
+  "engines": {
+    "r": "executed",
+    "python": "executed",
+    "sas": "not-executed",
+    "stata": "not-executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal",
+      "associational"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "effectScale": [
+      "conditional"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "maximum-likelihood-profile-and-wald"
+    ]
+  }
+}
