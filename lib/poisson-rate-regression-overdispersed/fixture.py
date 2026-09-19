@@ -10,8 +10,8 @@ TWO PROPERTIES ARE DELIBERATE.
 
 FOLLOW-UP VARIES, from six months to five years. With equal follow-up the offset can be omitted
 entirely and the rate ratio comes out right anyway, so a fixture with constant person-time cannot
-test the offset -- and the offset is the thing most easily got wrong here, because Stata's
-`exposure()` takes person-time while its `offset()` takes the LOG of it and both run happily.
+test the offset -- and the offset is the thing most easily got wrong here, because an offset must be
+the LOG of the person-time and passing the person-time itself fits a different model that still runs.
 
 THE COUNTS ARE OVERDISPERSED, with a gamma variance of 0.5. Under a true Poisson the naive and the
 robust standard errors converge, so an equidispersed fixture could not tell them apart and the

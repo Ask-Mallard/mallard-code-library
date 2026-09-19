@@ -7,8 +7,8 @@ function, nothing to misspecify.
 EXPECTED COUNTS ARE COMFORTABLY LARGE HERE, AND THAT IS DELIBERATE. Yates' continuity correction is
 defended as a small-sample device, so a fixture with sparse cells would let a reader dismiss the
 disagreement between packages as an edge case. It is not one: with two thousand patients and every
-expected count in the hundreds, R and Python still report a different chi-square from SAS and Stata
-by default, because R and Python apply the correction by default and the other two do not.
+expected count in the hundreds, the corrected and uncorrected chi-square still differ by 0.715,
+because R and Python apply Yates' correction by default and every file here switches it off.
 
 Stdlib only.
 """

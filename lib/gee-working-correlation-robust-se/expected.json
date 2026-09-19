@@ -32,15 +32,9 @@
 
   "must_appear": {
     "r": ["geeglm(", "corstr = \"exchangeable\"", "order(d$clinic)", "vbeta.naiv"],
-    "python": ["Exchangeable()", "Independence()", "cov_type='naive'", "groups=\"clinic\""],
-    "sas": ["type=exch", "event='1'", "modelse", "repeated subject=clinic"],
-    "stata": ["corr(exchangeable)", "vce(robust)", "xtset clinic"]
-  },
+    "python": ["Exchangeable()", "Independence()", "cov_type='naive'", "groups=\"clinic\""]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

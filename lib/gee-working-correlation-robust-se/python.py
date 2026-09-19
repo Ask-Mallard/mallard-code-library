@@ -3,7 +3,7 @@
 The same defaults the R file pins, from the other side:
 
 1. cov_struct=Exchangeable(). statsmodels DEFAULTS TO Independence(), so `sm.GEE(...).fit()` with
-   no cov_struct is a different model from Stata's bare `xtgee`, which is exchangeable.
+   no cov_struct silently fits a different working correlation from the one this file pins.
 
 2. groups= does the clustering, and unlike geepack statsmodels does not need the rows sorted. The
    sort in the R file is not paranoia about this one: it is required there and not here, which is

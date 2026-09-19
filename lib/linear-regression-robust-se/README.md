@@ -11,15 +11,13 @@ Every package has a button labelled "robust" and each one presses a different es
 | Language | What the obvious code gives you |
 |---|---|
 | R | `vcovHC` defaults to **HC3** |
-| Stata | `, robust` is **HC1** |
-| SAS | `/ hcc` alone is `HCCMETHOD=0`, which is **HC0** |
 | Python | a bare `.fit()` is the **classical** variance, with no robust default at all |
 
-Four files each written as "use robust standard errors" therefore report four different intervals,
-and no output in any of the four says which one it used. Every file here names **HC3**.
+The two files therefore disagree by default — R's `vcovHC` gives HC3, a bare statsmodels `.fit()`
+gives the classical variance — and no output says which one it used. Every file here names **HC3**.
 
-Python is the one worth singling out. R, SAS and Stata all give you *something* robust when you
-ask loosely; statsmodels gives you the classical variance, which on data like this assumes exactly
+Python is the one worth singling out. R gives you *something* robust when you ask loosely;
+statsmodels gives you the classical variance, which on data like this assumes exactly
 what the data contradicts. `mod.fit()` and `mod.fit(cov_type="HC3")` differ by a keyword and by
 7% of the exposure's standard error.
 
@@ -59,9 +57,8 @@ So the cross-engine check catches the mistake that matters — treating the clas
 and **cannot be relied on to separate the robust flavours from each other**. That is stated rather
 than glossed, because a check credited with more than it does is worse than no check.
 
-The flavour is guarded instead by `must_appear`, which is enforced against the *code* of all four
-files. That guard covers SAS and Stata, which nothing here executes, and which the agreement check
-therefore cannot speak for at all.
+The flavour is guarded instead by `must_appear`, which is enforced against the *code* of both
+files.
 
 ## The recovery tolerance was measured, not guessed
 

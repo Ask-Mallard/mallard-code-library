@@ -17,34 +17,25 @@ be asking GEE to recover a parameter it does not estimate and reporting the atte
 
 ## The defaults this entry exists to pin
 
-### The working correlation, where Stata is alone
+### The working correlation
 
 | Language | Default working correlation |
 |---|---|
 | R `geeglm` | **independence** |
 | Python `statsmodels.GEE` | **independence** |
-| SAS `PROC GENMOD ... REPEATED` | **independence** (`type=ind`) |
-| Stata `xtgee` | **exchangeable** |
 
-Three default one way and the fourth defaults the other, and no output in any of them names the
-structure it used. A file translated from R to Stata by deleting what looks like a redundant option
-fits a different model; a file translated the other way does too.
+Both default to independence, and no output names the structure it used. Every file here writes
+`exchangeable` out explicitly, because a default that is not written down is one release from
+changing — and the wrong structure is not a rounding difference: it changes both the estimate and
+the standard error, as the numbers below show.
 
-Every file here writes `exchangeable` out, **including Stata's, where it is already the default**.
-A default that is not written down is one release from changing.
+### The standard error, and why it interacts with the working correlation
 
-### The standard error, where Stata is alone again and in the dangerous direction
-
-| Language | What the obvious code reports |
-|---|---|
-| R `summary(geeglm)` | the **sandwich** |
-| Python `.bse` | the **sandwich** |
-| SAS `REPEATED` | the **empirical** (sandwich) table |
-| Stata `xtgee` | the **model-based** error, unless `vce(robust)` |
-
-The model-based error is the **smaller** one, so this is the mistake that makes a result look more
-certain than it is rather than less — the same shape as the overdispersion trap in
-`poisson-rate-regression-overdispersed`: **confidently wrong rather than visibly wrong.**
+The obvious code in both R (`summary(geeglm)`) and Python (`.bse`) reports the **sandwich**
+(empirical) standard error. Its alternative, the **model-based** error, is the **smaller** one, so
+reporting it by mistake makes a result look more certain than it is rather than less — the same
+shape as the overdispersion trap in `poisson-rate-regression-overdispersed`: **confidently wrong
+rather than visibly wrong.**
 
 **How much smaller depends on the working correlation, and that is why this entry reports four
 standard errors rather than two.** A model-based variance computed under an EXCHANGEABLE structure
@@ -59,11 +50,10 @@ Measured in CI on the committed fixture, `geepack`:
 | exchangeable | 0.1188 | 0.1315 | **1.11** |
 | independence | 0.0944 | 0.1685 | **1.79** |
 
-Stata's own pair — exchangeable structure with a model-based variance — is the mild row. R,
-statsmodels and GENMOD default to independence with a sandwich, which is also fine. The severe row
-is independence with a model-based error: **R's default structure with Stata's default variance**,
-which is precisely what a file translated between the two produces and what nobody would write on
-purpose.
+The mild row is an exchangeable structure with a model-based variance. R and statsmodels default to
+independence with a sandwich, which is also fine. The severe row is independence with a model-based
+error, and no package defaults to that pair: it is what a careless edit produces by taking the
+model-based error under the default independence structure, and what nobody would write on purpose.
 
 All four are separate harness keys, so an engine reporting one as another fails the agreement check
 rather than passing with a plausible number.
@@ -71,7 +61,8 @@ rather than passing with a plausible number.
 **Read the table the right way round.** The mild row is not reassurance: a model-based variance
 computed under the *right* structure is close to the sandwich because it has already absorbed the
 correlation. It is the pair — independence structure, model-based error — that is 44% too narrow,
-and no package produces that pair on its own. A file translated between two of them does.
+and no package produces that pair on its own. A careless edit that pins the model-based error under
+the default independence structure does.
 
 ### And a silent one in R that has nothing to do with statistics
 
@@ -79,18 +70,12 @@ and no package produces that pair on its own. A file translated between two of t
 treated as many small clusters, which collapses the sandwich toward the model-based error — the
 exact failure the file is written to avoid, arriving through the back door. `r.R` sorts
 unconditionally even though the committed fixture already arrives sorted. `statsmodels` does not
-need this, which is itself a difference a translated file loses.
-
-### And a silent one in SAS that reverses the answer
-
-`PROC GENMOD` models the probability of the **first ordered level** of the response, which for a 0/1
-variable is **zero**. Omitting `event='1'` fits the probability of *not* having the outcome and
-reverses the sign of every coefficient, with no warning in the output.
+need this, which is itself a difference a port from R would lose.
 
 ## What the fixture is built to make testable
 
 **Exposure has a clinic-level component**, and this is the choice the entry turns on. Measured on a
-working-independence fit — the structure three of the four languages default to — the
+working-independence fit — the structure both languages default to — the
 sandwich-to-model-based ratio for the exposure coefficient is **1.022** at a clinic-level exposure
 spread of 0.9: the demonstration would have been a rounding difference. At 2.5 it is 1.785 on the
 committed seed and above 1.3 on 98% of 200 calibration seeds. Some clinics prescribe far more than
@@ -165,6 +150,3 @@ sandwich-to-model-based ratio that is a property of the design rather than of th
 
 **A conditional odds ratio.** That is `mixed-effects-logistic-clustered`, and it is a different
 parameter rather than a different way of getting this one.
-
-**Any claim that SAS or Stata was run.** Neither was. `must_appear` is the only guard those two
-files have, which is why every option above is named in `expected.json`.

@@ -43,8 +43,6 @@ The interval, and the difference is **between languages** rather than inside one
 | R `confint(fit)` | **profile likelihood** |
 | R `confint.default(fit)` | **Wald** |
 | Python `fit.conf_int()` | **Wald** |
-| SAS `oddsratio` without `cl=pl` | **Wald** |
-| Stata `logit`/`logistic` | **Wald**, with no built-in profile option |
 
 So the obvious one-liner — the call a reader writes without thinking about it — returns a different
 *kind* of interval in R than in Python, and nothing in either output says so. R is the odd one out,
@@ -97,8 +95,6 @@ well-powered fixture is least able to show.
 |---|---|
 | R | executed in CI |
 | Python | executed in CI |
-| SAS | not executed |
-| Stata | not executed |
 
 A working implementation of logistic regression says nothing about whether an adjusted odds ratio
 answers your question, whether the covariates in the model are the right ones, or whether

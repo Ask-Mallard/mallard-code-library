@@ -13,14 +13,14 @@ exposed = d[d["exposed"] == 1]
 
 # PINNED DEFAULT 1: the exponential Greenwood interval, which IS the log-log transform R is told to
 # use above. lifelines does this and offers no alternative, which happens to match the pin; that is
-# worth stating rather than relying on, because R's DEFAULT is the plain log transform and SAS's is
-# log-log, so the same curve carries three different default bands across the three languages.
+# worth stating rather than relying on, because R's DEFAULT is the plain log transform, so the same
+# curve carries a different default band in each language.
 kmf0, kmf1 = KaplanMeierFitter(), KaplanMeierFitter()
 kmf0.fit(unexposed["time"], unexposed["event"], label="unexposed")
 kmf1.fit(exposed["time"], exposed["event"], label="exposed")
 
 # PINNED DEFAULT 2: the unweighted log-rank. lifelines' logrank_test is that test; the weighted
-# family lives in other functions, and SAS prints several at once and lets the reader choose.
+# family lives in other functions.
 lr = logrank_test(exposed["time"], unexposed["time"],
                   exposed["event"], unexposed["event"])
 

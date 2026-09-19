@@ -4,23 +4,21 @@ The crude table. No model, no adjustment, nothing to misspecify.
 
 ## The default this entry exists to pin
 
-**R and Python apply Yates' continuity correction to a 2x2 by default. SAS and Stata do not.**
+**R and Python both apply Yates' continuity correction to a 2x2 by default, and every file here
+switches it off.**
 
-| Language | What the obvious line reports |
-|---|---|
-| R | `chisq.test(tbl)` — **corrected**, 49.185 |
-| Python | `chi2_contingency(tab)` — **corrected**, 49.185 |
-| SAS | `PROC FREQ / CHISQ` headline — **uncorrected**, 49.901 |
-| Stata | `tabulate x y, chi2` — **uncorrected**, 49.901 |
+| Language | The obvious line | With the correction off |
+|---|---|---|
+| R | `chisq.test(tbl)` — **corrected**, 49.185 | `chisq.test(tbl, correct = FALSE)` — 49.901 |
+| Python | `chi2_contingency(tab)` — **corrected**, 49.185 | `chi2_contingency(tab, correction=False)` — 49.901 |
 
-The four split two against two, and no output in any of them says which convention it used. A SAS
-analyst and an R analyst comparing notes on the same table find two chi-squares and no explanation.
+The two conventions differ by 0.715 on this fixture, and no output says which one it used.
 
 **Every expected count in this fixture is in the hundreds.** That is deliberate: the correction is
 defended as a small-sample device, so a sparse fixture would let the disagreement be dismissed as an
 edge case. It is not one. With two thousand patients the packages still differ by 0.715.
 
-Uncorrected is what all four files pin, because the correction approximates an exact conditional
+Uncorrected is what both files pin, because the correction approximates an exact conditional
 test and is conservative to a fault where the expected counts are large. Where they are *not* large,
 the honest answer is Fisher's exact test — computed in every file here — rather than a corrected
 approximation of an asymptotic one.
@@ -36,16 +34,16 @@ disagreement reads as a bug in one of them. Every file here computes the odds ra
 table** instead, and says so where a reader will see it. `scipy.stats.contingency.odds_ratio` is the
 function that matches R's, for anyone who wants the conditional estimate.
 
-## The orientation trap, in two languages
+## The orientation trap
 
-Both R's `table()` and SAS's PROC FREQ order levels by value, so `0` comes before `1` and the table
+R's `table()` orders levels by value, so `0` comes before `1` and the table
 arrives with the unexposed row and the no-event column first.
 
 That leaves the **odds ratio unchanged** — swapping both rows and columns leaves `ad/bc` alone — and
 silently reverses what the **risk difference** means, which then reads as the risk of *not* having
 the event among the *unexposed*. A quantity that is right by luck beside one that is wrong in
-silence is the worst of both. The R file states the factor levels; the SAS file recodes with numeric
-prefixes, where a reader can see the ordering rather than having to remember an option.
+silence is the worst of both. The R file states the factor levels explicitly, so a reader can see
+the ordering rather than having to remember an option.
 
 ## Fisher's p is compared on the log scale
 

@@ -10,7 +10,7 @@ from pathlib import Path
 import re
 import subprocess
 
-FILES = {"r": "r.R", "python": "python.py", "sas": "sas.sas", "stata": "stata.do"}
+FILES = {"r": "r.R", "python": "python.py"}
 COMPATIBILITY_KEYS = {"target", "outcomeType", "summaryMeasure", "effectScale", "samplingStructure", "competingEvents", "repeatedMeasures", "missingData", "variant"}
 
 

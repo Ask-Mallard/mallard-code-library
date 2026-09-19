@@ -21,7 +21,7 @@ tab = np.array([[a, b], [c, e]])
 # PINNED DEFAULT: correction=False.
 #
 # scipy.stats.chi2_contingency applies Yates' continuity correction to any 2x2 by default, exactly
-# as R's chisq.test does, and exactly as SAS PROC FREQ and Stata tabulate do not. On this fixture
+# as R's chisq.test does, so both files switch it off. On this fixture
 # that is 49.90 uncorrected against 49.19 corrected, with every expected count in the hundreds.
 pearson = stats.chi2_contingency(tab, correction=False)
 yates = stats.chi2_contingency(tab, correction=True)

@@ -16,12 +16,10 @@ fit <- lm(y ~ exposed + covariate, data = d)
 #
 # Every package has a button labelled "robust" and each one presses a DIFFERENT estimator:
 #   R    sandwich::vcovHC   defaults to HC3
-#   Stata  regress, robust  gives HC1
-#   SAS    proc reg / hcc   defaults to HCCMETHOD=0, which is HC0
 #   Python statsmodels      has no default at all -- .fit() alone is the CLASSICAL variance
 #
-# So four files each written as "use robust standard errors" produce four different intervals, and
-# nothing in any of the four outputs says which one it used. Every file in this entry names HC3.
+# So the two files disagree by default -- R gives HC3, a bare statsmodels .fit() the classical
+# variance -- and nothing in either output says which one it used. Every file in this entry names HC3.
 V_hc3 <- vcovHC(fit, type = "HC3")
 
 # The ladder, printed so a reader can see the size of what the choice costs rather than take it

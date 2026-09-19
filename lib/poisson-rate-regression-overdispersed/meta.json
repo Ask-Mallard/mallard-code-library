@@ -25,14 +25,13 @@
 
   "pinned_defaults": [
     "R: offset(log(person_time)) INSIDE the formula, which fixes the coefficient at 1. Writing + log(person_time) instead estimates it, and the model runs.",
-    "Python: offset=np.log(person_time), already logged, the same convention as R and SAS.",
-    "SAS: offset=log_pt, a variable that must ALREADY be logged; the data step does it explicitly.",
-    "Stata: exposure(person_time) -- STATA IS THE ODD ONE OUT. exposure() takes the person-time itself and logs it; offset() takes the log. A file translated from any of the other three by swapping the keyword fits exp(person_time) where person_time belongs, runs, converges and answers a different question.",
-    "R: vcovHC(type = \"HC0\"). Python: cov_type=\"HC0\". Stata: vce(robust). SAS: a REPEATED statement with type=ind, which is what asks GENMOD for empirical rather than model-based errors.",
+    "Python: offset=np.log(person_time), already logged, the same convention as R's offset(log(t)).",
+    "The offset must be the LOG of the person-time. A keyword that takes the person-time itself and logs it fits exp(person_time) where person_time belongs, runs, converges and answers a different question.",
+    "R: vcovHC(type = \"HC0\"). Python: cov_type=\"HC0\". The robust (empirical) standard error rather than the model-based one, which is too small under overdispersion.",
     "The negative binomial dispersion is reported as ALPHA in every file. R's glm.nb reports THETA, which is its reciprocal, and the R file converts rather than emitting a differently scaled number under the same name."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "causal",

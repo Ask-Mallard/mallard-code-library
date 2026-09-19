@@ -29,15 +29,9 @@
 
   "must_appear": {
     "r": ["chisq.test(", "correct = FALSE", "fisher.test("],
-    "python": ["chi2_contingency", "correction=False", "fisher_exact"],
-    "sas": ["proc freq", "chisq"],
-    "stata": ["tabulate exposed outcome, chi2 exact"]
-  },
+    "python": ["chi2_contingency", "correction=False", "fisher_exact"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

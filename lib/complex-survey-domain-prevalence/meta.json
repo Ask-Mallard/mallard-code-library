@@ -5,10 +5,7 @@
   "learn": "analysis.complex_survey",
   "engines": {
     "r": "executed",
-    "python": "executed",
-    "sas": "not-executed",
-    "stata": "not-executed"
-  },
+    "python": "executed"  },
   "packages": {
     "python": {
       "statsmodels": "0.14.2",
@@ -18,13 +15,10 @@
     },
     "r": {
       "survey": "4.5"
-    },
-    "sas": {},
-    "stata": {}
-  },
+    }  },
   "pinned_defaults": [
     "Declare strata, PSUs and inverse-inclusion-probability weights on the full eligible sample before domain restriction.",
-    "PSU identifiers repeat between strata; R uses nest=TRUE, Python groups by both identifiers and Stata creates a combined identifier.",
+    "PSU identifiers repeat between strata; R uses nest=TRUE and Python groups by both identifiers.",
     "With-replacement Taylor variance, no finite-population correction. The example covers one-stage PSU sampling with small sampling fractions, not replicate-weight, calibrated or multistage designs.",
     "Every sampled PSU, including PSUs with zero domain observations, contributes to the stratum variance calculation.",
     "Missing values, nonpositive weights and unresolved lonely PSUs are rejected. Provider-specific interval and reliability rules remain necessary."

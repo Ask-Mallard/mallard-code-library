@@ -18,22 +18,14 @@
   "_few_clusters": "This fixture has 90 clusters. The sandwich variance is a large-sample estimator and is biased DOWNWARD with few clusters -- CLAUDE.md's rule warns under 30 and blocks under 15 unless a small-sample approach is named. An entry demonstrating the sandwich on 12 clusters would be modelling the practice the product warns about. Small-sample corrections (Mancl-DeRouen, Kauermann-Carroll, Fay-Graubard) are a separate entry and are not in geepack.",
   "packages": {
     "r": { "geepack": "1.3.13" },
-    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" },
-    "sas": {},
-    "stata": {}
-  },
+    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }  },
   "pinned_defaults": [
     "R: corstr='exchangeable'. geeglm DEFAULTS TO 'independence'.",
     "R: the data are sorted by cluster before fitting. geeglm requires observations from one cluster to be contiguous, does not check, and silently treats unsorted input as many small clusters.",
     "Python: cov_struct=Exchangeable(). statsmodels DEFAULTS TO Independence().",
-    "Python: statsmodels does NOT require sorted input, which is a difference from R that a translated file loses.",
-    "SAS: type=exch. PROC GENMOD's REPEATED statement DEFAULTS TO type=ind.",
-    "SAS: model outcome(event='1'). GENMOD models the probability of the FIRST ordered level, which for a 0/1 variable is zero, so omitting this reverses the sign of every coefficient with no warning.",
-    "SAS: modelse, so the model-based table is printed beside the empirical one.",
-    "Stata: corr(exchangeable) IS xtgee's default and is written out anyway, because it is the only one of the four that defaults this way.",
-    "Stata: vce(robust) is NOT the default. xtgee reports the MODEL-BASED standard error unless asked, while the other three report the sandwich."
+    "Python: statsmodels does NOT require sorted input, which is a difference from R that a port from R would lose."
   ],
-  "engines": {"r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed"},
+  "engines": {"r": "executed", "python": "executed"},
   "compatibility": {
     "target": [
       "causal",

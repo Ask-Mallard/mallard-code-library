@@ -32,23 +32,15 @@
       "pandas": "2.2.2",
       "numpy": "1.26.4",
       "scipy": "1.13.1"
-    },
-    "sas": {},
-    "stata": {}
-  },
+    }  },
   "pinned_defaults": [
     "R: method = 'exact'. clogit passes through to coxph, whose default is ties = 'efron'; the two differ when a matched set holds more than one case.",
     "R: exposure kept numeric 0/1, so no alphabetical factor ordering can silently choose the reference level and invert the odds ratio.",
-    "Python: no intercept. A conditional likelihood has none, so the design matrix is built explicitly rather than from a formula string that would add one.",
-    "SAS: model case(event='1'). PROC LOGISTIC models the LOWER ordered value by default, which for a 0/1 outcome inverts every odds ratio in the output.",
-    "Stata: coefficients, not the 'or' option, because the harness compares on the log-odds scale."
+    "Python: no intercept. A conditional likelihood has none, so the design matrix is built explicitly rather than from a formula string that would add one."
   ],
   "engines": {
     "r": "executed",
-    "python": "executed",
-    "sas": "not-executed",
-    "stata": "not-executed"
-  },
+    "python": "executed"  },
   "compatibility": {
     "target": [
       "causal",

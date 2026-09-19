@@ -5,10 +5,7 @@
   "learn": "analysis.prediction_performance",
   "engines": {
     "r": "executed",
-    "python": "executed",
-    "sas": "not-executed",
-    "stata": "not-executed"
-  },
+    "python": "executed"  },
   "packages": {
     "python": {
       "statsmodels": "0.14.2",
@@ -16,10 +13,7 @@
       "numpy": "1.26.4",
       "scipy": "1.13.1"
     },
-    "r": {},
-    "sas": {},
-    "stata": {}
-  },
+    "r": {}  },
   "pinned_defaults": [
     "The prediction model is fixed before validation outcomes are examined. No updating or threshold selection is performed here.",
     "Calibration-in-the-large uses log odds as an offset, fixing its slope to one. The joint calibration model estimates a separate intercept and slope.",

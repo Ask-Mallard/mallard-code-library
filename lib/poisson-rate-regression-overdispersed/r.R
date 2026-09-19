@@ -33,10 +33,10 @@ cat(sprintf("\nresidual deviance %.2f on %d df -- far above its df, which is the
 # The negative binomial alternative: it models the overdispersion rather than correcting the
 # standard errors for it, and gives a fully specified likelihood.
 #
-# R REPORTS theta AND EVERY OTHER PACKAGE REPORTS alpha, AND THEY ARE RECIPROCALS. glm.nb
-# parameterises the variance as mu + mu^2/theta; statsmodels, SAS GENMOD and Stata nbreg all use
-# mu + alpha*mu^2. Reading R's theta of 2 as if it were alpha would describe data four times less
-# dispersed than it is. The fixture's gamma variance is 0.5, so theta is 2 and alpha is 0.5.
+# R REPORTS theta AND statsmodels REPORTS alpha, AND THEY ARE RECIPROCALS. glm.nb
+# parameterises the variance as mu + mu^2/theta; statsmodels uses mu + alpha*mu^2. Reading R's
+# theta of 2 as if it were alpha would describe data four times less dispersed than it is. The
+# fixture's gamma variance is 0.5, so theta is 2 and alpha is 0.5.
 nb <- glm.nb(events ~ exposed + covariate + offset(log(person_time)), data = d)
 cat("\nnegative binomial\n")
 print(summary(nb)$coefficients)

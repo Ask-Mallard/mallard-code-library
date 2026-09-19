@@ -82,5 +82,3 @@ whose entire miss distribution tops out at 0.40 would pass whatever it was hande
 |---|---|
 | R (`lme4`) | executed in CI |
 | Python | **not applicable** — see above |
-| SAS | not executed |
-| Stata | not executed |

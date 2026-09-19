@@ -15,10 +15,10 @@ a <- tbl[1, 1]; b <- tbl[1, 2]; c_ <- tbl[2, 1]; dd <- tbl[2, 2]
 
 # PINNED DEFAULT: correct = FALSE, the uncorrected Pearson chi-square.
 #
-# R and scipy BOTH apply Yates' continuity correction to a 2x2 by default. SAS PROC FREQ and Stata
-# tabulate BOTH report the uncorrected Pearson as their chi-square. So the four languages split two
-# against two, and on this fixture that is 49.90 against 49.19 -- with every expected count in the
-# hundreds, which is not the sparse-table edge case the correction is usually defended for.
+# R and scipy BOTH apply Yates' continuity correction to a 2x2 by default, so both files switch it
+# off to report the uncorrected Pearson. On this fixture that is 49.90 uncorrected against 49.19
+# corrected -- with every expected count in the hundreds, which is not the sparse-table edge case
+# the correction is usually defended for.
 #
 # Uncorrected is pinned because the correction is a small-sample device for approximating an exact
 # conditional test, and it is conservative to a fault where the expected counts are large. Where

@@ -1,35 +1,20 @@
-"""Structural lint for the languages CI cannot execute.
+"""Structural lint for what the numeric checks cannot see.
 
-SAS and Stata have no runner here, so these files are never proved to work. This checks the few
-structural rules that can be checked from the text alone, and it is careful to claim nothing more.
+R and Python are both executed on the seeded fixture in CI, so a dropped option usually changes the
+numbers and the agreement check fails. `must_appear` is the guard for the cases that DO NOT move a
+number -- a pinned tie method, an offset convention, a response level -- and for making sure a
+pinned default is set in the CODE rather than merely described in a comment beside it.
 
 WHY THIS IS A SCRIPT AND NOT INLINE CI BASH. The first version was six lines inside the workflow,
-and it was wrong in two ways on its first execution:
+and it read a pinned option out of a prose comment -- the unanchored-pattern failure this project
+pays for over and over. Inline CI bash is unreviewed code: nothing runs it but the runner, and
+nothing tests it at all. As a module it gets controls, below in lint.test.py, including files that
+must NOT be flagged.
 
-  1. It flagged a Stata file for containing a semicolon. The semicolon was inside a PROSE COMMENT
-     ("no 'or' option is used here; add it when reading the output by eye"). Stata does not end
-     commands with semicolons, so the rule is right, but reading it out of a comment is exactly the
-     unanchored-pattern failure this project pays for over and over.
-
-  2. It required `event=` on any `model` statement in any SAS file. `event=` is a PROC LOGISTIC
-     concept: it fixes which response level is modelled, because LOGISTIC defaults to the LOWER
-     one and silently inverts every odds ratio. PROC GENMOD with dist=poisson has no such notion,
-     so the rule fired on a correct file.
-
-Inline CI bash is unreviewed code: nothing runs it but the runner, and nothing tests it at all. As
-a module it gets controls, below in lint.test.py, including a file that must NOT be flagged.
-
-WHAT THIS LINT DID NOT DO UNTIL NOW, AND SHOULD HAVE FROM THE FIRST ENTRY. Every expected.json has
-always carried a `must_appear` block naming the strings each language file has to contain -- the
-tie method, the offset, the response level. NOTHING READ IT. Five entries declared it and it was
-inert data, so the one mechanism that could have caught `ties=efron` being dropped from a SAS file
-was a rule written down and never enforced. For R and Python the gap is partly covered, because a
-dropped option changes the numbers and the agreement check fails; for SAS and Stata, which nothing
-executes, `must_appear` was the ONLY guard there was and it was not running.
-
-It is enforced against CODE, never comments. A pinned default named in a comment and absent from
-the statement below it is exactly the failure the block exists to catch, and a substring search
-over the raw file would call that a pass.
+WHAT THIS LINT ENFORCES. Every expected.json carries a `must_appear` block naming the strings each
+language file has to contain. It is enforced against CODE, never comments: a pinned default named in
+a comment and absent from the statement below it is exactly the failure the block exists to catch,
+and a substring search over the raw file would call that a pass.
 """
 
 import argparse
@@ -37,115 +22,6 @@ import json
 import re
 import sys
 from pathlib import Path
-
-
-def strip_stata_comments(text: str) -> str:
-    """Remove Stata comments so a rule about CODE never reads prose.
-
-    Stata comments: a line whose first non-space character is `*`, anything after `//`, and
-    /* ... */ blocks. Only the remainder is code.
-    """
-    text = re.sub(r"/\*.*?\*/", " ", text, flags=re.S)
-    out = []
-    for line in text.splitlines():
-        if line.lstrip().startswith("*"):
-            continue
-        out.append(line.split("//", 1)[0])
-    return "\n".join(out)
-
-
-def strip_sas_comments(text: str) -> str:
-    """Remove block and statement comments without consuming quoted SAS values.
-
-    A statement comment starts at a statement boundary, not at multiplication's `*`.
-    Quoted semicolons do not finish a statement; SAS escapes quotes by doubling them.
-    """
-    out, i, boundary, quote = [], 0, True, None
-    while i < len(text):
-        ch = text[i]
-        if quote:
-            out.append(ch)
-            if ch == quote:
-                if i + 1 < len(text) and text[i + 1] == quote:
-                    out.append(text[i + 1])
-                    i += 1
-                else:
-                    quote = None
-            i += 1
-            continue
-        if text.startswith("/*", i):
-            end = text.find("*/", i + 2)
-            if end < 0:
-                raise ValueError("unterminated SAS block comment")
-            out.append(" ")
-            i = end + 2
-            continue
-        if (boundary and ch == "*") or text.startswith("%*", i):
-            end = text.find(";", i)
-            if end < 0:
-                raise ValueError("unterminated SAS statement comment")
-            out.append(" ")
-            i = end + 1
-            continue
-        out.append(ch)
-        if ch in ("'", '"'):
-            quote = ch
-        if ch == ";":
-            boundary = True
-        elif not ch.isspace():
-            boundary = False
-        i += 1
-    return "".join(out)
-
-
-def lint_stata(path: Path) -> list:
-    code = strip_stata_comments(path.read_text())
-    problems = []
-    if ";" in code:
-        offenders = [l.strip() for l in code.splitlines() if ";" in l]
-        problems.append(
-            f"{path}: Stata does not end commands with semicolons -- {offenders[:2]}")
-    if not code.strip():
-        problems.append(f"{path}: nothing but comments")
-    return problems
-
-
-def lint_sas(path: Path) -> list:
-    raw = path.read_text()
-    code = strip_sas_comments(raw)
-    problems = []
-    if not re.search(r"\brun\s*;", code, re.I) and not re.search(r"\bquit\s*;", code, re.I):
-        problems.append(f"{path}: no run; or quit; statement, so no step is ever submitted")
-
-    # THE RESPONSE-LEVEL DEFAULT, scoped to the procs that actually have it and applied PER STEP.
-    #
-    # PROC LOGISTIC models the LOWER ordered response value, so a 0/1 outcome without event='1'
-    # inverts every odds ratio and nothing in the listing says so. SO DOES PROC GENMOD WITH A
-    # BINOMIAL DISTRIBUTION, which this rule missed: its scope was written from a GENMOD dist=
-    # poisson file, where there is genuinely no such notion, and generalised to all of GENMOD.
-    # A check asserting its own idea of its scope is this project's most repeated defect and this
-    # was an instance of it -- found when the first GENMOD-binomial file arrived, which happened
-    # to set event='1' anyway, so nothing would have been caught if it had not.
-    #
-    # Per step, because the old version tested EVERY model statement in the file as soon as one
-    # PROC LOGISTIC appeared anywhere in it. A file pairing a correct LOGISTIC step with a Poisson
-    # GENMOD step was flagged for the second step's statement.
-    steps = [(m.group(1).lower(), code[m.start():])
-             for m in re.finditer(r"\bproc\s+(\w+)\b", code, re.I)]
-    for k, (name, tail) in enumerate(steps):
-        body = tail if k + 1 >= len(steps) else tail[:len(tail) - len(steps[k + 1][1])]
-        if name == "logistic":
-            why = "PROC LOGISTIC"
-        elif name == "genmod" and re.search(r"\bdist\s*=\s*bin", body, re.I):
-            why = "PROC GENMOD with a binomial distribution"
-        else:
-            continue
-        for m in re.finditer(r"\bmodel\b[^;]*;", body, re.I | re.S):
-            if not re.search(r"\bmodel\s+\w+\s*\([^)]*\bevent\s*=", m.group(0), re.I):
-                problems.append(
-                    f"{path}: {why} model statement without event= -- "
-                    f"the lower response level is modelled by default and the odds ratios invert")
-    return problems
 
 
 def strip_hash_comments(text: str, triple: bool = False) -> str:
@@ -210,13 +86,10 @@ def strip_hash_comments(text: str, triple: bool = False) -> str:
 
 
 # filename -> (how to reduce it to code, whether the language cares about case).
-# SAS is case-insensitive as a language, so a declaration of `proc phreg` must match `PROC PHREG`.
-# R, Python and Stata are all case-sensitive and are matched as written.
+# R and Python are both case-sensitive and are matched as written.
 LANGUAGES = {
     "r": ("r.R", lambda s: strip_hash_comments(s), True),
     "python": ("python.py", lambda s: strip_hash_comments(s, triple=True), True),
-    "sas": ("sas.sas", strip_sas_comments, False),
-    "stata": ("stata.do", strip_stata_comments, True),
 }
 
 
@@ -228,8 +101,8 @@ def lint_must_appear(entry: Path) -> list:
     hardcoded field names and once in CI's hardcoded R package list:
 
       * every declared string must appear in the file, and
-      * every language file that EXISTS must be declared, or a new sas.sas could ship with nothing
-        pinned and pass in silence.
+      * every language file that EXISTS must be declared, or a file could ship with nothing pinned
+        and pass in silence.
     """
     expected_path = entry / "expected.json"
     if not expected_path.exists():
@@ -253,8 +126,7 @@ def lint_must_appear(entry: Path) -> list:
         if not wanted:
             problems.append(
                 f"{expected_path}: {filename} exists but must_appear declares nothing for {lang}. "
-                f"An implementation with no pinned string is one nothing can check -- and for SAS "
-                f"and Stata, which are never executed, nothing else checks them at all.")
+                f"An implementation with no pinned string is one nothing can check.")
             continue
         raw = path.read_text()
         code = strip(raw)
@@ -278,27 +150,19 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     root = Path(args.root)
-    sas = sorted(root.glob("*/*.sas"))
-    stata = sorted(root.glob("*/*.do"))
     entries = sorted(q.parent for q in root.glob("*/expected.json"))
 
     problems = []
-    for p in sas:
-        problems += lint_sas(p)
-    for p in stata:
-        problems += lint_stata(p)
     for e in entries:
         problems += lint_must_appear(e)
 
-    print(f"SAS files: {len(sas)}   Stata files: {len(stata)}   "
-          f"entries checked against must_appear: {len(entries)}")
+    print(f"entries checked against must_appear: {len(entries)}")
     for p in problems:
         print(f"  FAIL {p}")
     if not problems:
-        print("  structural lint passed: the text is well formed and every pinned string each")
-        print("  entry declared is present in the code rather than only in the prose beside it.")
-        print("  SAS AND STATA ARE STILL NOT EXECUTED and no entry claims they are. Passing here")
-        print("  is never a claim that the analysis is right, in any of the four languages.")
+        print("  structural lint passed: every pinned string each entry declared is present in the")
+        print("  code rather than only in the prose beside it. Passing here is never a claim that")
+        print("  the analysis is right, in either language.")
     return 1 if problems else 0
 
 

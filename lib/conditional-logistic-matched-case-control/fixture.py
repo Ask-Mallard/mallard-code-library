@@ -2,8 +2,8 @@
 
 WHY THE CSV IS COMMITTED AND NOT REGENERATED PER LANGUAGE. The obvious design is to seed each
 language's own RNG and let it build the data. That would be wrong, and quietly so: R's Mersenne
-Twister stream, NumPy's, Stata's and SAS's are all different, so "seed 42" produces four different
-datasets. Four implementations analysing four datasets cannot be compared to each other at all, and
+Twister stream and NumPy's are different, so "seed 42" produces two different
+datasets. Two implementations analysing two datasets cannot be compared to each other at all, and
 the cross-language check -- the whole reason this library exists -- would be measuring sampling
 variation while appearing to measure agreement.
 

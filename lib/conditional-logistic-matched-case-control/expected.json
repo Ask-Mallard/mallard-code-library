@@ -4,13 +4,13 @@
   "fixture_sha256": "computed by the harness at run time, so a silently edited fixture fails loudly",
   "_why_two_claims": [
     "AGREEMENT and RECOVERY are different claims and the library makes both, separately.",
-    "Agreement asks whether the four implementations compute the same thing. It is tight, because",
+    "Agreement asks whether the executed implementations compute the same thing. It is tight, because",
     "given identical data any real difference is a package default, which is exactly the failure the",
     "schema prompt warns about: 'silently different defaults are how two correct-looking",
     "implementations disagree'.",
     "Recovery asks whether they compute the RIGHT thing. It is loose, because an estimate carries",
     "sampling error, and its job is to catch four implementations that agree on the same wrong model.",
-    "Agreement alone would pass four identical mistakes. Recovery alone would pass a default mismatch",
+    "Agreement alone would pass two identical mistakes. Recovery alone would pass a default mismatch",
     "smaller than sampling error. Neither is sufficient and this is why."
   ],
   "_why_not_self_generated": [
@@ -45,31 +45,14 @@
     ],
     "python": [
       "ConditionalLogit"
-    ],
-    "sas": [
-      "proc logistic",
-      "strata"
-    ],
-    "stata": [
-      "clogit"
-    ]
-  },
+    ]  },
   "engines": {
     "r": {
       "executed": true
     },
     "python": {
       "executed": true
-    },
-    "sas": {
-      "executed": false,
-      "reason": "no SAS engine licensed yet; see repository README on Altair SLC, which is SAS-language-compatible rather than SAS itself"
-    },
-    "stata": {
-      "executed": false,
-      "reason": "no Stata licence yet; the AEA Data Editor CI pattern applies once one exists"
-    }
-  },
+    }  },
   "derived_truth": {
     "exposure_or": 2.0,
     "note": "Exponentiated generating coefficient for interpretation only; recovery is checked on the log scale in truth."
