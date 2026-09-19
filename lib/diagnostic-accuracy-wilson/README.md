@@ -12,14 +12,12 @@ bias-corrected one.
 
 ## Why the intervals are the interesting part
 
-All four languages default to something other than Wilson:
+Both languages default to something other than Wilson:
 
 | Language | Default | Consequence of omitting the option |
 |---|---|---|
 | R `binom.confint` | `methods = "all"` | returns **eleven** intervals; you report whichever row you indexed |
 | Python `proportion_confint` | `"normal"` | the Wald interval, which can leave [0, 1] |
-| SAS `PROC FREQ` | no CL | no interval at all, and levels ordered alphanumerically |
-| Stata `ci proportions` | exact | Clopper-Pearson, a different and more conservative interval |
 
 R and Python use **independent implementations** of the Wilson formula rather than the same
 arithmetic typed twice, so their bounds agreeing is evidence rather than a tautology.
@@ -42,5 +40,3 @@ against a true 0.90, prevalence 0.3015.
 |---|---|
 | R | executed in CI |
 | Python | executed in CI |
-| SAS | not executed |
-| Stata | not executed |

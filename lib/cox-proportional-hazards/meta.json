@@ -25,12 +25,10 @@
 
   "pinned_defaults": [
     "R: ties='efron'. This IS coxph's default and is named anyway, so one package upgrade cannot change the answer silently.",
-    "Python: lifelines uses Efron and offers no alternative, which happens to match. Stated rather than relied on: if that ever changed, the agreement check is what would catch it.",
-    "SAS: ties=efron. PROC PHREG DEFAULTS TO BRESLOW, so omitting it makes SAS disagree with every other language whenever event times tie.",
-    "Stata: efron. stcox also DEFAULTS TO BRESLOW, same problem."
+    "Python: lifelines uses Efron and offers no alternative, which happens to match. Stated rather than relied on: if that ever changed, the agreement check is what would catch it."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "causal",

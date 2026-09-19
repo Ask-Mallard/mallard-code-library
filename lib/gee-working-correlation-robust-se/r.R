@@ -2,10 +2,9 @@
 #
 # THREE THINGS ARE PINNED HERE AND EVERY ONE OF THEM IS A DEFAULT SOMEWHERE ELSE.
 #
-# 1. corstr = "exchangeable". geeglm DEFAULTS TO "independence", and so do statsmodels and SAS's
-#    PROC GENMOD. Stata's xtgee defaults to EXCHANGEABLE. So the same analysis written in four
-#    languages fits two different working correlations depending on which one you started from,
-#    and no output says which.
+# 1. corstr = "exchangeable". geeglm DEFAULTS TO "independence", and so does statsmodels. So the
+#    same analysis fits a different working correlation depending on whether the default is written
+#    out, and no output says which.
 #
 # 2. The data are SORTED BY CLUSTER. geeglm requires observations from one cluster to be
 #    contiguous; it does not check, and unsorted input is silently treated as many small clusters.
@@ -13,13 +12,13 @@
 #    committed fixture already arrives sorted.
 #
 # 3. BOTH standard errors are reported, under BOTH working correlations. geeglm's summary prints
-#    the sandwich; Stata's xtgee prints the MODEL-BASED one unless you ask for vce(robust). How far
-#    apart those two are DEPENDS ON THE WORKING CORRELATION, which is why this file reports four
-#    numbers and not two: a model-based variance computed under an exchangeable structure already
-#    carries the within-clinic correlation and lands near the sandwich, while one computed under
-#    independence does not. The dangerous combination is independence with a model-based error --
-#    which no single package defaults to, and which is exactly what a file translated from R's
-#    default structure to Stata's default variance produces.
+#    the sandwich; the model-based error is the alternative. How far apart those two are DEPENDS ON
+#    THE WORKING CORRELATION, which is why this file reports four numbers and not two: a model-based
+#    variance computed under an exchangeable structure already carries the within-clinic correlation
+#    and lands near the sandwich, while one computed under independence does not. The dangerous
+#    combination is independence with a model-based error -- a pairing nobody would write on purpose,
+#    but one a careless edit produces by taking the model-based error under the default independence
+#    structure.
 
 library(geepack)
 

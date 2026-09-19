@@ -29,12 +29,10 @@
   "pinned_defaults": [
     "R: vcovHC(type = \"HC3\"). This IS sandwich's default and is named anyway, so a package upgrade cannot change the interval silently.",
     "Python: cov_type=\"HC3\". statsmodels has NO robust default -- a bare .fit() is the classical variance -- so this is the one language where omitting the option gives an estimator that assumes what the data contradicts.",
-    "SAS: hccmethod=3. PROC REG's HCC ALONE IS HCCMETHOD=0, which is HC0.",
-    "Stata: vce(hc3). Stata's familiar `, robust` is HC1, not HC3.",
-    "The four languages therefore disagree by default while all four print the words robust standard errors: HC3, classical, HC0, HC1."
+    "Both languages therefore disagree by default while both print the words robust standard errors: R gives HC3, statsmodels the classical variance."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "causal",

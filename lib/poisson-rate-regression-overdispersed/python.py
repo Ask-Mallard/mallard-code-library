@@ -12,8 +12,9 @@ d = pd.read_csv("fixture.csv")
 X = sm.add_constant(d[["exposed", "covariate"]])
 
 # PINNED DEFAULT 1: THE OFFSET IS log(person_time), passed as an offset rather than a column.
-# statsmodels takes it already logged, which is the same convention as R's offset(log(t)) and SAS's
-# offset= and the OPPOSITE of Stata's exposure(), which takes the person-time itself and logs it.
+# statsmodels takes it already logged, which is the same convention as R's offset(log(t)). The
+# offset must always be the LOG of the person-time; passing the person-time itself fits a different
+# model that still runs.
 # Passing person_time where log(person_time) belongs runs, converges, and answers a different
 # question.
 offset = np.log(d["person_time"].to_numpy())

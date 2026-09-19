@@ -27,15 +27,9 @@
 
   "must_appear": {
     "r": ["t.test(", "var.equal = FALSE"],
-    "python": ["ttest_ind", "equal_var=False"],
-    "sas": ["proc ttest", "class arm"],
-    "stata": ["ttest y, by(arm) unequal"]
-  },
+    "python": ["ttest_ind", "equal_var=False"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

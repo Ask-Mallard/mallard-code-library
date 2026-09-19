@@ -21,10 +21,6 @@ Both files pin HC0, and the agreement check on the standard error is what keeps 
 is the failure the library was built for: two correct-looking implementations, different answers,
 nothing visible in either file alone.
 
-Stata diverges knowingly: `vce(robust)` applies a finite-sample correction, so its SE will not match
-HC0 exactly. The point estimate is identical. It is written into `stata.do` rather than left to be
-discovered.
-
 ## The fixture
 
 `fixture.py` writes 3000 rows with a 12.3% event rate. The outcome is drawn from a log-link risk
@@ -42,5 +38,3 @@ true 1.5000.
 |---|---|
 | R | executed in CI |
 | Python | executed in CI |
-| SAS | not executed |
-| Stata | not executed |

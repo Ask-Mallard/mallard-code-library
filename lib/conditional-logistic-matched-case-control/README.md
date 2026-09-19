@@ -35,8 +35,6 @@ Sanity check available without running any model: the crude odds ratio in the ge
 |---|---|
 | R | executed in CI |
 | Python | executed in CI |
-| SAS | **not executed** — no licensed engine |
-| Stata | **not executed** — no licence attached |
 
 Two separate claims, per `expected.json`: **agreement** (the executed engines produce the same
 estimates on identical rows, tolerance 1e-6) and **recovery** (those estimates are near the

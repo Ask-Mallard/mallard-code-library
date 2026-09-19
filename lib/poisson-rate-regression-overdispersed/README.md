@@ -6,18 +6,17 @@ makes it the first one.
 
 ## Two defaults this entry pins
 
-### 1. The offset, where Stata is the odd one out
+### 1. The offset
 
 | Language | What it takes |
 |---|---|
 | R | `offset(log(person_time))` — already logged, and **inside the formula**, which fixes the coefficient at 1 |
 | Python | `offset=np.log(person_time)` — already logged |
-| SAS | `offset=log_pt` — a variable that must already be logged |
-| Stata | `exposure(person_time)` — **the person-time itself**; Stata takes the log for you |
 
-Stata also has `offset()`, which takes the log. So a file translated from any of the other three by
-swapping the keyword fits a model with `exp(person_time)` where `person_time` belongs. **It runs, it
-converges, and it answers a different question**, with nothing in the output to say so.
+The offset must be the **log** of the person-time. Passing the person-time itself — which some tools'
+`exposure()`-style keywords take, logging it for you — fits a model with `exp(person_time)` where
+`person_time` belongs. **It runs, it converges, and it answers a different question**, with nothing in
+the output to say so.
 
 In R the equivalent slip is writing `+ log(person_time)` as a covariate instead of `offset(...)`.
 That estimates the coefficient rather than fixing it at 1, which is a different model — sometimes a
@@ -47,8 +46,6 @@ errors converge and the pin would be decoration.
 |---|---|---|
 | R `MASS::glm.nb` | **theta** | mu + mu²/theta |
 | statsmodels `nb2` | **alpha** | mu + alpha·mu² |
-| SAS `dist=negbin` | **k** | mu + k·mu² |
-| Stata `nbreg` | **alpha** | mu + alpha·mu² |
 
 The fixture's gamma variance is 0.5, so alpha is 0.5 and theta is 2. **Reading R's theta as if it
 were alpha describes data four times less dispersed than it is.** Every file here reports alpha; the

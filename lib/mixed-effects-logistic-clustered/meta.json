@@ -25,16 +25,14 @@
   },
 
   "pinned_defaults": [
-    "R: nAGQ = 10. glmer DEFAULTS TO 1, the Laplace approximation; adaptive Gauss-Hermite is more accurate for binary outcomes and gives a different estimate.",
-    "SAS: method=quad. PROC GLIMMIX DEFAULTS TO RSPL, a pseudo-likelihood biased for binary outcomes with small clusters and not comparable to quadrature. ddfm=betwithin, since the containment default is indefensible with few clusters.",
-    "Stata: intpoints(10). melogit defaults to 7."
+    "R: nAGQ = 10. glmer DEFAULTS TO 1, the Laplace approximation; adaptive Gauss-Hermite is more accurate for binary outcomes and gives a different estimate."
   ],
 
   "_conditional_is_not_marginal": "This estimates a CLUSTER-CONDITIONAL odds ratio. A GEE estimates the POPULATION-AVERAGE one, and under a nonlinear link those are different quantities rather than different spellings. On this entry's fixture the crude marginal odds ratio is 1.379 against a true conditional 2.000. Which one answers the question is a choice to state, not an inefficiency to tolerate.",
 
   "_few_clusters": "Under 30 clusters, ordinary sandwich or GEE inference is unreliable and worse under 15. This fixture has 40. The R file prints a warning below 30 rather than leaving it to the reader.",
 
-  "engines": { "r": "executed", "python": "not-applicable", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "not-applicable" },
   "compatibility": {
     "target": [
       "causal",

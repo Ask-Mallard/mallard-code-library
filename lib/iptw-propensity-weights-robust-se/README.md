@@ -16,14 +16,9 @@ wrong**, and each one is wrong differently. That is what this entry is for.
 | R | `glm(..., family = binomial, weights = w)` | a **count of trials** — "non-integer #successes", and a standard error as if the study had `sum(w)` participants |
 | Python | `WLS(..., weights = w)` / `var_weights` | **variance weights** — correct shape here |
 | Python | `GLM(..., freq_weights = w)` | **counts**, same error as R's binomial case |
-| Stata | `[aweight=w]` | **analytic** precision weights |
-| Stata | `[fweight=w]` | **frequencies** |
-| Stata | `[pweight=w]` | **sampling probabilities** — what an IPTW weight is |
 
-**R has one argument whose meaning is chosen by the family. statsmodels has two and makes you pick.
-Stata has three and only one of them is right.** The same intent, spelled three ways, with a
-different variance behind each. Stata is the one place a default protects you: `pweight` *requires*
-a robust variance and supplies it.
+**R has one argument whose meaning is chosen by the family; statsmodels has two and makes you pick.**
+The same intent, spelled more than one way, with a different variance behind each.
 
 ### And the sandwich is required, not optional
 
@@ -37,12 +32,6 @@ as fixed. Accounting for the fact that it was estimated — an M-estimation stac
 a bootstrap of the whole two-stage procedure — gives a **narrower** interval. Conservative is the
 safe direction and is not the same thing as right. An entry that reported this interval as exact
 would be teaching the error it exists to prevent.
-
-### One more, in SAS, that reverses the answer
-
-`PROC LOGISTIC` models the probability of the **lower** ordered response level. Omitting
-`event='1'` on the propensity model fits P(untreated), so every weight is inverted — an error that
-runs to completion, produces a plausible-looking number, and adjusts in the wrong direction.
 
 ## What the fixture is built to make testable
 
@@ -123,5 +112,4 @@ them — and a propensity model chosen to maximise discrimination can be worse f
 one that is merely correct, which is why balance and not the c-statistic is the check named in every
 file.
 
-**Any claim that SAS or Stata was run.** Neither was. `must_appear` is the only guard those two
-files have.
+

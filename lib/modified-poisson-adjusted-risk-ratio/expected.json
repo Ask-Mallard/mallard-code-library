@@ -28,33 +28,14 @@
     "python": [
       "Poisson",
       "cov_type"
-    ],
-    "sas": [
-      "proc genmod",
-      "dist=poisson",
-      "repeated"
-    ],
-    "stata": [
-      "glm",
-      "family(poisson)"
-    ]
-  },
+    ]  },
   "engines": {
     "r": {
       "executed": true
     },
     "python": {
       "executed": true
-    },
-    "sas": {
-      "executed": false,
-      "reason": "no SAS engine licensed"
-    },
-    "stata": {
-      "executed": false,
-      "reason": "no Stata licence; and vce(robust) applies a finite-sample correction, so its SE would need its own tolerance rather than HC0's"
-    }
-  },
+    }  },
   "derived_truth": {
     "exposure_rr": 1.5,
     "note": "Exponentiated generating coefficient for interpretation only; recovery is checked on the log scale in truth."

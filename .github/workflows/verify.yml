@@ -59,12 +59,11 @@ jobs:
           echo "installing from meta.json: $specs"
           pip install $specs
 
-      # The lint is a MODULE with its own controls, not inline bash. The inline version was wrong
-      # in both of its rules on its first execution: it read a semicolon out of a Stata prose
-      # comment, and it demanded event= of a PROC GENMOD statement, where the concept does not
-      # exist. Inline CI bash is unreviewed code -- nothing runs it but the runner and nothing
-      # tests it at all. harness/lint.test.py carries a negative control for each of those two
-      # false positives, built from the exact text that tripped them.
+      # The lint is a MODULE with its own controls, not inline bash. A regex-based inline version
+      # reads a `#` out of an R string literal or a pinned option out of a comment -- the
+      # unanchored-pattern failures this project keeps paying for. Inline CI bash is unreviewed
+      # code: nothing runs it but the runner and nothing tests it at all. harness/lint.test.py
+      # carries a negative control for each, built from the exact text that would trip it.
       # THE COMPARATOR HAS CONTROLS NOW TOO. check.py decides both claims for every entry and had
       # none, while its own docstring recorded the time it compared nothing for a primary estimate
       # and reported both claims as holding. It runs FIRST: a broken comparator makes every entry

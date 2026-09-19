@@ -43,15 +43,9 @@
   },
 
   "must_appear": {
-    "r": ["glmer(", "(1 | cluster)", "nAGQ"],
-    "sas": ["proc glimmix", "method=quad", "random intercept"],
-    "stata": ["melogit", "intpoints"]
-  },
+    "r": ["glmer(", "(1 | cluster)", "nAGQ"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": false, "reason": "no frequentist GLMM in the standard Python stack; GEE would answer a different question and pymer4 is R" },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": false, "reason": "no frequentist GLMM in the standard Python stack; GEE would answer a different question and pymer4 is R" }  }
 }

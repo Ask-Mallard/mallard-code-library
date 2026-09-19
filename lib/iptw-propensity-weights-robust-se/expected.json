@@ -27,15 +27,9 @@
 
   "must_appear": {
     "r": ["vcovHC(out, type = \"HC0\")", "family = gaussian(link = \"identity\")", "weights = w", "p_treat / e"],
-    "python": ["sm.WLS(y, X, weights=w)", "cov_type=\"HC0\"", "p_treat / e"],
-    "sas": ["event='1'", "dist=normal link=identity", "repeated subject=id", "weight w"],
-    "stata": ["[pweight=w]", "vce(robust)", "predict ps, pr"]
-  },
+    "python": ["sm.WLS(y, X, weights=w)", "cov_type=\"HC0\"", "p_treat / e"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

@@ -28,13 +28,11 @@
   "pinned_defaults": [
     "R: correct = FALSE. chisq.test APPLIES YATES' CORRECTION TO ANY 2x2 BY DEFAULT.",
     "Python: correction=False. scipy.stats.chi2_contingency does the same by default.",
-    "SAS: PROC FREQ's CHISQ headline is the UNCORRECTED Pearson; the corrected value is a separate row. SAS is already on the pinned side and the file says so.",
-    "Stata: tabulate ... , chi2 is UNCORRECTED and has no correction to switch off. Also on the pinned side.",
-    "So the four split two against two, at 49.90 against 49.19 on this fixture, with every expected count in the hundreds.",
+    "R and Python both default to the CORRECTED value and both switch it off: 49.90 uncorrected against 49.19 corrected on this fixture, with every expected count in the hundreds.",
     "The odds ratio is computed FROM THE TABLE in every file. R's fisher.test returns the CONDITIONAL MLE and scipy's fisher_exact returns the SAMPLE odds ratio; two files each reporting 'the odds ratio from Fisher's test' would disagree, and it would look like a bug rather than two estimators."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "associational"

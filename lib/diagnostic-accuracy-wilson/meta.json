@@ -23,14 +23,12 @@
 
   "pinned_defaults": [
     "R: methods = 'wilson'. binom.confint DEFAULTS TO 'all' and returns eleven intervals, so a caller omitting it reports whichever row they happen to index.",
-    "Python: method='wilson'. proportion_confint defaults to 'normal', the Wald interval, which degrades near 0 and 1 and can run outside [0, 1].",
-    "SAS: binomial(cl=wilson) with an explicit level=, since PROC FREQ orders levels alphanumerically and would otherwise report the wrong cell.",
-    "Stata: wilson requested explicitly; ci proportions defaults to an exact Clopper-Pearson interval, a different and more conservative one. Specificity is estimated on its OWN variable (negtest): ci proportions test if disease == 0 returns the false-positive rate, so the old code printed 0.10 where R and Python print 0.90. (The Wilson interval IS equivariant under complementation, so the bounds could be recovered by hand; estimating the right proportion is about reporting the labelled quantity, not about the arithmetic.)"
+    "Python: method='wilson'. proportion_confint defaults to 'normal', the Wald interval, which degrades near 0 and 1 and can run outside [0, 1]."
   ],
 
   "_wilson_only_for_single_proportions": "This interval belongs to a single proportion or rate and nowhere else. Attaching Wilson or Clopper-Pearson to an adjusted model estimate, an odds ratio or a hazard ratio is wrong; those take profile-likelihood or Wald intervals, and bootstrapped quantities take percentile or bias-corrected ones.",
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "diagnostic"

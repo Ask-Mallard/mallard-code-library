@@ -27,14 +27,11 @@
 
   "pinned_defaults": [
     "R: conf.type = \"log-log\". survfit DEFAULTS TO \"log\", which produces upper limits above 1 in the tail, where a survival probability cannot go.",
-    "SAS: conftype=loglog. This IS PROC LIFETEST's default and is named anyway, because it is not R's -- the same curve carries a different default band in the two languages and neither output says which.",
     "Python: lifelines uses the exponential Greenwood interval, which IS the log-log transform, and offers no alternative. Stated rather than relied on.",
-    "R: rho = 0, the unweighted log-rank. rho = 1 is Peto-Peto, which weights early differences more heavily.",
-    "Stata: sts test ... , logrank. The weighted alternatives are options on the same command.",
-    "SAS: nothing to pin for the test. PROC LIFETEST prints log-rank, Wilcoxon and likelihood-ratio together and the choice is which row the reader takes."
+    "R: rho = 0, the unweighted log-rank. rho = 1 is Peto-Peto, which weights early differences more heavily."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "descriptive",

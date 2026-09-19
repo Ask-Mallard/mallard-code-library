@@ -29,15 +29,9 @@
 
   "must_appear": {
     "r": ["glm(", "offset(log(person_time))", "poisson", "vcovHC", "glm.nb("],
-    "python": ["families.Poisson", "offset=offset", "cov_type=", "HC0", "NegativeBinomial"],
-    "sas": ["proc genmod", "offset=log_pt", "dist=poisson", "repeated subject=id"],
-    "stata": ["poisson events exposed covariate, exposure(person_time) vce(robust)", "nbreg"]
-  },
+    "python": ["families.Poisson", "offset=offset", "cov_type=", "HC0", "NegativeBinomial"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

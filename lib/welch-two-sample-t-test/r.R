@@ -13,11 +13,9 @@ control <- d$y[d$arm == 0]
 
 # PINNED DEFAULT: var.equal = FALSE, the Welch test.
 #
-# This IS R's default and it is named anyway, because it is NOT the default anywhere else:
+# This IS R's default and it is named anyway, because it is NOT scipy's default:
 #   R      t.test()               Welch
 #   Python scipy.stats.ttest_ind  POOLED -- equal_var=True is the default
-#   Stata  ttest y, by(arm)       POOLED -- unequal must be asked for
-#   SAS    proc ttest             prints BOTH and lets the reader choose the wrong one
 #
 # On this fixture the pooled standard error is 32% smaller than Welch's, because the smaller arm is
 # the more variable one. That direction makes the pooled test anti-conservative: it manufactures

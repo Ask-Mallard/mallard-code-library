@@ -29,15 +29,9 @@
 
   "must_appear": {
     "r": ["survfit(", "factor(d$status", "Surv(time, state)", "status == 1"],
-    "python": ["AalenJohansenFitter", "event_of_interest=1", "KaplanMeierFitter"],
-    "sas": ["proc lifetest", "eventcode=1", "time*status(0 2)"],
-    "stata": ["stcompet", "compet1(2)"]
-  },
+    "python": ["AalenJohansenFitter", "event_of_interest=1", "KaplanMeierFitter"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

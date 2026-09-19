@@ -35,16 +35,11 @@
   "pinned_defaults": [
     "R: confint() on a glm returns PROFILE-LIKELIHOOD intervals; confint.default() returns WALD. Python's statsmodels .conf_int() is WALD. The obvious one-line call therefore returns a different KIND of interval in each language, and neither output says which. Both files report both intervals and the harness compares both.",
     "R and Python: link = 'logit' is written out. binomial()/Binomial() do default to the logit, but probit and cloglog are one edit away and only the logit parameterises an ODDS ratio.",
-    "R: glm(family = binomial) models the SECOND level of a factor outcome. Both executed files require a 0/1 numeric outcome and check it, rather than trusting level order.",
-    "SAS: PROC LOGISTIC models the LOWER ordered response level, so a 0/1 outcome without event='1' reports the reciprocal of every odds ratio with nothing in the listing to say so. SAS also defaults to WALD limits; cl=pl is what requests the profile-likelihood interval the R file prints.",
-    "Stata: `logit` reports coefficients and `logistic` reports odds ratios from the identical fit. Stata's limits are Wald; it has no built-in profile-likelihood interval, and stata.do does not claim one."
+    "R: glm(family = binomial) models the SECOND level of a factor outcome. Both executed files require a 0/1 numeric outcome and check it, rather than trusting level order."
   ],
   "engines": {
     "r": "executed",
-    "python": "executed",
-    "sas": "not-executed",
-    "stata": "not-executed"
-  },
+    "python": "executed"  },
   "compatibility": {
     "target": [
       "causal",

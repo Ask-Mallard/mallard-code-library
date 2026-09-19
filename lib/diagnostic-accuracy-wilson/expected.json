@@ -27,15 +27,9 @@
 
   "must_appear": {
     "r": ["binom.confint", "wilson"],
-    "python": ["proportion_confint", "wilson"],
-    "sas": ["proc freq", "cl=wilson"],
-    "stata": ["ci proportions", "wilson"]
-  },
+    "python": ["proportion_confint", "wilson"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

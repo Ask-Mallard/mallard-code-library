@@ -12,6 +12,6 @@ Predictions must be strictly between zero and one; the example rejects invalid v
 
 These are point estimates for uncensored, independent, unweighted observations; real evaluation also needs uncertainty, a calibration curve and a clinical-use assessment.
 
-R and Python are executed on the same synthetic fixture. SAS and Stata are unexecuted reference translations. Agreement and recovery are separate checks. Generated adaptations and analyses on user data have not been executed by these checks.
+R and Python are executed on the same synthetic fixture. Agreement and recovery are separate checks. Generated adaptations and analyses on user data have not been executed by these checks.
 
 Sources: https://www.bmj.com/content/384/bmj-2023-074819 and https://www.bmj.com/content/384/bmj-2023-074820

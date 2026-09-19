@@ -37,36 +37,12 @@
       "groupby([\"stratum\", \"psu\"]",
       "data.weight * domain * (data.outcome - estimate)",
       "m/(m-1)"
-    ],
-    "sas": [
-      "proc surveymeans",
-      "varmethod=taylor",
-      "strata stratum",
-      "cluster psu",
-      "weight weight",
-      "domain domain"
-    ],
-    "stata": [
-      "svyset psu_unique [pweight=weight]",
-      "strata(stratum)",
-      "subpop(domain)",
-      "vce(linearized)"
-    ]
-  },
+    ]  },
   "engines": {
     "r": {
       "executed": true
     },
     "python": {
       "executed": true
-    },
-    "sas": {
-      "executed": false,
-      "reason": "No licensed engine executed"
-    },
-    "stata": {
-      "executed": false,
-      "reason": "No licensed engine executed"
-    }
-  }
+    }  }
 }

@@ -1,14 +1,13 @@
 # Cox proportional hazards regression
 
 Estimates a hazard ratio while conditioning the baseline hazard away, so no shape is assumed for
-it. The proportional hazards assumption is what buys that, and it is an **assumption**: the R and
-Stata files check it (`cox.zph`, `estat phtest`) rather than asserting it.
+it. The proportional hazards assumption is what buys that, and it is an **assumption**: the R file
+checks it (`cox.zph`) rather than asserting it.
 
 ## The default this entry exists to pin
 
-**R and lifelines use Efron. SAS PROC PHREG and Stata stcox both default to Breslow.** Those two
-methods disagree measurably whenever event times tie, and Breslow is biased toward the null under
-heavy ties.
+**R and lifelines both use Efron.** Breslow, the classic alternative, disagrees measurably whenever
+event times tie, and is biased toward the null under heavy ties.
 
 Follow-up recorded in whole days or months ties constantly, so this is not an edge case. Every file
 in this entry names its tie method explicitly, including R, where Efron is already the default,
@@ -44,5 +43,3 @@ it censors the competing death and overstates cumulative incidence. `competingEv
 |---|---|
 | R (`survival`) | executed in CI |
 | Python (`lifelines`) | executed in CI |
-| SAS | not executed |
-| Stata | not executed |

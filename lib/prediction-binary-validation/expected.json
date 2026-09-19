@@ -34,32 +34,12 @@
       "offset=lp",
       "method=\"average\"",
       "sm.add_constant(lp)"
-    ],
-    "sas": [
-      "event='1'",
-      "offset=lp",
-      "ties=mean"
-    ],
-    "stata": [
-      "offset(lp)",
-      "roctab outcome predicted",
-      "family(binomial) link(logit)"
-    ]
-  },
+    ]  },
   "engines": {
     "r": {
       "executed": true
     },
     "python": {
       "executed": true
-    },
-    "sas": {
-      "executed": false,
-      "reason": "No licensed engine executed"
-    },
-    "stata": {
-      "executed": false,
-      "reason": "No licensed engine executed"
-    }
-  }
+    }  }
 }

@@ -15,7 +15,7 @@
     "claim": "both engines report the same coefficients and the same HC3, HC0, HC1 and classical standard errors on identical rows",
     "tolerance_estimate": 0.0001,
     "tolerance_se": 0.0001,
-    "_what_this_does_and_does_not_catch": "IT CATCHES THE CLASSICAL-VERSUS-ROBUST MISTAKE WITH ROOM TO SPARE AND BARELY SEPARATES THE ROBUST FLAVOURS. Measured on this fixture with an independent stdlib least-squares fit: the classical exposure SE is 0.070450 against HC3's 0.076798, a gap of 6.35e-3 or sixty times the tolerance. HC0 sits 1.97e-4 from HC3 and HC1 1.01e-4, which is one to two times the tolerance -- detectable, but with no margin worth relying on. So the flavour is NOT guarded by this check. It is guarded by must_appear below, which is enforced against the code of all four files including the two nothing executes."
+    "_what_this_does_and_does_not_catch": "IT CATCHES THE CLASSICAL-VERSUS-ROBUST MISTAKE WITH ROOM TO SPARE AND BARELY SEPARATES THE ROBUST FLAVOURS. Measured on this fixture with an independent stdlib least-squares fit: the classical exposure SE is 0.070450 against HC3's 0.076798, a gap of 6.35e-3 or sixty times the tolerance. HC0 sits 1.97e-4 from HC3 and HC1 1.01e-4, which is one to two times the tolerance -- detectable, but with no margin worth relying on. So the flavour is NOT guarded by this check. It is guarded by must_appear below, which is enforced against the code of both files."
   },
 
   "recovery": {
@@ -38,15 +38,9 @@
 
   "must_appear": {
     "r": ["lm(", "vcovHC", "HC3"],
-    "python": ["OLS", "cov_type", "HC3"],
-    "sas": ["proc reg", "hccmethod=3"],
-    "stata": ["regress", "vce(hc3)"]
-  },
+    "python": ["OLS", "cov_type", "HC3"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

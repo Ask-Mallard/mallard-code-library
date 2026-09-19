@@ -26,13 +26,11 @@
   },
 
   "pinned_defaults": [
-    "R: var.equal = FALSE. This IS t.test's default and is named anyway, because it is the default in none of the other three.",
-    "Python: equal_var=False. scipy.stats.ttest_ind DEFAULTS TO THE POOLED TEST, so the shortest correct-looking line in Python runs a different test from the shortest correct-looking line in R.",
-    "Stata: unequal. The bare ttest is pooled. Stata's nearby `welch` option is a DIFFERENT df formula, not a synonym -- 442.37 against Satterthwaite's 442.16 here, which separates only in small samples.",
-    "SAS: nothing to pin. PROC TTEST prints the Pooled and Satterthwaite rows together and the choice is which one the reader takes. The wrong one is printed first."
+    "R: var.equal = FALSE. This IS t.test's default and is named anyway, because it is not scipy's default.",
+    "Python: equal_var=False. scipy.stats.ttest_ind DEFAULTS TO THE POOLED TEST, so the shortest correct-looking line in Python runs a different test from the shortest correct-looking line in R."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "causal",

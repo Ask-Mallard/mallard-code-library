@@ -29,15 +29,9 @@
 
   "must_appear": {
     "r": ["survfit(", "conf.type = \"log-log\"", "survdiff(", "rho = 0"],
-    "python": ["KaplanMeierFitter", "logrank_test", "median_survival_time_"],
-    "sas": ["proc lifetest", "conftype=loglog", "test=logrank"],
-    "stata": ["stset", "sts test exposed, logrank"]
-  },
+    "python": ["KaplanMeierFitter", "logrank_test", "median_survival_time_"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

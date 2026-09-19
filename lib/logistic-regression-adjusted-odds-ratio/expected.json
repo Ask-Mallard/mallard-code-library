@@ -37,33 +37,14 @@
       "conf_int",
       "brentq",
       "offset="
-    ],
-    "sas": [
-      "proc logistic",
-      "event='1'",
-      "cl=pl"
-    ],
-    "stata": [
-      "logit outcome exposed covariate",
-      ", or"
-    ]
-  },
+    ]  },
   "engines": {
     "r": {
       "executed": true
     },
     "python": {
       "executed": true
-    },
-    "sas": {
-      "executed": false,
-      "reason": "no SAS engine licensed"
-    },
-    "stata": {
-      "executed": false,
-      "reason": "no Stata licence; and Stata reports Wald limits with no built-in profile-likelihood interval, so its bounds would not be comparable with the executed engines' profile bounds even if it ran"
-    }
-  },
+    }  },
   "derived_truth": {
     "conditional_odds_ratio": 2.0,
     "crude_odds_ratio": 2.6062,

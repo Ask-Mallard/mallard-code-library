@@ -11,12 +11,11 @@ d <- read.csv("fixture.csv")
 
 # PINNED DEFAULT 1: conf.type = "log-log".
 #
-# EVERY LANGUAGE DISAGREES HERE AND NONE OF THEM SAYS SO IN ITS OUTPUT:
+# R AND PYTHON DISAGREE HERE AND NEITHER SAYS SO IN ITS OUTPUT:
 #   R        survfit()          defaults to "log"
-#   SAS      PROC LIFETEST      defaults to LOGLOG
 #   Python   lifelines          uses exponential Greenwood, which IS the log-log transform
 #
-# So R's default band and SAS's default band around the same curve are different bands. log-log is
+# So R's default band and Python's around the same curve are different bands. log-log is
 # pinned because it is the one that cannot leave [0, 1]: the plain log transform produces upper
 # limits above 1 in the tail, where a survival probability cannot go.
 fit <- survfit(Surv(time, event) ~ exposed, data = d, conf.type = "log-log")
@@ -29,9 +28,9 @@ print(data.frame(strata = s12$strata, surv = s12$surv, lower = s12$lower, upper 
 
 # PINNED DEFAULT 2: rho = 0, which IS the log-rank test.
 #
-# rho = 1 is the Peto-Peto modification, which weights early differences more heavily; SAS's
-# PROC LIFETEST prints the log-rank AND the Wilcoxon AND the likelihood ratio and lets the reader
-# choose. They answer different questions and a plan that names "the log-rank test" means this one.
+# rho = 1 is the Peto-Peto modification, which weights early differences more heavily. The weighted
+# and unweighted tests answer different questions, and a plan that names "the log-rank test" means
+# this one.
 #
 # The log-rank has most power against PROPORTIONAL hazards, which is what this fixture generates.
 # It is not a general test that two curves differ: where curves CROSS it can return a p near 1

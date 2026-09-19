@@ -28,12 +28,10 @@
   "pinned_defaults": [
     "R: status as a FACTOR in Surv(), which makes it a multi-state fit and gives Aalen-Johansen. Surv(time, status) with a numeric status counts EVERY non-zero code as the event; Surv(time, status == 1) censors the competing cause. Three spellings, three answers, no warning.",
     "Python: AalenJohansenFitter with event_of_interest=1, taking the FULL status column. Passing a 0/1 indicator makes the competing cause censoring and returns the naive curve under a different name.",
-    "SAS: eventcode=1 on PROC LIFETEST. Without it the same procedure returns a Kaplan-Meier curve; time*status(0 2) is a third spelling that censors cause 2.",
-    "Stata: stcompet ... , compet1(2). The stset declares status 1 the failure, which alone would make status 2 censoring.",
     "Every file also computes the NAIVE curve on purpose, so the size of the error is in the output rather than in a comment."
   ],
 
-  "engines": { "r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed" },
+  "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": [
       "descriptive"

@@ -35,16 +35,11 @@
   },
   "pinned_defaults": [
     "R: vcovHC(type = 'HC0'). The package DEFAULT IS HC3, which is not Zou's method; omitting type silently reports a different standard error than the paper the file cites.",
-    "Python: fit(cov_type='HC0'). statsmodels defaults to the model-based covariance, which for a log-link Poisson fitted to binary data does not hold at all.",
-    "SAS: the REPEATED statement with subject=id is what produces the empirical variance; without it GENMOD reports model-based SEs.",
-    "Stata: vce(robust) applies a finite-sample correction and will NOT match HC0 exactly. Point estimate identical, SE different. Recorded in the file itself."
+    "Python: fit(cov_type='HC0'). statsmodels defaults to the model-based covariance, which for a log-link Poisson fitted to binary data does not hold at all."
   ],
   "engines": {
     "r": "executed",
-    "python": "executed",
-    "sas": "not-executed",
-    "stata": "not-executed"
-  },
+    "python": "executed"  },
   "compatibility": {
     "target": [
       "causal",

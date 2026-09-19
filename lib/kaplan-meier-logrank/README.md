@@ -8,24 +8,21 @@ and a log-rank p quoted beside no estimate is the shape this entry must not enco
 
 ## The default this entry exists to pin
 
-**All three languages put a different default band around the same curve, and none of them says so
-in its output.**
+**R and Python put a different default band around the same curve, and neither says so in its
+output.**
 
 | Language | Default confidence transformation |
 |---|---|
 | R | `survfit` → **`"log"`** |
-| SAS | PROC LIFETEST → **`LOGLOG`** |
 | Python | lifelines → exponential Greenwood, which **is** the log-log transform |
 
 Every file here pins **log-log**, because it is the one that cannot leave `[0, 1]`. The plain log
 transform produces upper limits above 1 in the tail, where a survival probability cannot go. R is
-the only language that has to be told; SAS is already there and is told anyway, because a default
-that is not written down is one release from changing.
+the language that has to be told, because its default is the plain log; a default that is not written
+down is one release from changing.
 
 **And the test has its own version of the problem.** `survdiff`'s `rho = 0` is the log-rank; `rho = 1`
-is Peto-Peto, which weights early differences more heavily. Stata's `sts test` needs `logrank` asked
-for. **SAS prints the log-rank, the Wilcoxon and the likelihood-ratio tests together** and the choice
-is which row the reader takes — so the SAS file says which one, since there is no option to pin.
+is Peto-Peto, which weights early differences more heavily, so every file names `rho = 0` explicitly.
 
 ## What the log-rank is for, and what it is not
 

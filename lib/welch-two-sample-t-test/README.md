@@ -8,16 +8,9 @@ Compares two arms' means without assuming they have the same spread.
 |---|---|
 | R | `t.test(x, y)` — **Welch** |
 | Python | `ttest_ind(x, y)` — **pooled**, because `equal_var=True` is scipy's default |
-| Stata | `ttest y, by(arm)` — **pooled** |
-| SAS | `proc ttest` prints **both**, Pooled first |
 
-So the same analysis written the obvious way in two languages is two different tests. R is the only
-one of the four whose default is Welch, and this entry names the option in R anyway.
-
-**SAS is the one language here that cannot pin it**, which is worth stating rather than papering
-over. PROC TTEST prints the Pooled and Satterthwaite rows together with a folded F test, nothing is
-defaulted and nothing can be switched off. The choice is made by which row the reader's eye lands
-on, and the wrong one is printed first. The file says to read the Satterthwaite row.
+So the same analysis written the obvious way runs a different test in the two languages: R defaults
+to Welch, scipy to the pooled test. This entry names the option in R anyway.
 
 ## Why the smaller arm is the more variable one
 
@@ -36,20 +29,12 @@ some patients a great deal and others not at all, against a large stable control
 The rows are shuffled, so an implementation that reads "the first 1200 rows" instead of the `arm`
 column fails visibly rather than by luck.
 
-## An option next to the right one that is not a synonym
-
-Stata has both `unequal` and `welch`. They are different degrees-of-freedom formulas, not two names
-for one thing: `unequal` is Satterthwaite, which is what R and scipy use, and `welch` is Welch's
-1947 approximation. On this fixture they give 442.16 and 442.37 — a fifth of a degree of freedom out
-of 442, which changes nothing. They separate in small samples, which is the only place anyone reads
-the df at all. `unequal` is the option that matches the other three languages.
-
 ## The variance test is not a gate
 
-SAS prints a folded F test of equal variances beside the two rows and it is easy to read as an
-instruction: test first, then choose. That is a two-stage procedure whose overall error rate is not
-the nominal one, and the pre-test is itself unreliable at the sample sizes where the choice matters
-most. Where the arms are not known to have equal spread, Welch is the default worth having.
+It is tempting to test for equal variances first and then choose the test. That is a two-stage
+procedure whose overall error rate is not the nominal one, and the pre-test is itself unreliable at
+the sample sizes where the choice matters most. Where the arms are not known to have equal spread,
+Welch is the default worth having.
 
 ## The two claims, and which one carries this entry
 

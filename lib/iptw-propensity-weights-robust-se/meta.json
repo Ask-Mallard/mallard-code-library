@@ -19,20 +19,14 @@
   "_trimming_is_a_different_entry": "The fixture keeps the propensity score inside [0.081, 0.935] with a largest weight of 10.5, and the generator asserts both. Extreme weights are a real problem in real data, but an entry whose fixture produced them would be testing each implementation's TRIMMING defaults rather than its weighting.",
   "packages": {
     "r": { "sandwich": "3.1-3" },
-    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" },
-    "sas": {},
-    "stata": {}
-  },
+    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }  },
   "pinned_defaults": [
     "All languages: stabilized ATE weights multiply inverse propensity by the marginal probability of the observed treatment arm. No trimming or truncation is applied.",
     "R: weights= in glm means a PRIOR PRECISION weight for gaussian and a COUNT OF TRIALS for binomial. One argument, two meanings, chosen by the family.",
     "R: sandwich::vcovHC(type='HC0'). The model-based error from vcov() treats estimated weights as known precision.",
-    "Python: WLS's weights argument is the var_weights sense. statsmodels splits R's one argument into var_weights and freq_weights and makes the caller choose; freq_weights reports a standard error computed as though the study had sum(w) participants.",
-    "SAS: model treated(event='1') on the propensity model. PROC LOGISTIC models the LOWER ordered level, so omitting it fits P(untreated) and inverts every weight.",
-    "SAS: repeated subject=id / type=ind is the route to the EMPIRICAL standard error for a weighted GLM. It is not a repeated-measures model; every subject is a cluster of one.",
-    "Stata: [pweight=w], not fweight and not aweight. fweight treats the weights as counts, aweight as inverse-variance precision, and only pweight is what a sampling-probability weight is -- Stata then requires a robust variance and supplies it automatically."
+    "Python: WLS's weights argument is the var_weights sense. statsmodels splits R's one argument into var_weights and freq_weights and makes the caller choose; freq_weights reports a standard error computed as though the study had sum(w) participants."
   ],
-  "engines": {"r": "executed", "python": "executed", "sas": "not-executed", "stata": "not-executed"},
+  "engines": {"r": "executed", "python": "executed"},
   "compatibility": {
     "target": [
       "causal"

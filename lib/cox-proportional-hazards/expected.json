@@ -14,7 +14,7 @@
     "claim": "both engines report the same log hazard ratio and standard error on identical rows",
     "tolerance_estimate": 0.0001,
     "tolerance_se": 0.0001,
-    "_note": "THE TIE METHOD IS WHAT THIS CHECKS. 664 of 785 events in this fixture share a time with another, because follow-up is recorded on a grid the way real follow-up is. R and lifelines use Efron; SAS PROC PHREG and Stata stcox both DEFAULT TO BRESLOW, which disagrees measurably under heavy ties and is biased toward the null. Every file names its method explicitly for that reason."
+    "_note": "THE TIE METHOD IS WHAT THIS CHECKS. 664 of 785 events in this fixture share a time with another, because follow-up is recorded on a grid the way real follow-up is. R and lifelines both use Efron. The classic alternative, Breslow, disagrees measurably under heavy ties and is biased toward the null, so every file names its method explicitly rather than relying on a default."
   },
 
   "recovery": {
@@ -25,15 +25,9 @@
 
   "must_appear": {
     "r": ["coxph(", "Surv(", "ties"],
-    "python": ["CoxPHFitter"],
-    "sas": ["proc phreg", "ties=efron"],
-    "stata": ["stcox", "efron"]
-  },
+    "python": ["CoxPHFitter"]  },
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true },
-    "sas": { "executed": false, "reason": "no SAS engine licensed" },
-    "stata": { "executed": false, "reason": "no Stata licence" }
-  }
+    "python": { "executed": true }  }
 }

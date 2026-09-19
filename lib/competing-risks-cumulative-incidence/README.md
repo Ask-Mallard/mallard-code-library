@@ -33,8 +33,6 @@ code than the right one.
 |---|---|---|---|
 | R | `Surv(time, factor(status))` | `Surv(time, status)` | `Surv(time, status == 1)` |
 | Python | `AalenJohansenFitter(...event_of_interest=1)` on the full column | — | a 0/1 indicator |
-| SAS | `PROC LIFETEST ... eventcode=1` | without `eventcode=` | `time*status(0 2)` |
-| Stata | `stcompet ..., compet1(2)` | — | `stset ... failure(status==1)` alone |
 
 None of those spellings warns you. The R column is the sharpest: three characters of difference
 between an estimator that is right, one that pools two different diseases, and one that is
@@ -69,8 +67,8 @@ caught.
 
 ## What is not in this entry
 
-**A regression.** Fine-Gray (`stcrreg`, `PROC PHREG ... eventcode=`) models the **subdistribution**
-hazard; a cause-specific Cox model censors the competing event and answers a different question —
+**A regression.** Fine-Gray models the **subdistribution** hazard; a cause-specific Cox model
+censors the competing event and answers a different question —
 aetiology versus prediction. Both are out of scope here and neither is a substitute for the other.
 
 **A comparison between groups.** Gray's test is the analogue of the log-rank on this scale. One
