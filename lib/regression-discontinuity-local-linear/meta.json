@@ -1,0 +1,77 @@
+{
+  "id": "regression-discontinuity-local-linear",
+  "title": "Sharp regression discontinuity: local linear with robust bias-corrected inference",
+  "summary": "The jump in the outcome at a treatment threshold on a score, from local linear fits with an MSE-optimal bandwidth and the Calonico-Cattaneo-Titiunik robust interval.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "design.regression_discontinuity",
+  "sizing": {
+    "calc": "none",
+    "_why": "RD power depends on the density of patients near the cut-off and the bandwidth; the rdpower package does it, no catalog form does."
+  },
+  "packages": {
+    "r": {
+      "rdrobust": "4.0.0"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1",
+      "rdrobust": "2.0.0",
+      "plotnine": "0.13.6",
+      "matplotlib": "3.9.4"
+    }
+  },
+  "pinned_defaults": [
+    "Both (rdrobust, same authors in both languages): p = 1, q = 2, triangular kernel, bwselect = 'mserd', vce = 'nn' with nnmatch = 3.",
+    "Report the conventional estimate with the ROBUST bias-corrected interval.",
+    "Python: rdrobust imports its plotting module on import, so plotnine and matplotlib are pinned too."
+  ],
+  "_local": "The effect is the jump at the cut-off, for patients near it. A global straight line on each side gives 0.66 here against a true 1.5, because the outcome curves.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "localAtCutoff"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "sharp-local-linear-mserd-triangular-robustBC"
+    ]
+  }
+}

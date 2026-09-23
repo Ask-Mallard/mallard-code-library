@@ -1,0 +1,74 @@
+{
+  "id": "difference-in-differences-twfe",
+  "title": "Difference-in-differences with two-way fixed effects (single adoption date)",
+  "summary": "The effect of a policy adopted by some units at one time, from unit and period fixed effects, with a standard error clustered on the adopting unit.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": true,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "design.difference_in_differences",
+  "sizing": {
+    "calc": "none",
+    "_why": "Sizing a DiD needs the number of units, periods, the within-unit correlation and the pre-period variance; no catalog form takes them. Simulation."
+  },
+  "packages": {
+    "r": {
+      "sandwich": "3.1-3"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: unit (hospital) and period (quarter) fixed effects; the coefficient on the policy indicator.",
+    "Both: SE clustered on hospital, HC1 (sandwich::vcovCL type = 'HC1'; statsmodels' cluster covariance applies the same factor).",
+    "Scope: ONE adoption date. With staggered adoption and time-varying effects TWFE can be badly biased (Goodman-Bacon 2021); use a heterogeneity-robust estimator (Callaway-Sant'Anna)."
+  ],
+  "_parallel_trends": "The DiD is causal only if the groups would have moved in parallel without the policy. Plot the pre-period group means or fit an event study before relying on it; the fixture satisfies it by construction.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "averageEffectInTreated"
+    ],
+    "samplingStructure": [
+      "panel"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "TWFE-single-date-CR1-unit"
+    ]
+  }
+}

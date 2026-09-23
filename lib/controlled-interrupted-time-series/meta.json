@@ -1,0 +1,72 @@
+{
+  "id": "controlled-interrupted-time-series",
+  "title": "Controlled interrupted time series (intervention against control series)",
+  "summary": "Level and slope changes relative to a control series, which removes changes that hit both sites at the intervention date.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "design.controlled_before_after",
+  "sizing": {
+    "calc": "interruptedTimeSeries"
+  },
+  "packages": {
+    "r": {
+      "sandwich": "3.1-3"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: segmented regression of the difference series (intervention minus control); equal to the group-by-period coefficients of the full interaction model on the stacked series.",
+    "Both: Newey-West covariance at lag 3, Bartlett weights, no pre-whitening, no adjustment."
+  ],
+  "_why_control": "A shared drop of 2 at the intervention month: the single-series analysis reports about -6, the controlled one about -4.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "seriesLevel"
+    ],
+    "samplingStructure": [
+      "timeSeries"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "difference-series-OLS-NeweyWest-lag3"
+    ]
+  }
+}
