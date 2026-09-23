@@ -1,0 +1,43 @@
+{
+  "id": "kruskal-wallis",
+  "title": "Kruskal-Wallis test with group medians",
+  "summary": "The rank-based comparison of three or more groups, reported beside each group's median.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["medianDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.nonparametric",
+
+  "sizing": { "calc": "none", "_why": "No rank-test form is in the catalog; sizing needs an assumed distribution shape and is a simulation." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: factor(arm) in the formula, so the grouping is explicit.",
+    "Python: groups split by arm label and passed to scipy.stats.kruskal. Both apply the tie correction and the chi-square approximation."
+  ],
+
+  "_no_effect_size": "The test gives no effect size. The group medians are reported with it, and pairwise differences come from mann-whitney-hodges-lehmann with a multiplicity adjustment. The test reads as a comparison of medians only when the groups share one shape.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["continuous", "ordinal"],
+    "summaryMeasure": ["medianDifference"],
+    "effectScale": ["rankDistribution"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["chi-square-tie-corrected"]
+  }
+}

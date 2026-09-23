@@ -1,0 +1,43 @@
+{
+  "id": "mann-whitney-hodges-lehmann",
+  "title": "Mann-Whitney test with the Hodges-Lehmann shift",
+  "summary": "A rank comparison of two independent groups, reported as the Hodges-Lehmann location shift with its exact 95% interval.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["medianDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.nonparametric",
+
+  "sizing": { "calc": "none", "_why": "No rank-test form is in the catalog. Sizing a Wilcoxon comparison needs an assumed distribution shape (or an asymptotic relative efficiency adjustment to a t-test size), which is a simulation or a stated approximation, not a formula to borrow." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: conf.int = TRUE (default FALSE, so the estimate and interval are absent). exact = TRUE (the default switches to a normal approximation with ties or 50+ per group). Treated first: the shift's sign follows argument order.",
+    "Python: mannwhitneyu(method='exact'); the default 'auto' switches to a normal approximation above 8 per group. scipy has no Hodges-Lehmann interval, so it is built from the exact null distribution of U."
+  ],
+
+  "_not_a_median_difference": "The Hodges-Lehmann estimate is the median of all pairwise differences, not the difference of the two medians, and the test compares medians only when the two groups share one shape. On this fixture the difference of medians is 2.49 and the shift is 2.43.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["continuous", "ordinal"],
+    "summaryMeasure": ["medianDifference"],
+    "effectScale": ["locationShift"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["exact-no-ties-Hodges-Lehmann"]
+  }
+}

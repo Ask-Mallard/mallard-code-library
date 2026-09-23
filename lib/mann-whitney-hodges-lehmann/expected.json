@@ -1,0 +1,39 @@
+{
+  "method": "mann-whitney-hodges-lehmann",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: one log-normal shape, the treated group shifted up by exactly 2",
+    "hl_shift": 2.0
+  },
+
+  "agreement": {
+    "claim": "both engines report the same shift, exact interval, U statistic and exact p-value",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key. harness/comparisons_examples.test.py checks that the exact null distribution Python builds totals C(80, 40) and reproduces scipy's exact p-value, and that the difference of medians differs from the shift."
+  },
+
+  "recovery": {
+    "claim": "the Hodges-Lehmann shift is close to the shift the fixture was built with",
+    "tolerance_estimate": 1.2,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "hl_shift_miss_99th": 0.891 },
+      "tolerance": 1.2,
+      "limits": "Measured by harness/comparisons_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["wilcox.test(treated, control, exact = TRUE, conf.int = TRUE"],
+    "python": ["method=\"exact\"", "np.subtract.outer(treated, control)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

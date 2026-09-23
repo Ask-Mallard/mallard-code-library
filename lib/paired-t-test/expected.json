@@ -1,0 +1,41 @@
+{
+  "method": "paired-t-test",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process",
+    "mean_change": -5.0,
+    "sd_change": 6.0
+  },
+
+  "agreement": {
+    "claim": "both engines report the same mean change, interval, SD of the change and t statistic",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten decimals on every key. harness/comparisons_examples.test.py also rebuilds the interval from the differences and shows the unpaired Welch interval on the same columns is 4.2 times wider."
+  },
+
+  "recovery": {
+    "claim": "the mean change and its SD are close to the values the fixture was built with",
+    "tolerance_estimate": 2.6,
+    "tolerance_by_key": { "mean_change": 2.6, "sd_change": 1.65 },
+    "calibration": {
+      "seeds": 100,
+      "measured_miss_99th": { "mean_change": 2.015, "sd_change": 1.261 },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "Measured by harness/comparisons_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["t.test(d$after, d$before, paired = TRUE"],
+    "python": ["stats.ttest_rel(d.after, d.before)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

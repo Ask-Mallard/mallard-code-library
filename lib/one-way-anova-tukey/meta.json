@@ -1,0 +1,43 @@
+{
+  "id": "one-way-anova-tukey",
+  "title": "One-way ANOVA with Tukey pairwise intervals",
+  "summary": "The F test across three or more groups, then every pairwise mean difference with Tukey-adjusted 95% intervals.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.t_test_anova",
+
+  "sizing": { "calc": "anovaKGroups" },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: factor(arm). With arm coded 1, 2, 3, aov without factor() fits one numeric slope on 1 df and prints an ordinary-looking table.",
+    "Python: groups split by arm label and passed to f_oneway and tukey_hsd, never a numeric arm column."
+  ],
+
+  "_equal_variances": "Classical ANOVA and Tukey's HSD assume similar SDs across groups. With clearly unequal SDs prefer Welch's ANOVA and Games-Howell; with skewed outcomes, kruskal-wallis.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["one-way-F-Tukey-HSD"]
+  }
+}

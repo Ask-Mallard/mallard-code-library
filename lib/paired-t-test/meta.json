@@ -1,0 +1,43 @@
+{
+  "id": "paired-t-test",
+  "title": "Paired t-test for a within-person change",
+  "summary": "The mean change when the same people are measured twice (after minus before), with a t interval on the differences.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.t_test_anova",
+
+  "sizing": { "calc": "paired" },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: paired = TRUE with after first, so the difference is after minus before. R 4.4 removed paired = TRUE from the formula interface.",
+    "Python: ttest_rel (paired), after first. ttest_ind on the same columns is the unpaired test."
+  ],
+
+  "_uncontrolled_before_after": "A paired t-test on one group measures change, not the effect of whatever happened between the two measurements. Without a control group, regression to the mean, secular trends and repeated testing all produce change on their own.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [true],
+    "missingData": ["completeData"],
+    "variant": ["paired-differences-t"]
+  }
+}

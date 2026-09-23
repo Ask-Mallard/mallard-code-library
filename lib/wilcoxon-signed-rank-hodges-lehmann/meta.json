@@ -1,0 +1,43 @@
+{
+  "id": "wilcoxon-signed-rank-hodges-lehmann",
+  "title": "Wilcoxon signed-rank test with the Hodges-Lehmann pseudo-median change",
+  "summary": "A rank test for paired data whose changes are symmetric but not normal, reported as the pseudo-median change with its exact 95% interval.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["medianDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.nonparametric",
+
+  "sizing": { "calc": "none", "_why": "No signed-rank form is in the catalog; sizing one needs an assumed distribution of the changes, which is a simulation or a stated efficiency approximation." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: paired = TRUE, exact = TRUE, conf.int = TRUE, after first. conf.int defaults to FALSE; exact falls back to a normal approximation with zeros, ties or 50+ pairs.",
+    "Python: V is computed as the sum of the ranks of the POSITIVE changes (R's convention). scipy.stats.wilcoxon's two-sided statistic is min(W+, W-), which is a different number whenever most changes are positive; only its exact p-value is used."
+  ],
+
+  "_symmetry": "The signed-rank test and the pseudo-median assume the changes are symmetric about their centre. With clearly skewed changes neither answers a question about a typical change.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["continuous", "ordinal"],
+    "summaryMeasure": ["medianDifference"],
+    "effectScale": ["locationShift"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [true],
+    "missingData": ["completeData"],
+    "variant": ["exact-no-ties-Walsh-averages"]
+  }
+}
