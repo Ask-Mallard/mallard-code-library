@@ -1,0 +1,71 @@
+{
+  "id": "decision-curve-analysis",
+  "title": "Decision curve analysis: net benefit of a prediction model",
+  "summary": "Net benefit of treating by a model's predicted risk at prespecified thresholds, against treating everyone and treating no one.",
+  "estimand": {
+    "target": [
+      "prediction"
+    ],
+    "summaryMeasure": [
+      "netBenefit"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.prediction_performance",
+  "sizing": {
+    "calc": "none",
+    "_why": "Decision curves are not sized on their own; the model's validation sample size governs."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Net benefit = TP/n - FP/n x t / (1 - t), treating when predicted risk exceeds t; treat-all = prevalence - (1 - prevalence) t / (1 - t); treat-none = 0.",
+    "Thresholds prespecified from the clinical decision (0.1, 0.2, 0.3); the whole curve over that range should be plotted. Written out in both languages; R's dcurves draws the same quantity."
+  ],
+  "_reading": "A model is useful at a threshold only if it beats both default strategies. Here it beats treat-all clearly at 0.2 and 0.3 and only slightly at 0.1.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "prediction"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "netBenefit"
+    ],
+    "effectScale": [
+      "decision"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "net-benefit-prespecified-thresholds"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "weighted-kappa-agreement",
+  "title": "Cohen's and quadratic-weighted kappa for two raters",
+  "summary": "Chance-corrected agreement between two raters on an ordinal scale, unweighted and with quadratic weights, with large-sample standard errors.",
+  "estimand": {
+    "target": [
+      "agreement"
+    ],
+    "summaryMeasure": [
+      "kappa"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "analysis.agreement",
+  "sizing": {
+    "calc": "none",
+    "_why": "Kappa sample size depends on the category prevalences and the kappa to rule out; no catalog form takes them."
+  },
+  "packages": {
+    "r": {
+      "irr": "0.85"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "R: irr::kappa2 with weight = 'unweighted' and weight = 'squared' (quadratic weights 1 - (i - j)^2 / (k - 1)^2); Python: written out.",
+    "SE: Fleiss, Cohen and Everitt (1969) large-sample variance, written out in both (irr reports only a test of kappa = 0)."
+  ],
+  "_ordinal": "On an ordinal scale unweighted kappa counts a one-grade disagreement like a three-grade one: 0.33 against 0.67 weighted here. Percent agreement (0.51) is not chance-corrected.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "agreement"
+    ],
+    "outcomeType": [
+      "ordinal"
+    ],
+    "summaryMeasure": [
+      "kappa"
+    ],
+    "effectScale": [
+      "agreement"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "cohen-and-quadratic-fce1969-se"
+    ]
+  }
+}

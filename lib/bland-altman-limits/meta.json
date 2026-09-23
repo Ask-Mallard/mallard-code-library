@@ -1,0 +1,71 @@
+{
+  "id": "bland-altman-limits",
+  "title": "Bland-Altman limits of agreement for method comparison",
+  "summary": "The bias between two measurement methods and the 95% limits of agreement, each with an interval, and a check for proportional bias.",
+  "estimand": {
+    "target": [
+      "agreement"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "analysis.agreement",
+  "sizing": {
+    "calc": "none",
+    "_why": "Method-comparison sample size is set by the precision wanted for the limits of agreement (Lu et al. 2016); no catalog form takes it."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Differences B - A; bias with a t interval; limits bias +/- 1.96 SD with Bland and Altman's (1999) approximate intervals, SE sqrt(3 s^2 / n) and t on n - 1 df.",
+    "Proportional bias: slope of the differences regressed on the means."
+  ],
+  "_correlation": "The methods correlate at 0.96 while B reads 2.5 higher and individual differences range from -6.9 to 11.8: correlation is not agreement.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "agreement"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "agreement"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "bland-altman-1999-approximate"
+    ]
+  }
+}

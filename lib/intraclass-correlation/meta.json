@@ -1,0 +1,74 @@
+{
+  "id": "intraclass-correlation",
+  "title": "Intraclass correlation for inter-rater reliability, ICC(A,1)",
+  "summary": "Two-way random, absolute-agreement, single-rater ICC with McGraw and Wong's interval, and the consistency ICC beside it.",
+  "estimand": {
+    "target": [
+      "agreement"
+    ],
+    "summaryMeasure": [
+      "icc"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "analysis.agreement",
+  "sizing": {
+    "calc": "none",
+    "_why": "ICC sample size depends on the number of raters and the ICC to rule out (Walter, Eliasziw and Donner 1998); no catalog form takes them."
+  },
+  "packages": {
+    "r": {
+      "irr": "0.85"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Model two-way (the same raters rate every subject, raters random), type absolute agreement, unit single rater: ICC(A,1). irr::icc(model = 'twoway', type = 'agreement', unit = 'single').",
+    "Interval: McGraw and Wong's F-based one with a Satterthwaite-type df; Python writes irr's formulas out line for line.",
+    "ICC(C,1) (consistency) reported beside it."
+  ],
+  "_six_iccs": "'The ICC' is six coefficients. Consistency ignores systematic rater offsets: 0.74 against 0.62 for agreement here. With 4 raters the rater variance is poorly estimated, so ICC(A,1) is less precise than ICC(C,1).",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "agreement"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "icc"
+    ],
+    "effectScale": [
+      "reliability"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "icc-A1-twoway-mcgraw-wong"
+    ]
+  }
+}
