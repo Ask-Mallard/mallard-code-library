@@ -1,0 +1,42 @@
+{
+  "id": "negative-binomial-rate-ratio",
+  "title": "Negative binomial regression for overdispersed counts",
+  "summary": "A rate ratio for event counts whose variance exceeds their mean, with follow-up as an offset and the dispersion estimated.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["rateRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.count_regression",
+
+  "sizing": { "calc": "none", "_why": "The catalog's rate forms assume Poisson variance. Sizing a negative binomial comparison needs the dispersion as an input, which the catalog does not take; using a Poisson form under-sizes the study." },
+
+  "packages": {
+    "r": { "MASS": "7.3-66" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: offset(log(follow-up)), so the ratio compares rates, not counts.",
+    "Python: the dispersion is ESTIMATED with the discrete NegativeBinomial model, then a GLM with that dispersion fixed gives glm.nb's coefficients and expected-information standard errors. sm.families.NegativeBinomial() alone fixes alpha = 1.",
+    "Both: tight convergence (glm.nb epsilon 1e-12; Newton with tol 1e-12). At defaults, theta differed by 7.5e-5."
+  ],
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["count"],
+    "summaryMeasure": ["rateRatio"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["NB2-offset-model-based-SE"]
+  }
+}

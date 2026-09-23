@@ -1,0 +1,43 @@
+{
+  "id": "binomial-identity-risk-difference",
+  "title": "Adjusted risk difference from an identity-link binomial model",
+  "summary": "A covariate-adjusted risk difference, read directly as the treatment coefficient of a binomial model with an identity link.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["riskDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "concept.absolute_relative",
+
+  "sizing": { "calc": "twoProportions" },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: binomial(link = 'identity') with start values and glm.control(epsilon = 1e-12). Without start values glm often stops with 'no valid set of coefficients'; at the default epsilon, R and statsmodels stopped 1e-5 apart.",
+    "Python: Binomial(link=Identity()) (the default link is logit), start values, tol=1e-12. The DomainWarning about a non-canonical link is silenced deliberately, and fitted risks are asserted inside (0, 1)."
+  ],
+
+  "_when_it_fails": "Identity-link models can fail to converge or step outside [0, 1] when fitted risks approach 0 or 1. Then estimate the risk difference by marginal standardization (g-computation) from a logistic model, or a linear probability model with robust errors. Dropping covariates to force convergence changes the estimand.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["riskDifference"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["identity-link-MLE-model-based-SE"]
+  }
+}
