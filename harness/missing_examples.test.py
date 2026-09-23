@@ -36,6 +36,18 @@ ROOT = Path(__file__).resolve().parent.parent
 SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))
 
 
+def rank_quantile(misses):
+    """The recovery statistic: the quantile at the same ORDER STATISTIC as the 99th percentile of 100 draws.
+
+    np.quantile(q=0.99) over 100 misses lands just above the second-largest; over 50 it lands halfway to
+    the largest, which is stricter than the calibration the tolerances were set from. The level
+    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n (owner decision E6,
+    2026-09-23).
+    """
+    n = len(misses)
+    return float(np.quantile(misses, (n - 1.99) / (n - 1)))
+
+
 def load(name):
     spec = importlib.util.spec_from_file_location(name, ROOT / "lib" / name / "fixture.py")
     module = importlib.util.module_from_spec(spec)
@@ -87,7 +99,7 @@ def run_r_many(name, frames):
 
 
 def miss99(values, truth):
-    return float(np.quantile([abs(v - truth) for v in values], 0.99))
+    return rank_quantile([abs(v - truth) for v in values])
 
 
 def normal_mean(f):
