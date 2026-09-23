@@ -1,0 +1,43 @@
+{
+  "method": "clustered-prevalence-cluster-sample",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: E[sum of size x risk] / E[sum of size] over the three equally likely clinic size classes",
+    "prevalence": 0.15
+  },
+
+  "agreement": {
+    "claim": "both engines report the same prevalence, design-based SE and t interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten decimals on every key. R uses the survey package; Python writes the linearization out. harness/descriptive_examples.test.py checks both against the variance computed from cluster counts, and shows the SE that treats patients as independent is 1.28 times smaller on this fixture."
+  },
+
+  "recovery": {
+    "claim": "the estimated patient-level prevalence is close to the one the fixture was built with",
+    "tolerance_estimate": 0.045,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "prevalence_miss_99th": 0.0351,
+        "cluster_mean_miss_committed": 0.0588,
+        "cluster_mean_miss_median_over_seeds": 0.045
+      },
+      "tolerance": 0.045,
+      "limits": "The tolerance sits between the correct estimator's 99th percentile miss (0.0351) and the WRONG estimator's miss on the committed fixture (the average of clinic percentages, 0.0588), so the committed rows catch that mistake. Across random seeds the wrong estimator misses by a median of 0.045, so on about half of other seeds it would pass: the negative control is a property of these committed rows, not of every dataset. The committed fixture misses by 0.0295, about 2.1 standard errors."
+    }
+  },
+
+  "must_appear": {
+    "r": ["svydesign(", "ids = ~cluster", "weights = ~weight", "df = degf(design)"],
+    "python": ["groupby(\"cluster\"", "m / (m - 1)", "stats.t.ppf(0.975, m - 1)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

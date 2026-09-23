@@ -1,0 +1,45 @@
+{
+  "id": "single-proportion-wilson-clopper-pearson",
+  "title": "A single proportion with Wilson and Clopper-Pearson intervals",
+  "summary": "Estimates a prevalence from a simple random sample, with the Wilson interval and the conservative Clopper-Pearson (exact) interval.",
+
+  "estimand": {
+    "target": ["descriptive"],
+    "summaryMeasure": ["prevalence"],
+    "assignment": ["nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "design.prevalence",
+
+  "sizing": { "calc": "proportionPrecision" },
+
+  "packages": {
+    "r": { "binom": "1.1-2" },
+    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "R: methods = 'wilson'. binom.confint defaults to 'all' and returns eleven intervals.",
+    "R: Clopper-Pearson from base binom.test, independent of the binom package.",
+    "Python: method='wilson'. proportion_confint defaults to 'normal', the Wald interval.",
+    "Python: method='beta' is Clopper-Pearson. statsmodels has no method named 'exact'."
+  ],
+
+  "_single_proportion_only": "Wilson and Clopper-Pearson belong to a single proportion or rate from independent observations. Not to an odds ratio, a risk ratio or an adjusted model estimate, and not to clustered data, which takes a design-based interval (clustered-prevalence-cluster-sample).",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["descriptive"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["prevalence"],
+    "effectScale": ["populationPrevalence"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["Wilson-and-Clopper-Pearson"]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "method": "single-proportion-wilson-clopper-pearson",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process",
+    "prevalence": 0.12
+  },
+
+  "agreement": {
+    "claim": "both engines report the same proportion and the same Wilson and Clopper-Pearson bounds",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten decimals on every key. The bounds are the point: R's binom and base binom.test against statsmodels' proportion_confint are independent implementations. harness/descriptive_examples.test.py also checks both against the closed-form Wilson and the beta-quantile Clopper-Pearson, and shows the Wald lower bound differs from Wilson's by 0.0035 on this fixture, far above the tolerance, so a silent fall-back to Wald fails."
+  },
+
+  "recovery": {
+    "claim": "the estimated proportion is close to the one the fixture was built with",
+    "tolerance_estimate": 0.05,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "prevalence_miss_99th": 0.0401 },
+      "tolerance": 0.05,
+      "limits": "Measured by harness/descriptive_examples.test.py over seeds 0 to 99 of this generator. It characterizes this synthetic generator, not every dataset. The committed fixture misses by 0.0125."
+    }
+  },
+
+  "must_appear": {
+    "r": ["binom.confint(", "methods = \"wilson\"", "binom.test("],
+    "python": ["proportion_confint(", "method=\"wilson\"", "method=\"beta\""]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

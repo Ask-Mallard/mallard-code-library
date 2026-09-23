@@ -85,3 +85,7 @@ if __name__ == '__main__':
         calibration.append(max(abs(fit.params[0]),abs(fit.params[1]-1)))
     assert np.quantile(calibration,.99) < .25
     print(json.dumps({'survey':{'se_correct':domain[1],'se_deleted_psus':wrong[1],'recovery_miss_99th':float(np.quantile(misses,.99))},'prediction':{'pairwise_auc':auc,'calibration_miss_99th':float(np.quantile(calibration,.99))},'seeds':100,'result':'pass'},indent=2))
+    # The descriptive entries' controls run from here because CI's controls step already calls this
+    # file; listing descriptive_examples.test.py in verify.yml directly needs a workflow-scoped
+    # change, and a control CI never runs is decoration. check_call fails this file if they fail.
+    subprocess.check_call([__import__('sys').executable, str(Path(__file__).with_name('descriptive_examples.test.py'))])

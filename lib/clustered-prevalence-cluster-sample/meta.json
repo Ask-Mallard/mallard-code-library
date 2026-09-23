@@ -1,0 +1,47 @@
+{
+  "id": "clustered-prevalence-cluster-sample",
+  "title": "Prevalence from a cluster sample, with a design-based interval",
+  "summary": "The patient-level prevalence when clinics, wards or practices were sampled and then their patients, with a with-replacement Taylor-linearized interval on clusters minus one degrees of freedom.",
+
+  "estimand": {
+    "target": ["descriptive"],
+    "summaryMeasure": ["prevalence"],
+    "assignment": ["nonrandomized"],
+    "clustered": true,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.complex_survey",
+
+  "sizing": { "calc": "proportionPrecision", "_note": "With the intraclass correlation and cluster size as inputs, so the design effect enters the calculation. Without them the precision form sizes the study as if every patient were independent." },
+
+  "packages": {
+    "r": { "survey": "4.5" },
+    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "R: ids = ~cluster. Omitting it (ids = ~1) declares every patient independently sampled and the SE is too small.",
+    "R: confint(..., df = degf(design)). confint's default df = Inf is a normal interval, too narrow with few clusters.",
+    "Python: m/(m-1) with-replacement factor, matching R's survey package.",
+    "Python: t reference with m - 1 degrees of freedom."
+  ],
+
+  "_two_prevalences": "The patient-level prevalence (a ratio of totals) and the average of the clinic prevalences are different numbers whenever clinic size is related to prevalence. This entry estimates the first. The fixture makes them differ (0.15 against 0.20) so the second fails recovery on the committed rows.",
+
+  "_scope": "One-stage cluster sample, equal-probability clusters, no strata, no finite population correction, complete data. Stratified designs: complex-survey-domain-prevalence. Fewer than about 30 clusters: the t reference helps, and the plan should say the interval rests on few clusters.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["descriptive"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["prevalence"],
+    "effectScale": ["populationPrevalence"],
+    "samplingStructure": ["clustered"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["one-stage-WR-Taylor-cluster-ratio"]
+  }
+}

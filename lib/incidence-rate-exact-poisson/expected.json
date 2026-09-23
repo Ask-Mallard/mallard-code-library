@@ -1,0 +1,41 @@
+{
+  "method": "incidence-rate-exact-poisson",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "_why_unequal_followup": "Follow-up runs from 0.5 to 5 years, so dividing events by PEOPLE instead of PERSON-TIME gives a different number, not a rescaled one.",
+
+  "truth": {
+    "source": "the fixture's data-generating process (a Poisson process at 0.08 per person-year)",
+    "rate": 0.08
+  },
+
+  "agreement": {
+    "claim": "both engines report the same rate and the same exact interval bounds",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten decimals on every key. R's poisson.test and statsmodels' confint_poisson are independent implementations, and harness/descriptive_examples.test.py also checks the bounds against Garwood's chi-square formula."
+  },
+
+  "recovery": {
+    "claim": "the estimated rate is close to the rate the fixture was built with",
+    "tolerance_estimate": 0.02,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "rate_miss_99th": 0.0148 },
+      "tolerance": 0.02,
+      "limits": "Measured by harness/descriptive_examples.test.py over seeds 0 to 99. The committed fixture misses by 0.0103 (0.0903 against 0.08, about 1.4 standard errors)."
+    }
+  },
+
+  "must_appear": {
+    "r": ["poisson.test(", "T = person_years"],
+    "python": ["confint_poisson(", "method=\"exact-c\"", "person_years"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}
