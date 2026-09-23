@@ -1,0 +1,71 @@
+{
+  "id": "self-controlled-case-series",
+  "title": "Self-controlled case series (conditional Poisson)",
+  "summary": "The incidence rate ratio in a risk window after exposure against other times in the same person, from cases only, adjusted for age.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "rateRatio"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "design.self_controlled",
+  "sizing": {
+    "calc": "none",
+    "_why": "SCCS sample size depends on the risk-window length relative to the observation period and the age-specific rates (Musonda 2006); no catalog form takes them."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: Poisson with a fixed effect per case and log(interval length) as the offset, which has the same estimate and SE as the SCCS conditional (multinomial) likelihood; age band in the model.",
+    "Python: wls_method = 'qr' in the GLM fit; the default SVD solver failed to converge on 1 of the 100 calibration fixtures."
+  ],
+  "_assumptions": "Events do not change the probability of later exposure or the end of observation; recurrent events independent (or first event only). Age must be modelled: here leaving it out gives log IRR 1.66 against 1.20.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "count"
+    ],
+    "summaryMeasure": [
+      "rateRatio"
+    ],
+    "effectScale": [
+      "conditional"
+    ],
+    "samplingStructure": [
+      "selfMatched"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "sccs-poisson-fixed-effects-age"
+    ]
+  }
+}

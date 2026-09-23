@@ -1,0 +1,73 @@
+{
+  "id": "nested-case-control-risk-set",
+  "title": "Nested case-control with risk-set sampling (conditional logistic)",
+  "summary": "The cohort hazard ratio from controls sampled from each case's risk set, by conditional logistic regression on the matched sets.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "hazardRatio"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "design.nested_case_control",
+  "sizing": {
+    "calc": "none",
+    "_why": "A matched or nested case-control has no form in the sizing catalog and must not borrow one (Statistical correctness rule)."
+  },
+  "packages": {
+    "r": {
+      "survival": "3.8-11"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: conditional logistic regression on the matched set with the covariate; R clogit(method = 'exact'); Python ConditionalLogit(method = 'newton').",
+    "Design: controls drawn from those still at risk at each case's event time (incidence density sampling); a person can be a control several times and later a case."
+  ],
+  "_no_rare_disease": "With risk-set sampling the conditional OR estimates the hazard ratio however common the outcome. The fixture's outcome is common (about 40%) on purpose: controls drawn from everyone event-free at the end (cumulative sampling) give a mean log OR of 0.94 against a log HR of 0.69.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "timeToEvent"
+    ],
+    "summaryMeasure": [
+      "hazardRatio"
+    ],
+    "effectScale": [
+      "conditional"
+    ],
+    "samplingStructure": [
+      "nestedCaseControl"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "ncc-risk-set-clogit-exact"
+    ]
+  }
+}
