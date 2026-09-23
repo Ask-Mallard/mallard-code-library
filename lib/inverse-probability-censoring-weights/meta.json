@@ -1,0 +1,71 @@
+{
+  "id": "inverse-probability-censoring-weights",
+  "title": "Inverse probability of censoring weights for informative dropout",
+  "summary": "A trial's risk difference when sicker patients drop out more in one arm, by weighting completers by the inverse probability of staying, with a stacked-sandwich standard error.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "concept.attrition",
+  "sizing": {
+    "calc": "twoProportions",
+    "_note": "Sized as the two-arm comparison, inflated for expected dropout; weighting costs some precision beyond that."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: a logistic model for staying given arm, the prognostic factor and their interaction; completers weighted by 1 / P(stayed); each arm's weighted (Hajek) risk.",
+    "Both: SE from the stacked equations (the dropout model's score and the two weighted risks); the weights-as-known SE is reported beside it."
+  ],
+  "_assumption": "Missing at random given arm and the modelled factors: no unmeasured cause of both dropout and outcome.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "missingAtRandom"
+    ],
+    "variant": [
+      "ipcw-logistic-interaction-hajek-stacked"
+    ]
+  }
+}
