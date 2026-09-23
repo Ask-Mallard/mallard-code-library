@@ -21,7 +21,7 @@
   "learn": "design.matched_case_control",
   "sizing": {
     "calc": "none",
-    "_why": "A matched or nested case-control has NO form in Mallard's sizing catalog and must not borrow one. This is a hard rule under Statistical correctness: a live brief chose calc 'paired' while its own note correctly cited Dupont 1988 and said this is not an unmatched two-proportion formula. 'paired' is a continuous mean-difference formula. The honest route is 'none' plus the discordant-set method named in prose. epiR::epi.sscc is the reference for anyone with R who wants to implement Dupont properly."
+    "_why": "A matched or nested case-control has no closed-form sample-size formula among the standard two-group ones and must not borrow one: the paired formula is for a continuous mean difference. The honest route is the discordant-set method (Dupont 1988); epiR::epi.sscc implements it in R."
   },
   "packages": {
     "r": {

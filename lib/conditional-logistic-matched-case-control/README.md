@@ -6,11 +6,11 @@ covariate: adding it would condition on the thing already conditioned on.
 
 ## What this does not do
 
-**It does not size the study.** A matched or nested case-control has no closed form in Mallard's
-sizing catalog, and this entry does not supply one. Borrowing the nearest available formula is a
-documented error: `paired` is a continuous mean-difference formula that takes a delta and the SD of
+**It does not size the study.** A matched or nested case-control has no closed form among the
+standard two-group formulas, and this entry does not supply one. Borrowing the nearest available formula is a
+documented error: the paired formula is a continuous mean-difference formula that takes a delta and the SD of
 differences, and using it here reports pairs of a quantity nobody measured. The honest route is the
-discordant-set method (Dupont 1988) named in prose, with `epiR::epi.sscc` as the reference for
+discordant-set method (Dupont 1988), with `epiR::epi.sscc` as the reference for
 anyone with R who wants to implement it properly.
 
 ## The fixture

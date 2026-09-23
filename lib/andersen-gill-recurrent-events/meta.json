@@ -13,7 +13,7 @@
   },
 
   "learn": "analysis.recurrent_events",
-  "_learn_page_pending": "No published Learn page covers recurrent events yet (two mentions, no method named). This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7). Ask Mallard's vendor step must refuse this entry until the page exists.",
+  "_learn_page_pending": "No Learn page on askmallard.com covers recurrent events yet. `learn` names the page that is planned for it.",
 
   "sizing": { "calc": "none", "_why": "Sizing recurrent events needs the event rate and its between-person variation; the Poisson forms in the catalog ignore the variation and under-size the study." },
 

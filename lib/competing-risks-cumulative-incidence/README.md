@@ -17,8 +17,9 @@ On this fixture, where the competing cause is the more common one:
 | 1 − Kaplan-Meier (the naive curve) | 0.3023 | 0.5132 | 0.6604 |
 | overstated by | 0.077 | 0.206 | 0.324 |
 
-**At 36 months the naive curve nearly doubles it.** That is the failure CLAUDE.md's statistical
-rules name directly, and this entry is it with numbers on.
+**At 36 months the naive curve nearly doubles it.** Where death competes with the event of
+interest, 1 minus Kaplan-Meier censors the death and overstates incidence; this entry is that error
+with numbers on.
 
 **Every file computes the naive curve on purpose**, beside the right one, so the size of the error
 is in the output rather than in a comment. It is the line to delete from your own analysis, not to

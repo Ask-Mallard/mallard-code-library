@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for batch H-3 (penalized development with optimism correction).
+"""Controls and fixed-seed calibration for penalized development with optimism correction.
 
 penalized-prediction-optimism. The fixture (fixture.csv and bootstrap.csv) regenerates byte for byte.
 Oracles: the ridge fit satisfies its penalized score equations; with a vanishing penalty it equals the
@@ -6,8 +6,7 @@ unpenalized logistic MLE (statsmodels); the selected penalty is the argmin of th
 deviance. Over the seeds: the apparent AUC exceeds the external AUC on average (optimism), and the
 bootstrap-corrected AUC is closer to it. Recovery: the corrected-minus-external AUC, whose truth is 0.
 
-SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration (owner decisions E5,
-E6). Run with --measure to print the numbers.
+SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration. Run with --measure to print the numbers.
 """
 import contextlib
 import csv
@@ -28,11 +27,11 @@ from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 NAME = "penalized-prediction-optimism"
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
-    """The quantile at the same order statistic as the 99th percentile of 100 draws (owner decision E6)."""
+    """The quantile at the same order statistic as the 99th percentile of 100 draws."""
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))
 

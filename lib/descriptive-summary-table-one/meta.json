@@ -13,7 +13,7 @@
   },
 
   "learn": "analysis.descriptive_statistics",
-  "_learn_page_pending": "No published Learn page covers descriptive statistics and Table 1 yet. This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7). Until the page is published, Ask Mallard's vendor step must refuse this entry, which its registry test already does for an id that does not resolve.",
+  "_learn_page_pending": "No Learn page on askmallard.com covers descriptive statistics and Table 1 yet. `learn` names the page that is planned for it.",
 
   "sizing": { "calc": "none", "_why": "A Table 1 describes the sample the study already has; it is not sized." },
 
@@ -32,7 +32,7 @@
 
   "_no_p_values": "Groups are compared with standardized differences, not p-values. A p-value in Table 1 tests a difference the reader can already see, depends on sample size, and in a randomized trial tests a null hypothesis that is true by design; CONSORT advises against it.",
 
-  "_selection": "A Table 1 belongs to every study, but this profile is deliberately narrow (a descriptive target). Offering it beside every plan needs its own selection route in Ask Mallard, which is out of scope while the library is not connected to plan generation.",
+  "_selection": "A Table 1 belongs to every study, but this profile is deliberately narrow (a descriptive target), so it is not offered as the analysis for a comparative question.",
 
   "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
