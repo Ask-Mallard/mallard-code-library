@@ -25,6 +25,7 @@
     "Both: period as FIXED effects (factor(period) / C(period)). Without them the secular trend is credited to the intervention: on this fixture +1.22 against -1.56.",
     "Both: REML named.",
     "Python: the intervention SE computed as lme4 reports it, (X'V^-1 X)^-1 conditional on the REML variance components. statsmodels' bse inverts the joint Hessian and differed by 1.8e-5; the conditional form is the standard one and the basis of Kenward-Roger.",
+    "Python: the optimizer starts from a moment estimate of the ward variance. From statsmodels' default start, CI (Linux, Python 3.12) reached the zero-variance boundary on this fixture while macOS reached the optimum.",
     "Python: tight L-BFGS settings, and the 'Random effects covariance is singular' warning (raised when an optimizer iterate touches the boundary) silenced with an assertion that the FINAL ward variance is positive."
   ],
 

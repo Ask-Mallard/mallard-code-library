@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
 from scipy import stats
+from statsmodels.regression.mixed_linear_model import MixedLMParams
 
 d = pd.read_csv("fixture.csv")
 assert not d.isna().any().any()
@@ -23,11 +24,20 @@ assert not d.isna().any().any()
 # pgtol and factr is silenced because they do reach the optimizer. statsmodels also warns "Random
 # effects covariance is singular" when an optimizer ITERATE touches the boundary; that warning is
 # silenced too, and the FINAL ward variance is asserted positive below, so a truly singular fit still stops.
+# PINNED: the optimizer STARTS from a moment estimate of the ward variance (the between-ward variance of
+# OLS residual means, less its sampling part), not statsmodels' default start. From the default start,
+# CI's platform (Python 3.12, Linux) walked L-BFGS to the zero-variance boundary on this fixture while
+# macOS reached the interior optimum; the assertion below caught it. Near the optimum both platforms
+# agree, and locally every start from 1e-4 to 1.0 (relative to the residual variance) reaches it.
+ols = smf.ols("y ~ intervention + C(period)", d).fit()
+ward_means = ols.resid.groupby(d["ward"]).mean()
+s2_ward_start = max(ward_means.var(ddof=1) - ols.scale / d.groupby("ward").size().mean(), 0.01 * ols.scale)
+start = MixedLMParams.from_components(fe_params=ols.params.to_numpy(), cov_re=np.array([[s2_ward_start / ols.scale]]))
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore", message="Argument (pgtol|factr) not used")
     warnings.filterwarnings("ignore", message="Random effects covariance is singular")
     fit = smf.mixedlm("y ~ intervention + C(period)", d, groups=d["ward"]).fit(
-        reml=True, method=["lbfgs"], pgtol=1e-12, factr=10)
+        reml=True, method=["lbfgs"], pgtol=1e-12, factr=10, start_params=start)
 assert fit.converged, "the mixed model did not converge"
 assert float(fit.cov_re.iloc[0, 0]) > 1e-8, "the ward variance is at zero: the fit is singular"
 

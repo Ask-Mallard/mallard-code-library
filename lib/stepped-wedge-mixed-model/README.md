@@ -16,7 +16,12 @@ With 12 wards the Wald interval is too narrow. The final report should use a Ken
 Satterthwaite interval (`lmerTest`), or randomization inference over the possible rollout orders. The
 Wald interval here is the baseline both languages agree on.
 
-## Two Python details
+## Three Python details
+
+- The optimizer starts from a moment estimate of the ward variance. From statsmodels' default start,
+  L-BFGS reached the zero-variance boundary on CI's Linux runner and the interior optimum on macOS, from
+  the same data and package versions. The fit asserts the final ward variance is positive, which is how
+  that was caught.
 
 - The intervention's standard error is computed as lme4 reports it: (X′V⁻¹X)⁻¹ conditional on the REML
   variance components. statsmodels' `bse` inverts the joint Hessian of fixed and variance parameters,
