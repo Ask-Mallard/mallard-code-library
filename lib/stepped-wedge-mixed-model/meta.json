@@ -1,0 +1,45 @@
+{
+  "id": "stepped-wedge-mixed-model",
+  "title": "Stepped-wedge trial: the Hussey-Hughes mixed model",
+  "summary": "The intervention effect in a stepped-wedge cluster trial, from a linear mixed model with period fixed effects and a random intercept per cluster.",
+
+  "estimand": {
+    "target": ["causal"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized"],
+    "clustered": true,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "design.stepped_wedge",
+
+  "sizing": { "calc": "steppedWedge" },
+
+  "packages": {
+    "r": { "lme4": "2.0-6" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: period as FIXED effects (factor(period) / C(period)). Without them the secular trend is credited to the intervention: on this fixture +1.22 against -1.56.",
+    "Both: REML named.",
+    "Python: the intervention SE computed as lme4 reports it, (X'V^-1 X)^-1 conditional on the REML variance components. statsmodels' bse inverts the joint Hessian and differed by 1.8e-5; the conditional form is the standard one and the basis of Kenward-Roger.",
+    "Python: tight L-BFGS settings, and the 'Random effects covariance is singular' warning (raised when an optimizer iterate touches the boundary) silenced with an assertion that the FINAL ward variance is positive."
+  ],
+
+  "_few_clusters": "With 12 wards the Wald interval is too narrow. Report a Kenward-Roger or Satterthwaite interval (lmerTest), or randomization inference over the possible rollout orders. This entry's Wald interval is the cross-language baseline, not the recommended final interval.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["clusterConditional"],
+    "samplingStructure": ["clustered"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["hussey-hughes-REML-conditional-SE"]
+  }
+}

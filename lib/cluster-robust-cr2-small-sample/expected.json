@@ -1,0 +1,39 @@
+{
+  "method": "cluster-robust-cr2-small-sample",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: 20 + 4 x treated + 0.1 x (age - 50) + clinic effect (SD 1.5) + noise (SD 5)",
+    "effect": 4.0
+  },
+
+  "agreement": {
+    "claim": "both engines report the same effect, CR2 standard error, Satterthwaite df and interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: at most 1e-10, R's clubSandwich against Python's written-out CR2 and Bell-McCaffrey df: an independent implementation matching the reference package. harness/clustered_examples.test.py shows the CR1-style sandwich (1.27) and the naive OLS SE (0.55) are both smaller than CR2 (1.33), and that the df (8.98) sit below G - 1 = 11."
+  },
+
+  "recovery": {
+    "claim": "the treatment effect is close to the fixture's",
+    "tolerance_estimate": 3.5,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "effect_miss_99th": 2.702 },
+      "tolerance": 3.5,
+      "limits": "Twelve clusters estimate the effect imprecisely whatever the variance estimator; the tolerance still separates the effect of 4 from zero. Measured by harness/clustered_examples.test.py over seeds 0 to 99."
+    }
+  },
+
+  "must_appear": {
+    "r": ["vcov = \"CR2\"", "test = \"Satterthwaite\""],
+    "python": ["inv_sqrt(np.eye(len(idx)) - H[np.ix_(idx, idx)])", "np.trace(BM) ** 2 / np.trace(BM @ BM)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

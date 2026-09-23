@@ -1,0 +1,38 @@
+{
+  "method": "mixed-effects-poisson-clustered",
+  "fixture": "fixture.csv",
+
+  "_why_one_claim": "R only, so there is no agreement claim; check.py records it as untested. RECOVERY asks whether the estimate is close to the parameter the fixture used; harness/clustered_examples.test.py adds adaptive quadrature as an oracle.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: 0.03 a patient-day x a ward multiplier exp(N(0, 0.25)) x 0.6 in the intervention arm",
+    "log_rate_ratio": -0.5108256237659907
+  },
+
+  "agreement": {
+    "claim": "not tested: one engine",
+    "tolerance_estimate": 0.0001,
+    "tolerance_se": 0.0001,
+    "_note": "In place of a second language, harness/clustered_examples.test.py refits with 10-point adaptive quadrature (agreeing with Laplace to 2e-5 here), and shows a Poisson GLM ignoring the wards has a smaller standard error (0.096 against 0.127)."
+  },
+
+  "recovery": {
+    "claim": "the log rate ratio is close to the fixture's",
+    "tolerance_estimate": 0.36,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "log_rate_ratio_miss_99th": 0.2751 },
+      "tolerance": 0.36,
+      "limits": "At 30 wards with a rate ratio of 0.7 the miss equalled the effect; the fixture uses 40 wards and a rate ratio of 0.6. Measured in R by harness/clustered_examples.test.py over seeds 0 to 99."
+    }
+  },
+
+  "must_appear": {
+    "r": ["offset(log(days))", "family = poisson", "(1 | ward)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": false }
+  }
+}
