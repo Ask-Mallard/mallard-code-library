@@ -1,0 +1,43 @@
+{
+  "id": "cochran-armitage-trend",
+  "title": "Cochran-Armitage test for trend in a proportion",
+  "summary": "Whether a binary outcome's proportion changes steadily across ordered groups, with the slope per score step.",
+
+  "estimand": {
+    "target": ["associational", "causal"],
+    "summaryMeasure": ["riskDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.dose_response",
+
+  "sizing": { "calc": "none", "_why": "The catalog has no trend-test form; sizing one needs the full pattern of proportions across groups and is a simulation." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: prop.trend.test(score = the dose values). The default score is 1, 2, ..., k.",
+    "Python: the statistic is written out and divides by N (Cochran-Armitage, as R reports). The linear-by-linear association test divides by N - 1 and is a different number."
+  ],
+
+  "_scores_matter": "The test is only as meaningful as the scores. With unequally spaced doses, equally spaced default scores test a different trend.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["associational", "causal"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["riskDifference"],
+    "effectScale": ["linearTrend"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["Cochran-Armitage-N-WLS-slope"]
+  }
+}

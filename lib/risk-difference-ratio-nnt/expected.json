@@ -1,0 +1,42 @@
+{
+  "method": "risk-difference-ratio-nnt",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: risks 0.20 treated and 0.30 control",
+    "risk_difference": -0.1,
+    "log_risk_ratio": -0.40546510810816444
+  },
+
+  "agreement": {
+    "claim": "both engines report the same risks, Newcombe interval, risk ratio and log interval, and NNT with its interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key. R writes Newcombe and Katz out over the binom package's Wilson bounds; Python uses statsmodels' confint_proportions_2indep, a separate implementation. harness/categorical_examples.test.py checks both against the formulas and shows the Wald difference interval is a different number."
+  },
+
+  "recovery": {
+    "claim": "the risk difference and log risk ratio are close to the values the fixture was built with",
+    "tolerance_estimate": 0.062,
+    "tolerance_by_key": { "risk_difference": 0.062, "log_risk_ratio": 0.27 },
+    "calibration": {
+      "seeds": 100,
+      "measured_miss_99th": { "risk_difference": 0.0477, "log_risk_ratio": 0.2046 },
+      "seeds_whose_rd_interval_crosses_zero": 1,
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "At 300 per arm the risk difference's miss (0.087) nearly equalled the effect (0.10) and 23 of 100 intervals crossed zero; the fixture uses 800 per arm. The NNT has no recovery check: it is 1/|RD| and inherits the risk difference's."
+    }
+  },
+
+  "must_appear": {
+    "r": ["methods = \"wilson\"", "sqrt(1 / x1 - 1 / n1 + 1 / x0 - 1 / n0)", "stopifnot(rd_ucl < 0 || rd_lcl > 0)"],
+    "python": ["method=\"newcomb\", compare=\"diff\"", "method=\"log\", compare=\"ratio\""]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

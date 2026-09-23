@@ -1,0 +1,40 @@
+{
+  "method": "fisher-exact-conditional-odds-ratio",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: risks 0.5 and 0.2, odds ratio 4",
+    "log_odds_ratio": 1.3862943611198906
+  },
+
+  "agreement": {
+    "claim": "both engines report the same conditional odds ratio, exact interval (log scale), sample odds ratio and p-value",
+    "tolerance_estimate": 0.0001,
+    "tolerance_se": 0.0001,
+    "tolerance_by_key": { "log_odds_ratio_lcl": 0.001, "log_odds_ratio_ucl": 0.001 },
+    "_note": "The conditional MLE and its exact bounds are roots of monotone equations, and R (uniroot at its default tolerance) and scipy stop at slightly different points. Measured on the log scale: the estimate agrees to 1.6e-6; the bounds differed by 3.2e-5 and 2.1e-4 on a 60-per-group fixture and by 9.7e-6 and 1.07e-4 on this one. The bounds' tolerance is 1e-3, about five times the largest observed. On the odds-ratio scale the upper bound's gap is larger (1.8e-3 at 27.1 on a 30-per-group fixture), which is why the bounds are emitted on the log scale. The p-value and the sample odds ratio agree exactly. harness/categorical_examples.test.py checks the estimate against the Fisher noncentral hypergeometric mean equation."
+  },
+
+  "recovery": {
+    "claim": "the conditional log odds ratio is close to the one the fixture was built with",
+    "tolerance_estimate": 1.07,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "log_odds_ratio_miss_99th": 0.818, "seeds_with_a_zero_cell": 0 },
+      "tolerance": 1.07,
+      "limits": "Measured by harness/categorical_examples.test.py over seeds 0 to 99. At 30 and 60 per group the 99th percentile misses (1.34, 1.09) reached log(4) itself, so a null effect would have passed; the fixture was enlarged to 120 per group for that reason."
+    }
+  },
+
+  "must_appear": {
+    "r": ["fisher.test(tab", "byrow = TRUE"],
+    "python": ["odds_ratio(table, kind=\"conditional\")", "stats.fisher_exact(table"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

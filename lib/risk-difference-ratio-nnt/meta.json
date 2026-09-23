@@ -1,0 +1,44 @@
+{
+  "id": "risk-difference-ratio-nnt",
+  "title": "Risk difference, risk ratio and NNT from a two-arm trial",
+  "summary": "Absolute and relative effects together: the risk difference with Newcombe's interval, the risk ratio with the log (Katz) interval, and the number needed to treat.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["riskDifference", "riskRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "concept.absolute_relative",
+
+  "sizing": { "calc": "twoProportions" },
+
+  "packages": {
+    "r": { "binom": "1.1-2" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1", "statsmodels": "0.14.2" }
+  },
+
+  "pinned_defaults": [
+    "R: Newcombe's method 10 built from each arm's Wilson interval (binom.confint methods = 'wilson').",
+    "Python: confint_proportions_2indep(method='newcomb') for the difference (default 'wald') and method='log' for the ratio. Treated is the first count, so compare='diff' is treated minus control.",
+    "Both: the NNT interval inverts the risk difference's bounds only when they exclude zero; the code stops otherwise rather than print a wrong single interval."
+  ],
+
+  "_nnt_crossing_zero": "When the risk-difference interval crosses zero, the NNT interval runs through infinity and is two ranges: NNT (benefit) from 1/|upper| to infinity, and NNT (harm) from 1/|lower| to infinity (Altman 1998). In 1 of 100 calibration seeds the interval crossed zero.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["riskDifference", "riskRatio"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["Newcombe-Katz-NNT"]
+  }
+}

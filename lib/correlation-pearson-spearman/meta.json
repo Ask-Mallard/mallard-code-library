@@ -1,0 +1,43 @@
+{
+  "id": "correlation-pearson-spearman",
+  "title": "Pearson and Spearman correlation with intervals",
+  "summary": "Linear (Pearson) and rank (Spearman) correlation between two continuous measurements, each with a Fisher-z 95% interval.",
+
+  "estimand": {
+    "target": ["associational", "descriptive"],
+    "summaryMeasure": ["correlation"],
+    "assignment": ["nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.correlation",
+
+  "sizing": { "calc": "correlation" },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: cor.test gives no interval for Spearman; it is built on Fisher's z with the Fieller, Hartley and Pearson (1957) standard error 1.06 / sqrt(n - 3).",
+    "Python: pearsonr's confidence_interval (Fisher z); spearmanr gives none, so the same Fieller standard error is used."
+  ],
+
+  "_not_agreement": "A correlation measures association. It is not agreement between two methods of measuring the same thing (two methods can correlate perfectly while one reads 10 units high); that needs Bland-Altman limits of agreement or an intraclass correlation.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["associational", "descriptive"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["correlation"],
+    "effectScale": ["correlation"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["Fisher-z-Fieller"]
+  }
+}
