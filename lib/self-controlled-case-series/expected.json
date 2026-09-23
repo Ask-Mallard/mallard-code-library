@@ -31,9 +31,9 @@
       "factor(age_band)"
     ],
     "python": [
-      "C(child)",
-      "offset=off",
-      "C(age_band)"
+      "get_dummies(d[\"child\"]",
+      "X @ beta + off",
+      "get_dummies(d[\"age_band\"]"
     ]
   },
   "engines": {
