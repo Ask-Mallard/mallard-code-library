@@ -1,0 +1,44 @@
+{
+  "id": "incidence-rate-exact-poisson",
+  "title": "An incidence rate with an exact Poisson interval",
+  "summary": "Events per person-year of follow-up in a cohort, with the exact (Garwood) Poisson 95% interval.",
+
+  "estimand": {
+    "target": ["descriptive"],
+    "summaryMeasure": ["other"],
+    "assignment": ["nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "concept.prevalence_incidence",
+
+  "sizing": { "calc": "none", "_why": "The catalog has no precision form for a single rate. Sizing one needs the expected number of events for a target interval width, which is a calculation the app does not offer; borrowing the proportion-precision form would size a different quantity." },
+
+  "packages": {
+    "r": {},
+    "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "R: T = person_years. poisson.test defaults to T = 1 and silently returns the interval for the event COUNT, not the rate.",
+    "Python: method='exact-c', the central exact (Garwood) interval R reports. confint_poisson offers about a dozen methods.",
+    "Python: the exposure argument is the person-time; at 1 it gives the interval for the count."
+  ],
+
+  "_poisson_assumption": "The exact interval assumes events are Poisson: independent, at one rate for everyone. When some people have repeated events the data are overdispersed and this interval is too narrow; use a negative binomial or a robust (sandwich) interval from a rate regression instead.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["descriptive"],
+    "outcomeType": ["count"],
+    "summaryMeasure": ["other"],
+    "effectScale": ["incidenceRate"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["Garwood-exact-central"]
+  }
+}

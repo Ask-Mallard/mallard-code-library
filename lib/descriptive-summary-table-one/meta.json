@@ -1,0 +1,49 @@
+{
+  "id": "descriptive-summary-table-one",
+  "title": "Table 1: baseline characteristics with standardized differences",
+  "summary": "Mean (SD), median [Q1, Q3] and n (%) chosen by variable type, overall and by exposure group, with standardized mean differences instead of p-values.",
+
+  "estimand": {
+    "target": ["descriptive"],
+    "summaryMeasure": ["other"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.descriptive_statistics",
+  "_learn_page_pending": "No published Learn page covers descriptive statistics and Table 1 yet. This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7). Until the page is published, Ask Mallard's vendor step must refuse this entry, which its registry test already does for an id that does not resolve.",
+
+  "sizing": { "calc": "none", "_why": "A Table 1 describes the sample the study already has; it is not sized." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "R: quantile type = 7, named although it is R's default, because SAS and SPSS default to other definitions.",
+    "R: sd() divides by n - 1.",
+    "Python: np.std(..., ddof=1). numpy's default is ddof=0, the n divisor; R's sd and pandas' std use n - 1.",
+    "Python: quantile(interpolation='linear'), R's type 7.",
+    "Both: the SMD pools group SDs as sqrt((s1^2 + s0^2) / 2) (Austin 2009); a binary variable's variance is p(1 - p)."
+  ],
+
+  "_no_p_values": "Groups are compared with standardized differences, not p-values. A p-value in Table 1 tests a difference the reader can already see, depends on sample size, and in a randomized trial tests a null hypothesis that is true by design; CONSORT advises against it.",
+
+  "_selection": "A Table 1 belongs to every study, but this profile is deliberately narrow (a descriptive target). Offering it beside every plan needs its own selection route in Ask Mallard, which is out of scope while the library is not connected to plan generation.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["descriptive"],
+    "outcomeType": ["binary", "continuous", "categorical"],
+    "summaryMeasure": ["other"],
+    "effectScale": ["descriptiveSummary"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["type7-quartiles-pooled-SD-SMD"]
+  }
+}
