@@ -1,0 +1,43 @@
+{
+  "id": "cause-specific-cox",
+  "title": "Cause-specific Cox regression under competing risks",
+  "summary": "The hazard ratio for one cause among people still event-free, with competing events censored for that model only.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["hazardRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": true
+  },
+
+  "learn": "analysis.competing_risks",
+
+  "sizing": { "calc": "none", "_why": "The log-rank form counts all events; under competing risks the events of the cause of interest are fewer and depend on the competing rate. Sizing needs both hazards and is a simulation." },
+
+  "packages": {
+    "r": { "survival": "3.8-11" },
+    "python": { "lifelines": "0.28.0", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "Both: the event is the cause of interest only (status == 1). Counting competing deaths as events (a composite) gives a log hazard ratio of -0.24 here against the cause-specific -0.38.",
+    "R: ties = 'efron' named; lifelines' CoxPHFitter uses Efron."
+  ],
+
+  "_rate_not_risk": "A cause-specific hazard ratio compares RATES among those still event-free. It does not say how many people experience the event by a time point, which also depends on how fast the competing event removes people. Report the cumulative incidence (competing-risks-cumulative-incidence) beside it, and use a Fine-Gray model when the question is the effect on that cumulative incidence.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["timeToEvent"],
+    "summaryMeasure": ["hazardRatio"],
+    "effectScale": ["causeSpecific"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [true],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["cause-specific-efron"]
+  }
+}

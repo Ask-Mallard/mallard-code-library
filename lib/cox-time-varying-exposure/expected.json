@@ -1,0 +1,39 @@
+{
+  "method": "cox-time-varying-exposure",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: hazard 0.15 a year unexposed, x 0.6 after the exposure starts",
+    "log_hazard_ratio": -0.5108256237659907
+  },
+
+  "agreement": {
+    "claim": "both engines report the same log hazard ratio, standard error and interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: below 1e-9. harness/survival_examples.test.py maximizes the counting-process partial likelihood from scratch and checks the estimate and standard error against it. Times carry seven decimals so no event times tie; at four decimals two did, and a no-ties oracle is then not exact."
+  },
+
+  "recovery": {
+    "claim": "the log hazard ratio for current exposure is close to the fixture's",
+    "tolerance_estimate": 0.31,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "log_hazard_ratio_miss_99th": 0.2348, "ever_exposed_log_hr_committed": -1.606 },
+      "tolerance": 0.31,
+      "limits": "At 600 people the miss (0.39) nearly equalled the effect (0.51); the fixture uses 1500. The ever-exposed coding misses by 1.10, far outside the tolerance, and the control asserts it."
+    }
+  },
+
+  "must_appear": {
+    "r": ["Surv(start, stop, event)", "ties = \"efron\""],
+    "python": ["CoxTimeVaryingFitter()", "start_col=\"start\", stop_col=\"stop\""]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}
