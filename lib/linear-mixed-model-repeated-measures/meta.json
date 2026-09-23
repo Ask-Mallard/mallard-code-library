@@ -1,0 +1,44 @@
+{
+  "id": "linear-mixed-model-repeated-measures",
+  "title": "Linear mixed model for repeated measurements",
+  "summary": "The difference in rate of change between arms (treatment-by-time interaction) with a random intercept per patient, fitted by REML.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.repeated_measures",
+
+  "sizing": { "calc": "none", "_why": "Sizing a slope difference needs the number of visits, their spacing and the within-patient correlation; no catalog form takes them. Simulation." },
+
+  "packages": {
+    "r": { "lme4": "2.0-6" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: REML named (REML = TRUE, reml=True), the default in both, because ML and REML give different variance components and so different standard errors.",
+    "Both: visit NUMERIC (a linear trend). As a factor it would estimate a separate difference at every visit.",
+    "Python: L-BFGS pgtol and factr tightened. At statsmodels' defaults the patient SD stopped 3.8e-5 short of the exact REML value; lme4 reached it to 1e-8."
+  ],
+
+  "_random_slopes": "A random intercept alone assumes every patient changes at the same rate apart from treatment. When individual trajectories differ, add a random slope; otherwise the interaction's standard error is too small.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [true],
+    "missingData": ["completeData"],
+    "variant": ["random-intercept-REML-linear-time"]
+  }
+}

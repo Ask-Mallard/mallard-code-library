@@ -1,0 +1,43 @@
+{
+  "id": "cluster-level-summary-analysis",
+  "title": "Cluster-level summary analysis for few clusters",
+  "summary": "The difference in mean cluster proportion between arms of a cluster trial, from a t-test on the cluster summaries with (clusters - 2) degrees of freedom.",
+
+  "estimand": {
+    "target": ["causal"],
+    "summaryMeasure": ["riskDifference"],
+    "assignment": ["randomized"],
+    "clustered": true,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.cluster_robust",
+
+  "sizing": { "calc": "simulation", "_note": "A cluster trial is sized by simulation or a design-effect calculation on the number of clusters; the individual two-proportions form is wrong." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: one value per CLUSTER; the cluster is the unit of analysis.",
+    "Both: the classical pooled-variance t on (clusters - 2) df (var.equal = TRUE / equal_var=True), intervention first."
+  ],
+
+  "_when": "Under about 30 clusters, individual-level sandwich and GEE standard errors are too small. Cluster-level summaries are simple and valid; they estimate the difference in the AVERAGE CLUSTER proportion, equal to the patient-level difference when clusters are equal in size. With unequal sizes, weight by size or use a small-sample-corrected model.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal"],
+    "outcomeType": ["binary", "continuous"],
+    "summaryMeasure": ["riskDifference", "meanDifference"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["clustered"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["cluster-means-pooled-t"]
+  }
+}

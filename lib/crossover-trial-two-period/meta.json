@@ -1,0 +1,43 @@
+{
+  "id": "crossover-trial-two-period",
+  "title": "Two-period crossover trial (AB/BA)",
+  "summary": "The period-adjusted treatment effect from within-patient period differences compared between sequences.",
+
+  "estimand": {
+    "target": ["causal"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized"],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+
+  "learn": "design.crossover",
+
+  "sizing": { "calc": "paired", "_note": "A crossover's within-patient comparison is sized like a paired design, using the SD of the within-patient differences." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: the period-1 minus period-2 differences are compared BY SEQUENCE and halved, which cancels the period effect.",
+    "Both: BA first, so the effect is B minus A."
+  ],
+
+  "_carryover": "The analysis assumes no carryover: the washout must make that plausible. A test for carryover compares sequence totals and has little power; it should not decide the analysis.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["withinPatient"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [true],
+    "missingData": ["completeData"],
+    "variant": ["AB-BA-period-differences-t"]
+  }
+}

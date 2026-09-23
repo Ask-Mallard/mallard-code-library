@@ -1,0 +1,39 @@
+{
+  "method": "cluster-level-summary-analysis",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: clinic risk = arm risk (0.35 control, 0.20 intervention) + a symmetric clinic shift",
+    "difference": -0.15000000000000002
+  },
+
+  "agreement": {
+    "claim": "both engines report the same difference and t interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits. harness/longitudinal_examples.test.py checks against the pooled-variance t formula and shows that treating the 1440 patients as independent gives an interval of half-width 0.044 against the cluster-level 0.068."
+  },
+
+  "recovery": {
+    "claim": "the difference in mean cluster proportion is close to the fixture's",
+    "tolerance_estimate": 0.12,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "difference_miss_99th": 0.0889 },
+      "tolerance": 0.12,
+      "limits": "With 16 clusters and a difference of 0.10, the miss equalled the effect; with 24 clusters and a difference of 0.15 it is 0.089. Few clusters estimate imprecisely, whatever the method."
+    }
+  },
+
+  "must_appear": {
+    "r": ["aggregate(infection ~ cluster + arm", "var.equal = TRUE"],
+    "python": ["groupby([\"cluster\", \"arm\"]", "equal_var=True"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}
