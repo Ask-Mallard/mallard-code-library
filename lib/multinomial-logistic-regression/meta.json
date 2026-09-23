@@ -18,7 +18,7 @@
   "sizing": { "calc": "none", "_why": "No multinomial form is in the catalog; sizing needs the anticipated distribution across all categories in each group and is a simulation." },
 
   "packages": {
-    "r": { "nnet": "7.3-20" },
+    "r": { "nnet": "7.3-21" },
     "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
   },
 
