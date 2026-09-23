@@ -32,4 +32,4 @@ breaks this); recurrent events are independent, or only the first event is used.
 | Engine | Status |
 |---|---|
 | R | executed in CI |
-| Python | executed in CI (`wls_method="qr"`: the default SVD solver failed on 1 of 100 calibration fixtures) |
+| Python | executed in CI (IRLS written out: statsmodels' GLM failed intermittently on CI with "SVD did not converge") |
