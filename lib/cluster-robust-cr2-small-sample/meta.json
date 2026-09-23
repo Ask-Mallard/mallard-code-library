@@ -1,0 +1,43 @@
+{
+  "id": "cluster-robust-cr2-small-sample",
+  "title": "Small-sample cluster-robust inference: CR2 with Satterthwaite df",
+  "summary": "A patient-level regression in a trial with few, unequal clusters, with the Bell-McCaffrey (CR2) sandwich and Satterthwaite degrees of freedom.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": true,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.cluster_robust",
+
+  "sizing": { "calc": "simulation", "_note": "A cluster trial is sized on the number of clusters; see the design-effect and simulation guidance." },
+
+  "packages": {
+    "r": { "clubSandwich": "0.7.0" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1", "statsmodels": "0.14.2" }
+  },
+
+  "pinned_defaults": [
+    "R: vcov = 'CR2' and test = 'Satterthwaite'. CR0/CR1 are smaller here (CR1 1.27 vs CR2 1.33) and a z reference narrower still.",
+    "Python: no standard package implements CR2 with Satterthwaite df (statsmodels' cluster option is CR1-style with G - 1 df). Both are written out, following Bell and McCaffrey (2002) and Pustejovsky and Tipton (2018), and match clubSandwich to 1e-10, including the fractional df (8.98 here)."
+  ],
+
+  "_when": "Under about 40 clusters, and especially with unequal cluster sizes, the ordinary cluster-robust SE is too small. CR2 with Satterthwaite df keeps close to nominal coverage; the df can be far below G - 1.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["clustered"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["OLS-CR2-Satterthwaite"]
+  }
+}

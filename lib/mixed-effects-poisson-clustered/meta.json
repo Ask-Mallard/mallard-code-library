@@ -1,0 +1,44 @@
+{
+  "id": "mixed-effects-poisson-clustered",
+  "title": "Mixed-effects Poisson regression for clustered counts",
+  "summary": "A rate ratio for event counts over exposure time with patients clustered in wards, from a Poisson GLMM with a random ward intercept.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["rateRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": true,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.mixed_effects",
+
+  "sizing": { "calc": "simulation", "_note": "Clustered count outcomes are sized on the number of clusters and the between-cluster variation; simulation." },
+
+  "packages": {
+    "r": { "lme4": "2.0-6" },
+    "python": {}
+  },
+
+  "pinned_defaults": [
+    "R: offset(log(days)), so the ratio compares rates per patient-day; family = poisson; nAGQ = 1 (Laplace), lme4's default, named. Adaptive quadrature with 10 points agrees to 2e-5 here."
+  ],
+
+  "_python_not_applicable": "Python's standard stack has no frequentist Poisson GLMM (statsmodels' PoissonBayesMixedGLM is a variational Bayes approximation, a different estimator), the same situation as mixed-effects-logistic-clustered. The entry is R only; recovery is measured by fitting 100 generated fixtures in R, and adaptive quadrature serves as the oracle.",
+
+  "_collapsible": "With a log link and a normal random intercept, the cluster-conditional rate ratio equals the population-average one. The odds ratio of a logistic GLMM does not have that property.",
+
+  "engines": { "r": "executed", "python": "not-applicable" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["count"],
+    "summaryMeasure": ["rateRatio"],
+    "effectScale": ["clusterConditional"],
+    "samplingStructure": ["clustered"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["poisson-GLMM-random-intercept-Laplace"]
+  }
+}
