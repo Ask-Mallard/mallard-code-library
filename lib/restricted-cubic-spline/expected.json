@@ -1,0 +1,43 @@
+{
+  "method": "restricted-cubic-spline",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's true curve, itself a restricted cubic spline with the same knots, so there is no approximation error",
+    "pred_40": 117.3172,
+    "pred_50": 123.68039999999999,
+    "pred_70": 144.9097,
+    "contrast_70_50": 21.229299999999995
+  },
+
+  "agreement": {
+    "claim": "both engines report the same predictions and contrast, from two different spline bases",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key, although R fits ns()'s B-spline basis and Python Harrell's truncated-power basis: the same function space, so the same curve. harness/flexible_examples.test.py checks against a third, rescaled basis and shows quantile-placed knots give a contrast of 21.53 against 22.64."
+  },
+
+  "recovery": {
+    "claim": "the predictions and contrast are close to the true curve's",
+    "tolerance_estimate": 4.1,
+    "tolerance_by_key": { "pred_40": 3.6, "pred_50": 2.8, "pred_70": 3.2, "contrast_70_50": 4.1 },
+    "calibration": {
+      "seeds": 100,
+      "measured_miss_99th": { "pred_40": 2.702, "pred_50": 2.144, "pred_70": 2.439, "contrast_70_50": 3.142 },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "Measured by harness/flexible_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["ns(age, knots = c(45, 60, 70), Boundary.knots = c(30, 80))"],
+    "python": ["KNOTS = np.array([30.0, 45.0, 60.0, 70.0, 80.0])"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

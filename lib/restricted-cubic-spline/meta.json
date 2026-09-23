@@ -1,0 +1,41 @@
+{
+  "id": "restricted-cubic-spline",
+  "title": "Restricted cubic spline for a nonlinear exposure",
+  "summary": "A smooth curve for a continuous exposure with fixed knots, reported as predictions and contrasts rather than coefficients.",
+
+  "estimand": {
+    "target": ["associational", "causal", "descriptive"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["nonrandomized", "randomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.splines",
+
+  "sizing": { "calc": "none", "_why": "A spline is a modelling choice for an exposure, not a comparison the catalog sizes." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: the knots are written out (30, 45, 60, 70, 80). ns(age, df = 4) places knots at data quantiles, and packages compute quantiles differently; quantile-placed knots changed the 70 vs 50 contrast by 1.1 mmHg on this fixture.",
+    "Both: only predictions and contrasts are reported. R uses ns()'s B-spline basis and Python Harrell's truncated-power basis; the coefficients differ, the curve is the same."
+  ],
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["associational", "causal", "descriptive"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["natural-cubic-fixed-knots-predictions"]
+  }
+}

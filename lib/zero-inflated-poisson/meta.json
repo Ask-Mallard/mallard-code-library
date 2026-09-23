@@ -1,0 +1,44 @@
+{
+  "id": "zero-inflated-poisson",
+  "title": "Zero-inflated Poisson regression for counts with structural zeros",
+  "summary": "A logistic model for being a structural zero and a Poisson model for the count among those at risk, with the count part's rate ratio.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["rateRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.count_regression",
+
+  "sizing": { "calc": "none", "_why": "No zero-inflated form is in the catalog; sizing needs both the structural-zero probability and the count distribution and is a simulation." },
+
+  "packages": {
+    "r": { "pscl": "1.5.9" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: zeroinfl(visits ~ treated | 1). Without the bar, pscl uses the SAME covariates in the zero-inflation model as in the count model.",
+    "Python: exog_infl given explicitly (intercept only). statsmodels' default is intercept-only, the opposite of pscl's.",
+    "Python: standard errors from the numerical Hessian of the model's own log-likelihood. In statsmodels 0.14.2, ZeroInflatedPoisson's bse come from an analytic Hessian that disagrees with the log-likelihood's curvature: 0.0752 against 0.0761 for the rate ratio here, 0.0956 against 0.1060 for the inflation term. R's pscl agrees with the curvature."
+  ],
+
+  "_interpretation": "The count part's rate ratio applies AMONG THOSE AT RISK, not to the whole population. A zero-inflated model needs a mechanism for structural zeros; many zeros alone are often fitted as well by a negative binomial (negative-binomial-rate-ratio).",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["count"],
+    "summaryMeasure": ["rateRatio"],
+    "effectScale": ["conditionalAtRisk"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["ZIP-logit-intercept-inflation-Hessian-SE"]
+  }
+}
