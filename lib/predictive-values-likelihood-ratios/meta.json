@@ -1,0 +1,71 @@
+{
+  "id": "predictive-values-likelihood-ratios",
+  "title": "Predictive values and likelihood ratios",
+  "summary": "PPV and NPV with Wilson intervals, likelihood ratios with log-scale intervals, and the PPV recomputed at another prevalence.",
+  "estimand": {
+    "target": [
+      "diagnostic"
+    ],
+    "summaryMeasure": [
+      "predictiveValue"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "concept.diagnostic_probability",
+  "sizing": {
+    "calc": "dxAccuracy"
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "PPV and NPV as single proportions with Wilson score intervals (prop.test without continuity correction; statsmodels method = 'wilson').",
+    "Likelihood ratios with log-scale intervals (Simel, Samsa and Matchar 1991).",
+    "PPV at prevalence 0.05 by Bayes' rule from the estimated sensitivity and specificity."
+  ],
+  "_prevalence": "Predictive values belong to the population sampled: 0.68 at this cohort's 20% prevalence, 0.30 at 5%. A case-control sample gives no valid predictive values.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "diagnostic"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "predictiveValue"
+    ],
+    "effectScale": [
+      "cohortPrevalence"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "wilson-pv-log-lr"
+    ]
+  }
+}

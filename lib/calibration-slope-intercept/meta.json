@@ -1,0 +1,73 @@
+{
+  "id": "calibration-slope-intercept",
+  "title": "Calibration of a prediction model: slope, calibration-in-the-large and O/E",
+  "summary": "External validation of a published model's calibration: the calibration slope, the intercept with the slope fixed at 1, and the observed-to-expected ratio.",
+  "estimand": {
+    "target": [
+      "prediction"
+    ],
+    "summaryMeasure": [
+      "calibration"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "concept.calibration",
+  "sizing": {
+    "calc": "none",
+    "_why": "Validation sample size is set by the precision of the calibration slope and O/E (Riley et al. 2021); no catalog form takes it."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Calibration slope: coefficient of the linear predictor in glm(y ~ lp).",
+    "Calibration-in-the-large: intercept of glm(y ~ offset(lp)), slope fixed at 1; not the intercept of the slope model.",
+    "O/E: events over the sum of predicted risks. SEs written out as inverse information (statsmodels' IRLS covariance differed from R's vcov by 1e-6).",
+    "The calibration curve should be plotted but is not a harness key: R's loess and Python's lowess are different smoothers."
+  ],
+  "_truth": "The published model's coefficients are 1.5 times too large and its intercept too high, so the true slope is exactly 2/3 and the model over-predicts on average.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "prediction"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "calibration"
+    ],
+    "effectScale": [
+      "calibration"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "slope-citl-offset-oe"
+    ]
+  }
+}

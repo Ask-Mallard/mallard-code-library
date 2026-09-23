@@ -1,0 +1,57 @@
+{
+  "method": "predictive-values-likelihood-ratios",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: sensitivity 0.85, specificity 0.90, prevalence 0.2",
+    "ppv": 0.68,
+    "npv": 0.96,
+    "log_lr_positive": 2.1400661634962708,
+    "log_lr_negative": -1.791759469228055
+  },
+  "agreement": {
+    "claim": "both engines report the same predictive values, intervals and likelihood ratios",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0. harness/diagnostic_examples.test.py rebuilds the Wilson interval and the log LR SE from their formulas and checks the Bayes recomputation."
+  },
+  "recovery": {
+    "claim": "the estimates are close to the fixture's",
+    "tolerance_estimate": 0.074,
+    "tolerance_by_key": {
+      "ppv": 0.074,
+      "npv": 0.019,
+      "log_lr_positive": 0.31,
+      "log_lr_negative": 0.51
+    },
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "ppv_miss_99th": 0.0567,
+        "npv_miss_99th": 0.0143,
+        "log_lr_positive_miss_99th": 0.2319,
+        "log_lr_negative_miss_99th": 0.3904
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "Each tolerance separates its value from the null (PPV and NPV from the prevalence and its complement; log LRs from 0). Measured by harness/diagnostic_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic (owner decisions E5, E6)."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "prop.test(x, n, correct = FALSE)",
+      "sqrt((1 - se) / (se * nd) + sp / ((1 - sp) * nnd))"
+    ],
+    "python": [
+      "method=\"wilson\"",
+      "math.sqrt((1 - se) / (se * nd) + sp / ((1 - sp) * nnd))"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "method": "calibration-slope-intercept",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: slope 0.8 / 1.2; CITL and O/E by quadrature over the normal linear predictor",
+    "calibration_slope": 0.6666666666666667,
+    "calibration_in_the_large": -0.7267460270039204,
+    "observed_expected": 0.670419520228166
+  },
+  "agreement": {
+    "claim": "both engines report the same slope, calibration-in-the-large, O/E and AUC with their SEs",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 after writing the SEs out. harness/diagnostic_examples.test.py recomputes the truths with scipy quadrature and root-finding, and shows the slope model's intercept differs from calibration-in-the-large by more than 0.05 on average."
+  },
+  "recovery": {
+    "claim": "the estimates are close to the fixture's",
+    "tolerance_estimate": 0.17,
+    "tolerance_by_key": {
+      "calibration_slope": 0.17,
+      "calibration_in_the_large": 0.2,
+      "observed_expected": 0.076
+    },
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "calibration_slope_miss_99th": 0.1298,
+        "calibration_in_the_large_miss_99th": 0.1504,
+        "observed_expected_miss_99th": 0.0583
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The slope tolerance separates 2/3 from 1 (perfect calibration); the O/E tolerance separates 0.67 from 1. Measured by harness/diagnostic_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic (owner decisions E5, E6)."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "glm(event ~ offset(lp)",
+      "glm(event ~ lp"
+    ],
+    "python": [
+      "offset=lp",
+      "sm.add_constant(lp)"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}

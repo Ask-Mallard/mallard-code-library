@@ -1,0 +1,74 @@
+{
+  "id": "comparing-two-diagnostic-tests",
+  "title": "Comparing two diagnostic tests on the same patients",
+  "summary": "Paired comparison of two tests' AUCs by DeLong's test for correlated ROC curves, and of their sensitivities at a prespecified threshold by McNemar's test.",
+  "estimand": {
+    "target": [
+      "diagnostic"
+    ],
+    "summaryMeasure": [
+      "aucDifference"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.roc",
+  "sizing": {
+    "calc": "none",
+    "_why": "Comparing correlated AUCs or paired sensitivities needs the between-test correlation; no catalog form takes it."
+  },
+  "packages": {
+    "r": {
+      "pROC": "1.19.1"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Paired DeLong test (roc.test method = 'delong', paired = TRUE); the unpaired SE is reported beside it.",
+    "Sensitivities compared among patients with disease at a prespecified common threshold (0.6), McNemar without continuity correction, Wald interval for the paired difference.",
+    "Direction pinned for both markers: higher values mean disease."
+  ],
+  "_paired": "Ignoring the pairing overstates the SE of the AUC difference when the markers are positively correlated (0.0165 against 0.0119 here); a two-proportion test on the sensitivities ignores it the same way.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "diagnostic"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "aucDifference"
+    ],
+    "effectScale": [
+      "discrimination"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "paired-delong-mcnemar-sensitivity"
+    ]
+  }
+}
