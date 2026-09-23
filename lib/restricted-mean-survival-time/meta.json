@@ -1,0 +1,43 @@
+{
+  "id": "restricted-mean-survival-time",
+  "title": "Restricted mean survival time (RMST)",
+  "summary": "Mean event-free time up to a stated horizon in each arm, and the difference, from the area under the Kaplan-Meier curves.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["other"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.survival_extensions",
+
+  "sizing": { "calc": "none", "_why": "No RMST form is in the catalog; sizing needs the survival curves up to tau and the censoring pattern and is a simulation." },
+
+  "packages": {
+    "r": { "survival": "3.8-11" },
+    "python": { "lifelines": "0.28.0", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "R: summary(survfit(...), rmean = 4): the horizon stated in advance. The default reports no restricted mean, and rmean = 'common' uses the largest observed time, which moves with the data.",
+    "Python: the RMST from lifelines' KM fit, but NOT its variance. restricted_mean_survival_time(..., return_variance=True) returns the variance of min(T, tau), the spread of the data (an SE of 1.24 years here), not the variance of the estimate (0.047). The estimate's Greenwood-type variance is written out."
+  ],
+
+  "_tau": "The horizon must lie within follow-up in both arms and be chosen before seeing the data. The RMST difference needs no proportional-hazards assumption.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["timeToEvent"],
+    "summaryMeasure": ["other"],
+    "effectScale": ["restrictedMean"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["KM-area-Greenwood-variance"]
+  }
+}

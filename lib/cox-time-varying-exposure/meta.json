@@ -1,0 +1,41 @@
+{
+  "id": "cox-time-varying-exposure",
+  "title": "Cox regression with a time-varying exposure",
+  "summary": "The hazard ratio for current exposure when exposure starts during follow-up, in counting-process (start, stop] form, avoiding immortal time bias.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["hazardRatio"],
+    "assignment": ["nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.time_varying",
+
+  "sizing": { "calc": "none", "_why": "Events under a time-varying exposure depend on when exposure starts; the log-rank form assumes fixed groups and would misstate the exposed person-time. Sizing is a simulation." },
+
+  "packages": {
+    "r": { "survival": "3.8-11" },
+    "python": { "lifelines": "0.28.0", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "Both: the counting-process form, one row per person-period with the exposure current during it. Coding 'ever exposed' at baseline creates immortal time: on this fixture it gives a log hazard ratio of -1.61 against a true -0.51.",
+    "R: ties = 'efron' named (coxph's default); lifelines' CoxTimeVaryingFitter uses Efron."
+  ],
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["timeToEvent"],
+    "summaryMeasure": ["hazardRatio"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["counting-process-efron"]
+  }
+}

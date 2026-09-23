@@ -1,0 +1,39 @@
+{
+  "method": "cause-specific-cox",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: relapse hazard 0.10 a year x 0.7 if treated; death hazard 0.06 a year",
+    "log_cs_hazard_ratio": -0.35667494393873245
+  },
+
+  "agreement": {
+    "claim": "both engines report the same cause-specific log hazard ratio, standard error and interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: about 1e-7. harness/survival_examples.test.py maximizes the partial likelihood from scratch and shows the composite-event model estimates a different quantity. Times carry seven decimals so no event times tie."
+  },
+
+  "recovery": {
+    "claim": "the cause-specific log hazard ratio is close to the fixture's",
+    "tolerance_estimate": 0.24,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "log_cs_hazard_ratio_miss_99th": 0.18, "composite_log_hr_committed": -0.2434 },
+      "tolerance": 0.24,
+      "limits": "At 800 people the miss (0.35) equalled the effect (0.36); the fixture uses 2500."
+    }
+  },
+
+  "must_appear": {
+    "r": ["Surv(time, status == 1)", "ties = \"efron\""],
+    "python": ["(d.status == 1).astype(int)", "CoxPHFitter()"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}
