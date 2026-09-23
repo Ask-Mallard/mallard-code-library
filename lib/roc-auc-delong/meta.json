@@ -1,0 +1,74 @@
+{
+  "id": "roc-auc-delong",
+  "title": "ROC analysis: AUC with a DeLong interval and a Youden threshold",
+  "summary": "The area under the ROC curve of a continuous marker, its DeLong confidence interval, and the threshold maximizing Youden's index.",
+  "estimand": {
+    "target": [
+      "diagnostic"
+    ],
+    "summaryMeasure": [
+      "auc"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.roc",
+  "sizing": {
+    "calc": "dxAccuracy",
+    "_note": "Sized on the precision of sensitivity and specificity at the intended threshold, or on the AUC's interval width (Hanley-McNeil)."
+  },
+  "packages": {
+    "r": {
+      "pROC": "1.19.1"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Direction pinned: higher values mean disease (pROC direction = '<'); pROC's default 'auto' flips a marker that points the wrong way into a good one.",
+    "DeLong interval on the AUC scale (ci.auc method = 'delong'); Python writes out the placement-value variance.",
+    "Youden threshold among midpoints of consecutive observed values (pROC coords, best.method = 'youden')."
+  ],
+  "_threshold": "A threshold chosen on the data is optimistic: over 100 seeds the Youden index at the chosen threshold exceeds the true maximum by 0.015 on average. Prespecify or validate a threshold for use.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "diagnostic"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "auc"
+    ],
+    "effectScale": [
+      "discrimination"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "delong-auc-youden-midpoint"
+    ]
+  }
+}
