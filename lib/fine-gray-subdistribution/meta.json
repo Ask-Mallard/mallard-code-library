@@ -1,0 +1,45 @@
+{
+  "id": "fine-gray-subdistribution",
+  "title": "Fine-Gray regression for the cumulative incidence of one cause",
+  "summary": "The subdistribution hazard ratio: the effect of treatment on the cumulative incidence of one cause when a competing event can prevent it.",
+
+  "estimand": {
+    "target": ["causal", "associational", "prognostic"],
+    "summaryMeasure": ["hazardRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": true
+  },
+
+  "learn": "analysis.competing_risks",
+
+  "sizing": { "calc": "none", "_why": "Sizing a Fine-Gray comparison needs the cumulative incidences of both causes and is a simulation; the log-rank form sizes a different quantity." },
+
+  "packages": {
+    "r": { "cmprsk": "2.2-12" },
+    "python": {}
+  },
+
+  "pinned_defaults": [
+    "R: failcode = 1 and cencode = 0 named, although they are crr's defaults: data coding death as 1 would silently model death.",
+    "R: cov1 is a numeric MATRIX; crr takes no formula and does not expand factors."
+  ],
+
+  "_python_not_applicable": "No standard Python package implements Fine-Gray regression. Writing one would mean replicating the censoring-weighted risk-set expansion, which is exactly the code that should come from a maintained implementation. The entry is R only; its recovery claim is checked by fitting 100 generated fixtures in R, and a second R implementation (survival::finegray with a weighted, clustered coxph) serves as the oracle.",
+
+  "_interpretation": "The subdistribution hazard ratio is read through the cumulative incidence it implies, not as a rate among those at risk: its risk set keeps people who already had the competing event. For the rate of the event among those still event-free, see cause-specific-cox.",
+
+  "engines": { "r": "executed", "python": "not-applicable" },
+  "compatibility": {
+    "target": ["causal", "associational", "prognostic"],
+    "outcomeType": ["timeToEvent"],
+    "summaryMeasure": ["hazardRatio"],
+    "effectScale": ["subdistribution"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [true],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["fine-gray-crr-sandwich"]
+  }
+}

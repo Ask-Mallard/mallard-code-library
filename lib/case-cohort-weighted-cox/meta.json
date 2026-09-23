@@ -1,0 +1,46 @@
+{
+  "id": "case-cohort-weighted-cox",
+  "title": "Case-cohort analysis with a weighted Cox model",
+  "summary": "A hazard ratio from a random subcohort plus all cases, weighted to stand for the full cohort (Lin-Ying), with a robust variance.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["hazardRatio"],
+    "assignment": ["nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "design.case_cohort",
+
+  "sizing": { "calc": "none", "_why": "Case-cohort sizing depends on the subcohort fraction and the event rate, and is not in the catalog." },
+
+  "packages": {
+    "r": { "survival": "3.8-11" },
+    "python": {}
+  },
+
+  "pinned_defaults": [
+    "R: cohort.size is the FULL cohort's size (4000), not the sample's.",
+    "R: method = 'LinYing'. cch's default is 'Prentice'; LinYing uses all the subcohort information with its robust variance. Here LinYing gives 0.700 and Prentice 0.676.",
+    "R: cch returns an UNNAMED coefficient vector; the code indexes it by position and asserts its length."
+  ],
+
+  "_python_not_applicable": "No standard Python package implements case-cohort estimators with their variance. Weighting a Cox model in lifelines needs a robust variance with delayed entry, and lifelines 0.28.0's is wrong in that setting (andersen-gill-recurrent-events documents it). The entry is R only; recovery is checked by fitting 100 generated fixtures in R, and the full cohort (which a real study never has) serves as the oracle.",
+
+  "_unweighted": "An ordinary Cox model on the case-cohort sample treats it as the cohort: here 0.431 against the weighted 0.700 (truth 0.588), with a falsely small standard error (0.080 against 0.135).",
+
+  "engines": { "r": "executed", "python": "not-applicable" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["timeToEvent"],
+    "summaryMeasure": ["hazardRatio"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["caseCohort"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["cch-LinYing"]
+  }
+}

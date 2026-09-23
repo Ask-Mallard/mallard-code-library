@@ -1,0 +1,38 @@
+{
+  "method": "fine-gray-subdistribution",
+  "fixture": "fixture.csv",
+
+  "_why_one_claim": "R only, so there is no agreement claim; check.py records it as untested. RECOVERY asks whether the estimate is close to the parameter the fixture used, and harness/survival2_examples.test.py adds a second R implementation as an oracle.",
+
+  "truth": {
+    "source": "the fixture's data-generating process, Fine and Gray's (1999) own simulation design: F1(t | x) = 1 - [1 - 0.4 (1 - exp(-t))]^exp(-0.5 x)",
+    "log_subdistribution_hr": -0.5
+  },
+
+  "agreement": {
+    "claim": "not tested: one engine",
+    "tolerance_estimate": 0.0001,
+    "tolerance_se": 0.0001,
+    "_note": "In place of a second language, harness/survival2_examples.test.py fits survival::finegray with a weighted coxph clustered on the person: it agrees with crr to 1.1e-5 on the estimate and within 1e-3 on the standard error (0.12627 against 0.12623)."
+  },
+
+  "recovery": {
+    "claim": "the log subdistribution hazard ratio is close to the fixture's",
+    "tolerance_estimate": 0.39,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "log_subdistribution_hr_miss_99th": 0.3003, "cause_specific_log_hr_committed": -0.5316 },
+      "tolerance": 0.39,
+      "limits": "Measured in R by harness/survival2_examples.test.py over seeds 0 to 99. The committed fixture misses by 0.125."
+    }
+  },
+
+  "must_appear": {
+    "r": ["crr(", "failcode = 1, cencode = 0", "cov1 = cbind(treated = d$treated)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": false }
+  }
+}
