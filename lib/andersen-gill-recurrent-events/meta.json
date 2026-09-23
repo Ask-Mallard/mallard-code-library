@@ -1,0 +1,42 @@
+{
+  "id": "andersen-gill-recurrent-events",
+  "title": "Andersen-Gill model for recurrent events",
+  "summary": "A population-average rate ratio for repeated events (admissions, falls, infections) using every event, with a variance clustered on the person.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["rateRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": true,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.recurrent_events",
+  "_learn_page_pending": "No published Learn page covers recurrent events yet (two mentions, no method named). This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7). Ask Mallard's vendor step must refuse this entry until the page exists.",
+
+  "sizing": { "calc": "none", "_why": "Sizing recurrent events needs the event rate and its between-person variation; the Poisson forms in the catalog ignore the variation and under-size the study." },
+
+  "packages": {
+    "r": { "survival": "3.8-11" },
+    "python": { "lifelines": "0.28.0", "pandas": "2.2.2", "scipy": "1.13.1", "numpy": "1.26.4" }
+  },
+
+  "pinned_defaults": [
+    "R: cluster = id, so vcov() is the robust (Lin-Wei) sandwich; without it coxph reports the model-based variance (0.0557 here against 0.0701).",
+    "Python: the point estimate from lifelines with entry_col; the robust variance WRITTEN OUT. lifelines 0.28.0's CoxPHFitter(entry_col=..., cluster_col=..., robust=True) reported 0.0472 here, smaller even than the naive 0.0557; a from-scratch Lin-Wei sandwich and R's coxph both give 0.0701."
+  ],
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["timeToEvent", "count"],
+    "summaryMeasure": ["rateRatio"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["clustered"],
+    "competingEvents": [false],
+    "repeatedMeasures": [true],
+    "missingData": ["completeData"],
+    "variant": ["andersen-gill-lin-wei-robust"]
+  }
+}
