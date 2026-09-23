@@ -1,0 +1,72 @@
+{
+  "id": "g-computation-standardization",
+  "title": "G-computation (marginal standardization) for a risk difference and risk ratio",
+  "summary": "A logistic outcome model, both risks predicted for every patient and averaged, with a standard error from the stacked estimating equations.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.g_computation",
+  "sizing": {
+    "calc": "twoProportions",
+    "_note": "Sized as a two-group risk comparison; adjusting for prognostic covariates usually improves precision, so the unadjusted form is conservative."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: a logistic outcome model on treatment and the confounders; every patient's risk predicted under treatment and under none, then averaged.",
+    "Both: the SE from the stacked sandwich over the model score and the two standardized risks (as R's stdReg), which includes the sampling of the covariates. The delta method on the model covariance alone (marginaleffects' avg_comparisons default) treats the covariates as fixed and is reported beside it.",
+    "Both: the model covariance written out as the inverse information; statsmodels' IRLS covariance differed from R's vcov by 5e-7."
+  ],
+  "_non_collapsible": "exp(coef) is a CONDITIONAL odds ratio. The marginal odds ratio is smaller even without confounding (truth: log 0.609 against 0.7). Report the standardized risk difference or risk ratio, or name the odds ratio as conditional.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "gcomp-logistic-stacked-sandwich"
+    ]
+  }
+}
