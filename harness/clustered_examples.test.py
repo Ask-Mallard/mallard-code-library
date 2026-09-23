@@ -61,7 +61,7 @@ def run_r(code, cwd=None):
 
 def python_output(name):
     return parse_harness_block(subprocess.check_output(
-        [sys.executable, "python.py"], cwd=ROOT / "lib" / name, text=True, stderr=subprocess.DEVNULL))
+        [sys.executable, "python.py"], cwd=ROOT / "lib" / name, text=True))
 
 
 def miss99(estimates, truth):
