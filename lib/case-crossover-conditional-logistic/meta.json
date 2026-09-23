@@ -1,0 +1,74 @@
+{
+  "id": "case-crossover-conditional-logistic",
+  "title": "Case-crossover design by conditional logistic regression",
+  "summary": "A transient exposure's effect on an acute event, comparing each case's hazard window with their own referent windows.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "design.case_crossover",
+  "sizing": {
+    "calc": "none",
+    "_why": "Case-crossover power depends on the exposure prevalence and the number of referent windows (a matched-set calculation); no catalog form takes them, and the matched case-control rule forbids borrowing the paired form."
+  },
+  "packages": {
+    "r": {
+      "survival": "3.8-11"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: conditional logistic regression stratified on the patient; one hazard window and three time-stratified referent windows.",
+    "R: clogit(method = 'exact') (the default is an approximation passed through coxph).",
+    "Python: ConditionalLogit with method = 'newton'. The default (BFGS) stopped 5.4e-5 short of the maximum on this fixture, even with gtol = 1e-10; Newton reaches the exact conditional MLE."
+  ],
+  "_design": "Each patient is their own control, so everything fixed over the windows is removed. Suits transient exposures with acute effects; time trends in exposure within a stratum still bias it.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "effectScale": [
+      "conditional"
+    ],
+    "samplingStructure": [
+      "selfMatched"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "clogit-exact-time-stratified"
+    ]
+  }
+}
