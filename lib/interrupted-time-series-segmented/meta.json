@@ -1,0 +1,72 @@
+{
+  "id": "interrupted-time-series-segmented",
+  "title": "Interrupted time series: segmented regression with Newey-West errors",
+  "summary": "Level and slope changes at an intervention date in a single monthly series, with autocorrelation-robust standard errors at a stated lag.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "analysis.interrupted_time_series",
+  "sizing": {
+    "calc": "interruptedTimeSeries"
+  },
+  "packages": {
+    "r": {
+      "sandwich": "3.1-3"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: rate ~ month + post + months_since by OLS: pre-trend, level change, slope change.",
+    "Both: Newey-West covariance at lag 3, Bartlett weights, no pre-whitening, no small-sample adjustment (sandwich::NeweyWest(lag = 3, prewhite = FALSE, adjust = FALSE); statsmodels HAC with use_correction = False). NeweyWest's own defaults pre-whiten and choose the lag from the data."
+  ],
+  "_seasonality": "This fixture has no seasonal cycle. A real monthly series usually does and needs seasonal terms; and with fewer than about 8 points on a side the trends are not estimable.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "seriesLevel"
+    ],
+    "samplingStructure": [
+      "timeSeries"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "segmented-OLS-NeweyWest-lag3"
+    ]
+  }
+}
