@@ -1,0 +1,45 @@
+{
+  "id": "quantile-regression-median",
+  "title": "Median regression for a skewed outcome",
+  "summary": "The covariate-adjusted difference in medians, with the Hendricks-Koenker local standard error.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["medianDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.quantile_regression",
+  "_learn_page_pending": "No published Learn page covers quantile regression yet. This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7). Ask Mallard's vendor step must refuse this entry until the page exists.",
+
+  "sizing": { "calc": "none", "_why": "No quantile-regression form is in the catalog; sizing needs the outcome's density at the median and is a simulation." },
+
+  "packages": {
+    "r": { "quantreg": "6.1" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: rq(tau = 0.5, method = 'br') and summary(se = 'nid', hs = TRUE). summary.rq's default below 1001 rows is 'rank', which gives an interval but no standard error; 'iid' assumes one error distribution for everybody.",
+    "Python: the exact linear program (scipy HiGHS), not statsmodels' QuantReg, which is an iterative approximation with a different default standard error. The Hendricks-Koenker sandwich is written out.",
+    "Fixture: an ODD number of rows. With an even count the median is an interval and two exact solvers may return different points of it; R warned 'Solution may be nonunique' at 400 rows."
+  ],
+
+  "_median_not_mean": "The median effect and the mean effect differ whenever the spread differs between groups. On this fixture least squares gives 1.66 and median regression 1.27; the true values are 1.80 and 1.50.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["medianDifference"],
+    "effectScale": ["conditionalQuantile"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["exact-LP-Hendricks-Koenker-nid"]
+  }
+}

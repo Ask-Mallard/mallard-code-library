@@ -1,0 +1,45 @@
+{
+  "id": "multinomial-logistic-regression",
+  "title": "Multinomial logistic regression for an unordered categorical outcome",
+  "summary": "One log relative-risk ratio per non-reference category of a nominal outcome, with an explicitly chosen reference category.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["other"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.multinomial_regression",
+  "_learn_page_pending": "No published Learn page covers multinomial regression yet (one mention in all of Learn). This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7). Ask Mallard's vendor step must refuse this entry until the page exists.",
+
+  "sizing": { "calc": "none", "_why": "No multinomial form is in the catalog; sizing needs the anticipated distribution across all categories in each group and is a simulation." },
+
+  "packages": {
+    "r": { "nnet": "7.3-20" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: the reference level written out (home). factor() on text puts it first only if it sorts first alphabetically.",
+    "R: multinom(maxit = 1000, reltol = 1e-14). At the defaults (100 iterations, loose tolerance) the coefficients stopped 2.45e-4 short of the maximum on this fixture.",
+    "Python: MNLogit takes the LOWEST code as the reference, so the codes are assigned explicitly (home = 0). Newton at tol 1e-12, convergence asserted."
+  ],
+
+  "_nominal_not_ordinal": "Use this model when the categories have no order. When they do (none, mild, moderate, severe), a proportional-odds model uses that order and is more efficient (ordinal-proportional-odds).",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["categorical"],
+    "summaryMeasure": ["other"],
+    "effectScale": ["relativeRiskRatio"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["baseline-category-logit-explicit-reference"]
+  }
+}
