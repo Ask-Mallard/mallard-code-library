@@ -1,0 +1,74 @@
+{
+  "id": "penalized-prediction-optimism",
+  "title": "Penalized prediction model development with bootstrap optimism correction",
+  "summary": "Ridge logistic regression with a cross-validated penalty, and Harrell's bootstrap correction of the apparent AUC and calibration slope, checked against an external validation cohort.",
+  "estimand": {
+    "target": [
+      "prediction"
+    ],
+    "summaryMeasure": [
+      "auc"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.penalized_regression",
+  "sizing": {
+    "calc": "none",
+    "_why": "Prediction-model development is sized by the Riley et al. (2019) criteria (shrinkage, optimism, precision of the intercept); no catalog form implements them, and events-per-variable is only a floor."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Ridge (L2) logistic regression on predictors standardized within each fit (SD with n - 1), intercept unpenalized; objective loglik - (lambda / 2) sum(beta^2); Newton-Raphson to 1e-12, written out in both languages. glmnet and scikit-learn scale the penalty differently (glmnet divides by n; scikit-learn uses C = 1 / lambda) and use their own solvers.",
+    "Penalty chosen by 5-fold cross-validated deviance over 12 values log-spaced from 0.1 to 100; folds fixed in the fixture.",
+    "Harrell's bootstrap optimism correction with every step repeated in each resample, including the cross-validated penalty choice (folds by position within the resample). 50 resamples, supplied by the fixture (bootstrap.csv) so both languages use the same ones; in practice use 200 or more.",
+    "Calibration slope: coefficient of the linear predictor in a logistic regression of the outcome on it."
+  ],
+  "_what_is_checked": "Over 100 seeds the apparent AUC exceeds the external cohort's by 0.033 on average and the corrected AUC by -0.0015; the apparent slope by 0.20 and the corrected slope by 0.0006. The correction is unbiased, but in a single development sample it is imprecise (the corrected-minus-external AUC ranges to 0.09), which is why its recovery tolerances are wide and the mean-bias assertions carry the check.",
+  "_riley": "68 events for 10 candidate predictors is below the Riley criteria; the fixture is small on purpose, to make the optimism visible.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "prediction"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "auc"
+    ],
+    "effectScale": [
+      "discrimination"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "ridge-cv5-harrell-bootstrap50"
+    ]
+  }
+}
