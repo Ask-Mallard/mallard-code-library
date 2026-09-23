@@ -1,0 +1,73 @@
+{
+  "id": "multiple-imputation-chained-equations",
+  "title": "Multiple imputation by chained equations with Rubin's rules",
+  "summary": "A regression effect with a covariate missing at random, imputed 20 times with the outcome in the imputation model and pooled by Rubin's rules with Barnard-Rubin degrees of freedom.",
+  "estimand": {
+    "target": [
+      "causal",
+      "associational"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "randomized",
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.multiple_imputation",
+  "sizing": {
+    "calc": "none",
+    "_why": "Imputation does not change what a study is sized for; size the complete-data analysis and inflate for the expected missing fraction."
+  },
+  "packages": {
+    "r": {
+      "mice": "3.19.0"
+    },
+    "python": {}
+  },
+  "pinned_defaults": [
+    "m = 20 imputations (mice's default is 5), maxit = 10, method 'norm' for the incomplete covariate, a fixed seed.",
+    "The outcome is in the imputation model; leaving it out biases the covariate's coefficient towards zero.",
+    "Pooled by mice::pool: Rubin's rules with Barnard-Rubin degrees of freedom; the fraction of missing information is reported."
+  ],
+  "_assumption": "Missing at random: here severity is missing more often when the outcome is high, which is MAR given the outcome. Under MNAR, pair MI with a delta-adjusted sensitivity analysis (delta-adjusted-tipping-point). Never exclude patients because a variable is missing without naming the selection risk.",
+  "_python_not_applicable": "Imputation draws are random, and R's and Python's generators and MICE implementations differ, so the two languages cannot be compared draw for draw. statsmodels' MICE is a different algorithm. The entry is R only; the control file recomputes Rubin's rules and the Barnard-Rubin df from mice's pooled components, and recovery is measured by running r.R on 100 fixtures.",
+  "engines": {
+    "r": "executed",
+    "python": "not-applicable"
+  },
+  "compatibility": {
+    "target": [
+      "causal",
+      "associational"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "conditional"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "missingAtRandom"
+    ],
+    "variant": [
+      "mice-norm-m20-rubin-barnard-rubin"
+    ]
+  }
+}

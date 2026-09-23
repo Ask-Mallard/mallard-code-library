@@ -1,0 +1,73 @@
+{
+  "id": "delta-adjusted-tipping-point",
+  "title": "Delta-adjusted tipping-point analysis for missing outcomes",
+  "summary": "The treatment effect under missing at random, and the shift in the treated arm's missing outcomes at which it would lose statistical significance.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.sensitivity",
+  "sizing": {
+    "calc": "twoMeans",
+    "_note": "Sized as the primary two-arm comparison, inflated for the expected missing fraction."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: within each arm, the outcome regressed on the baseline covariate among completers; each arm's mean averages observed and predicted outcomes; a shift delta added to the predicted outcomes of the TREATED patients whose outcome is missing.",
+    "Both: SE from the stacked estimating equations (each arm's regression and mean); the tipping point is the delta at which the lower 95% limit is zero, found by Brent's method (uniroot / brentq) to 1e-12.",
+    "Written out in both languages; the common alternative, multiple imputation with a delta added to the imputed values, adds Monte Carlo error and cannot be agreement-tested."
+  ],
+  "_interpretation": "The tipping point is not a result to be tested; clinicians judge whether a shift that large is plausible for patients who left the trial.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "missingAtRandom",
+      "missingNotAtRandom"
+    ],
+    "variant": [
+      "pattern-mixture-regression-delta-treated-stacked"
+    ]
+  }
+}

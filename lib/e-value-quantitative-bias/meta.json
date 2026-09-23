@@ -1,0 +1,74 @@
+{
+  "id": "e-value-quantitative-bias",
+  "title": "E-value and a simple quantitative bias analysis for unmeasured confounding",
+  "summary": "The E-value for an observed risk ratio and its confidence limit, and the risk ratio adjusted for a named unmeasured binary confounder with stated bias parameters.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskRatio"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.sensitivity",
+  "sizing": {
+    "calc": "none",
+    "_why": "A sensitivity analysis is not sized."
+  },
+  "packages": {
+    "r": {
+      "EValue": "4.1.4"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "E-value (VanderWeele and Ding 2017): RR + sqrt(RR (RR - 1)) for RR > 1 (inverted first for RR < 1), for the point estimate and the confidence limit closer to 1 (1 if the interval spans it). R: EValue::evalues.RR; Python: the formula written out.",
+    "Bias factor for a binary unmeasured confounder: (p1 (RR_UY - 1) + 1) / (p0 (RR_UY - 1) + 1), dividing the observed RR; assumes no confounder-exposure interaction. Bias parameters p1 = 0.5236, p0 = 0.2879, RR_UY = 2.5 (this fixture's true values to 4 dp; external evidence in practice).",
+    "Observed RR: the crude 2x2 risk ratio with a Katz log interval."
+  ],
+  "_limits": "An E-value summarizes robustness; it does not correct anything and says nothing about whether such a confounder exists. Report a range of bias parameters, or a probabilistic bias analysis (episensr), rather than one set.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskRatio"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "evalue-and-binary-confounder-bias-factor"
+    ]
+  }
+}
