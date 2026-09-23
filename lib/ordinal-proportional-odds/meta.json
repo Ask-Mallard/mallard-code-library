@@ -1,0 +1,44 @@
+{
+  "id": "ordinal-proportional-odds",
+  "title": "Proportional-odds regression for an ordered outcome",
+  "summary": "One odds ratio for the shift toward higher categories of an ordered outcome, with the cut-point thresholds.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["oddsRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.ordinal_regression",
+
+  "sizing": { "calc": "none", "_why": "Whitehead's formula for an ordinal outcome needs the anticipated distribution across categories and is not in the catalog; a binary-split form would size a different quantity." },
+
+  "packages": {
+    "r": { "MASS": "7.3-66" },
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: the category ORDER is written out. The fixture's words sort alphabetically as mild, moderate, none, severe, and both factor() and pandas would fit that ordering silently.",
+    "Both: positive coefficient = higher categories (polr: logit P(Y <= k) = zeta_k - eta; OrderedModel the same). Other software (SAS PROC LOGISTIC by default) models the lower categories and inverts the odds ratio.",
+    "Both: tight convergence (polr reltol 1e-14; Newton with tol 1e-12). At defaults statsmodels' BFGS did not converge and the two differed by up to 6e-5."
+  ],
+
+  "_proportional_odds": "The single odds ratio assumes the same effect at every cut point. Check it (fit the binary splits separately, or a partial proportional-odds model) and state it.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["ordinal"],
+    "summaryMeasure": ["oddsRatio"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["cumulative-logit-higher-category-positive"]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ancova-baseline-adjusted",
+  "title": "ANCOVA: a trial effect adjusted for the baseline value",
+  "summary": "The treatment effect on a follow-up measurement in a randomized trial, adjusted for the same measurement at baseline.",
+
+  "estimand": {
+    "target": ["causal"],
+    "summaryMeasure": ["meanDifference"],
+    "assignment": ["randomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.ancova",
+
+  "sizing": { "calc": "twoMeans", "_note": "The two-means form is conservative for ANCOVA: adjusting for a baseline with correlation r to the outcome shrinks the required size by about (1 - r^2)." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "statsmodels": "0.14.2", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "Both: the FOLLOW-UP value is the outcome and baseline a covariate. A change score without baseline adjustment forces the carry-over to 1 and loses precision.",
+    "Python: cov_type='nonrobust' named, matching R's lm."
+  ],
+
+  "_pre_randomization_only": "Adjust only for variables measured before randomization. Anything measured after treatment starts can be affected by it, and adjusting for it biases the effect.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal"],
+    "outcomeType": ["continuous"],
+    "summaryMeasure": ["meanDifference"],
+    "effectScale": ["conditional"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["OLS-baseline-covariate-model-based-SE"]
+  }
+}

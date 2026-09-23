@@ -1,0 +1,43 @@
+{
+  "method": "ordinal-proportional-odds",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: latent 0.8 x treated + logistic noise, cut at -1, 0.5 and 2",
+    "log_odds_ratio": 0.8,
+    "threshold_1": -1.0,
+    "threshold_2": 0.5,
+    "threshold_3": 2.0
+  },
+
+  "agreement": {
+    "claim": "both engines report the same log odds ratio, standard error, interval and thresholds",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: up to 5e-9 with both optimizers tightened. At the defaults statsmodels' BFGS reported non-convergence and the two differed by up to 6.5e-5. harness/regression_examples.test.py checks against a direct maximization of the cumulative-logit likelihood and shows the alphabetical category order gives a log odds ratio of 0.35 against 0.98."
+  },
+
+  "recovery": {
+    "claim": "the log odds ratio and thresholds are close to the fixture's",
+    "tolerance_estimate": 0.5,
+    "tolerance_by_key": { "log_odds_ratio": 0.47, "threshold_1": 0.48, "threshold_2": 0.4, "threshold_3": 0.5 },
+    "calibration": {
+      "seeds": 100,
+      "measured_miss_99th": { "log_odds_ratio": 0.356, "threshold_1": 0.362, "threshold_2": 0.303, "threshold_3": 0.381 },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "Measured by harness/regression_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["levels = c(\"none\", \"mild\", \"moderate\", \"severe\"), ordered = TRUE", "polr(severity ~ treated", "reltol = 1e-14"],
+    "python": ["categories=levels, ordered=True", "distr=\"logit\"", "method=\"newton\""]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}
