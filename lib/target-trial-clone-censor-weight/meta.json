@@ -1,0 +1,68 @@
+{
+  "id": "target-trial-clone-censor-weight",
+  "title": "Target trial emulation with a grace period: clone, censor, weight",
+  "summary": "A per-protocol risk difference between 'start within a grace period' and 'never start' from observational data, by cloning each patient into both strategies, censoring deviations and weighting for them.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "design.target_trial",
+  "sizing": {
+    "calc": "none",
+    "_why": "An emulated trial's precision depends on the weights and the censoring pattern; simulation or a bootstrap of the whole procedure."
+  },
+  "packages": {
+    "r": {},
+    "python": {}
+  },
+  "pinned_defaults": [
+    "Time zero at eligibility for both strategies; clones censored when their data stop agreeing with their strategy (the never arm at starting, the grace arm at the end of the grace period without starting).",
+    "Censoring weights from a pooled logistic model of starting given current severity, fitted on patient-intervals eligible to start; the never arm by the cumulative 1 / (1 - P(start)), last-interval starters in the grace arm by 1 / P(start).",
+    "Risk by weighted discrete-time Kaplan-Meier over 10 intervals. No confidence interval: that needs a bootstrap of the whole procedure."
+  ],
+  "_python_not_applicable": "Owner decision E3 (2026-09-23): target trial emulation is included with a truth check only. The entry is R only; harness/selfcontrolled_examples.test.py re-implements the procedure in numpy as an oracle and must reproduce r.R's output, and recovery is measured by running r.R on 100 fixtures.",
+  "_naive": "Two naive analyses on the same data: patients who ever started against those who never did (immortal time; mean bias -0.020 over 100 seeds) and the clone-censor analysis without weights (confounded by severity; mean bias +0.044).",
+  "engines": {
+    "r": "executed",
+    "python": "not-applicable"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "longitudinal"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "ccw-grace3-pooled-logistic-weighted-km"
+    ]
+  }
+}
