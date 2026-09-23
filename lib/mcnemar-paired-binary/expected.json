@@ -1,0 +1,39 @@
+{
+  "method": "mcnemar-paired-binary",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: 30% positive before; after, 80% if positive and 20% if negative before",
+    "change": 0.08
+  },
+
+  "agreement": {
+    "claim": "both engines report the same change, interval, discordant counts, McNemar chi-square and exact p-value",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key. harness/categorical_examples.test.py checks the chi-square against (b - c)^2 / (b + c) and the exact p against the binomial, and shows the continuity-corrected and unpaired statistics are different numbers."
+  },
+
+  "recovery": {
+    "claim": "the change in proportion positive is close to the one the fixture was built with",
+    "tolerance_estimate": 0.065,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "change_miss_99th": 0.0501 },
+      "tolerance": 0.065,
+      "limits": "Measured by harness/categorical_examples.test.py over seeds 0 to 99. At 200 pairs the miss (0.065) was close to the true change of 0.08, so the fixture uses 500."
+    }
+  },
+
+  "must_appear": {
+    "r": ["mcnemar.test(tab, correct = FALSE)", "binom.test(b, b + c"],
+    "python": ["mcnemar(table, exact=False, correction=False)", "mcnemar(table, exact=True)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

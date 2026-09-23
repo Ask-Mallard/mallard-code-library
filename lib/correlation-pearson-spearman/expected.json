@@ -1,0 +1,41 @@
+{
+  "method": "correlation-pearson-spearman",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: bivariate normal with rho 0.5; Spearman's value for a bivariate normal is (6 / pi) asin(rho / 2)",
+    "pearson_r": 0.5,
+    "spearman_rho": 0.4825837395309974
+  },
+
+  "agreement": {
+    "claim": "both engines report the same Pearson and Spearman coefficients and intervals",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key. harness/categorical_examples.test.py checks both coefficients against numpy's corrcoef on the values and on their ranks, the Pearson interval against Fisher's z, and shows Pearson's standard error applied to Spearman gives a different interval."
+  },
+
+  "recovery": {
+    "claim": "each coefficient is close to the value the fixture was built with",
+    "tolerance_estimate": 0.215,
+    "tolerance_by_key": { "pearson_r": 0.185, "spearman_rho": 0.215 },
+    "calibration": {
+      "seeds": 100,
+      "measured_miss_99th": { "pearson_r": 0.1415, "spearman_rho": 0.1648 },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "Measured by harness/categorical_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["cor.test(d$bmi, d$sbp, method = \"pearson\"", "1.06 / sqrt(n - 3)"],
+    "python": ["pear.confidence_interval(", "1.06 / np.sqrt(n - 3)"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

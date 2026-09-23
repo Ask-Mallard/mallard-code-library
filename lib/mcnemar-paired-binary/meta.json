@@ -1,0 +1,43 @@
+{
+  "id": "mcnemar-paired-binary",
+  "title": "McNemar's test for a paired binary outcome",
+  "summary": "The change in the proportion positive when the same people are tested twice, with McNemar's chi-square, the exact binomial test on the discordant pairs, and a paired Wald interval.",
+
+  "estimand": {
+    "target": ["causal", "associational", "descriptive"],
+    "summaryMeasure": ["riskDifference"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.chi_square",
+
+  "sizing": { "calc": "none", "_why": "The catalog's paired form is for a continuous outcome only; a paired binary outcome is sized from the expected discordant proportions, which has no form in the catalog." },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1", "statsmodels": "0.14.2" }
+  },
+
+  "pinned_defaults": [
+    "R: mcnemar.test(correct = FALSE). The default applies a continuity correction.",
+    "Python: statsmodels mcnemar defaults to exact=True; the chi-square is exact=False, correction=False, and the exact p-value is exact=True, named."
+  ],
+
+  "_pairing": "Only the discordant pairs carry information about change. A two-sample chi-square on the before and after columns treats them as independent groups.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational", "descriptive"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["riskDifference"],
+    "effectScale": ["marginal"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [true],
+    "missingData": ["completeData"],
+    "variant": ["discordant-pairs-Wald-change"]
+  }
+}

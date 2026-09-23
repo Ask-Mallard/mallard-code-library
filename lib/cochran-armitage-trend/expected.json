@@ -1,0 +1,39 @@
+{
+  "method": "cochran-armitage-trend",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: proportions 0.10, 0.16, 0.22, 0.28 at scores 0 to 3",
+    "slope": 0.06
+  },
+
+  "agreement": {
+    "claim": "both engines report the same trend chi-square, p-value and slope",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key. harness/categorical_examples.test.py checks the statistic as N r^2 over individuals and shows the linear-by-linear (N - 1) r^2 differs by 0.020."
+  },
+
+  "recovery": {
+    "claim": "the slope per score step is close to the one the fixture was built with",
+    "tolerance_estimate": 0.04,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "slope_miss_99th": 0.0307 },
+      "tolerance": 0.04,
+      "limits": "Measured by harness/categorical_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["prop.trend.test(events, totals, score = score)"],
+    "python": ["numerator / denominator", "(totals * (score - s_bar) ** 2).sum()"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

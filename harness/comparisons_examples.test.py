@@ -226,7 +226,28 @@ def kruskal(measured):
     measured[name] = {k: miss99([e[k] for e in per_seed], truth[k]) for k in truth}
 
 
+def generator_truth():
+    """Every truth value expected.json states, recomputed from the generator's constants. Added in
+    batch B-2 after a typed Spearman truth there was wrong in the fifth decimal: a truth can be off by
+    less than the recovery tolerance and still pass recovery."""
+    anova_m = load("one-way-anova-tukey")
+    return {
+        "paired-t-test": {"mean_change": load("paired-t-test").MEAN_CHANGE, "sd_change": load("paired-t-test").SD_CHANGE},
+        "one-way-anova-tukey": {"diff_2_1": anova_m.MEANS[2] - anova_m.MEANS[1], "diff_3_1": anova_m.MEANS[3] - anova_m.MEANS[1],
+                                "diff_3_2": anova_m.MEANS[3] - anova_m.MEANS[2], "pooled_sd": anova_m.SD},
+        "mann-whitney-hodges-lehmann": {"hl_shift": load("mann-whitney-hodges-lehmann").SHIFT},
+        "wilcoxon-signed-rank-hodges-lehmann": {"pseudomedian_change": load("wilcoxon-signed-rank-hodges-lehmann").CENTRE},
+        "kruskal-wallis": {f"median_arm{a}": math.exp(mu) for a, mu in load("kruskal-wallis").LOG_MEANS.items()},
+    }
+
+
 def check_tolerances(measured):
+    for name, truth in generator_truth().items():
+        stated = json.loads((ROOT / "lib" / name / "expected.json").read_text())["truth"]
+        numeric = {k: v for k, v in stated.items() if isinstance(v, (int, float))}
+        assert set(numeric) == set(truth), f"{name}: expected.json truth keys {sorted(numeric)} != generator {sorted(truth)}"
+        for key, value in truth.items():
+            assert abs(numeric[key] - value) < 1e-12, f"{name} {key}: expected.json {numeric[key]} != generator {value}"
     for name, misses in measured.items():
         want = json.loads((ROOT / "lib" / name / "expected.json").read_text())
         rec = want["recovery"]

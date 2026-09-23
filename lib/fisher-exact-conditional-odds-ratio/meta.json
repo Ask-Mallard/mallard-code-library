@@ -1,0 +1,43 @@
+{
+  "id": "fisher-exact-conditional-odds-ratio",
+  "title": "Fisher's exact test with the conditional odds ratio",
+  "summary": "An exact test for a 2x2 table, reported as the conditional maximum-likelihood odds ratio with its exact 95% interval.",
+
+  "estimand": {
+    "target": ["causal", "associational"],
+    "summaryMeasure": ["oddsRatio"],
+    "assignment": ["randomized", "nonrandomized"],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+
+  "learn": "analysis.chi_square",
+
+  "sizing": { "calc": "twoProportions" },
+
+  "packages": {
+    "r": {},
+    "python": { "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }
+  },
+
+  "pinned_defaults": [
+    "R: the 2x2 is built explicitly, exposed in row 1 and the outcome in column 1. table() would sort both to 0 first.",
+    "Python: the odds ratio comes from scipy.stats.contingency.odds_ratio(kind='conditional'). scipy.stats.fisher_exact's statistic is the SAMPLE odds ratio ad/bc, not the conditional MLE R reports."
+  ],
+
+  "_which_odds_ratio": "fisher.test reports the conditional MLE, conditioning on both margins; ad/bc is the sample (unconditional) odds ratio. They differ, most in small tables, and a report should say which it gives.",
+
+  "engines": { "r": "executed", "python": "executed" },
+  "compatibility": {
+    "target": ["causal", "associational"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["oddsRatio"],
+    "effectScale": ["conditionalExact"],
+    "samplingStructure": ["independent"],
+    "competingEvents": [false],
+    "repeatedMeasures": [false],
+    "missingData": ["completeData"],
+    "variant": ["conditional-MLE-exact-interval"]
+  }
+}
