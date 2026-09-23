@@ -1,0 +1,72 @@
+{
+  "id": "bootstrap-percentile-bca",
+  "title": "Bootstrap percentile and BCa confidence intervals",
+  "summary": "A stratified bootstrap of the ratio of mean length of stay between two hospitals, with percentile and bias-corrected and accelerated (BCa) intervals.",
+  "estimand": {
+    "target": [
+      "associational"
+    ],
+    "summaryMeasure": [
+      "meanRatio"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.bootstrap",
+  "sizing": {
+    "calc": "none",
+    "_why": "The bootstrap is an interval method, not a design; size for the comparison it summarizes."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Stratified bootstrap (resample within each hospital), B = 2,000; percentile interval; BCa with z0 from the share of bootstrap values below the estimate and acceleration from the jackknife over all patients; quantiles R type 7 (numpy default).",
+    "Resamples from a shared minimal-standard generator (Park-Miller, multiplier 48271, modulus 2^31 - 1) implemented identically in both languages, so they agree exactly; in practice use boot::boot / scipy.stats.bootstrap with a seeded generator."
+  ],
+  "_median": "The jackknife acceleration is degenerate for a median (exactly 0 for 80 values); this entry first used a median and changed to a ratio of means.",
+  "_coverage": "Over 100 seeds both intervals covered the true ratio 90 to 91% of the time at 150 per group: skewed means converge slowly, and BCa does not fix that.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "associational"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanRatio"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "stratified-bootstrap-2000-percentile-bca"
+    ]
+  }
+}
