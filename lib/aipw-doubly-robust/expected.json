@@ -1,0 +1,47 @@
+{
+  "method": "aipw-doubly-robust",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: the marginal risk difference, integrated by fixture.truth() and checked with scipy quad",
+    "ate": 0.14566626200408184
+  },
+  "agreement": {
+    "claim": "both engines report the same AIPW estimate, influence-function SE, and single-model comparators",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: at most 1.2e-9. harness/causal_examples.test.py breaks each working model in turn over 100 seeds: AIPW's bias stays under 0.01 while the single-model estimator's exceeds 0.08."
+  },
+  "recovery": {
+    "claim": "the risk difference is close to the fixture's",
+    "tolerance_estimate": 0.062,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "ate_miss_99th": 0.0469
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The committed fixture's estimate (0.103) is 0.043 from the truth, about two standard errors; inside the tolerance, and the reason the tolerance is measured rather than guessed. Measured by harness/causal_examples.test.py, running python.py on seeds 0 to 99."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "m1 + a * (y - m1) / e",
+      "m0 + (1 - a) * (y - m0) / (1 - e)",
+      "sqrt(sum(IF^2)) / n"
+    ],
+    "python": [
+      "m1 + a * (y - m1) / e",
+      "m0 + (1 - a) * (y - m0) / (1 - e)",
+      "np.sqrt(np.sum(IF ** 2)) / n"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}

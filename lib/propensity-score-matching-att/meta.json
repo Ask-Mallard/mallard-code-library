@@ -1,0 +1,75 @@
+{
+  "id": "propensity-score-matching-att",
+  "title": "Propensity-score matching for the effect in the treated (ATT)",
+  "summary": "1:1 nearest-neighbour matching on the logit of the propensity score with a caliper, balance diagnostics, and a pair-clustered standard error.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.matching",
+  "sizing": {
+    "calc": "none",
+    "_why": "Matching discards unmatched patients and targets the treated; sizing depends on the ratio of controls to treated and on the overlap, which no catalog form takes. Simulation."
+  },
+  "packages": {
+    "r": {
+      "MatchIt": "4.7.2",
+      "sandwich": "3.1-3"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: 1:1 nearest neighbour without replacement; distance = the LOGIT of a logistic propensity score (MatchIt link = 'linear.logit'); caliper 0.2 SD of that distance over the whole sample; treated matched from the largest distance down (m.order = 'largest'); estimand ATT. MatchIt's own defaults differ: no caliper, and the score itself as the distance.",
+    "Both: the SE clusters on the matched pair (sandwich::vcovCL by subclass, HC1; statsmodels' cluster covariance with the same small-sample factor).",
+    "Python: no package documents MatchIt-compatible defaults, so the greedy algorithm is written out, ties going to the control first in the data. It reproduces MatchIt's matched set exactly on this fixture."
+  ],
+  "_att_not_ate": "Matching keeps every treated patient it can and finds each a control, so it estimates the effect in the TREATED. Here the effect grows with severity and the treated are sicker: ATT 2.68, ATE 2.00. Dropping treated patients outside the caliper moves the target towards the ATE; report how many were dropped (18 of 751 here).",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "ATT-nearest-logit-caliper0.2-largest-pairCR"
+    ]
+  }
+}

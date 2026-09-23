@@ -1,0 +1,51 @@
+{
+  "method": "g-computation-standardization",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: marginal risks under treatment for all and none, integrated by fixture.truth() and checked with scipy quad",
+    "risk_difference": 0.14566626200408023,
+    "log_risk_ratio": 0.36323165894147386
+  },
+  "agreement": {
+    "claim": "both engines report the same standardized risks, contrasts and standard errors",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: at most 5e-9 (glm convergence). harness/causal_examples.test.py rebuilds the stacked sandwich with numerical derivatives (agreeing to 1e-7), and checks the conditional log OR exceeds the marginal one, the crude difference is confounded, and the fixed-covariate SE is smaller."
+  },
+  "recovery": {
+    "claim": "the risk difference and log risk ratio are close to the fixture's",
+    "tolerance_estimate": 0.063,
+    "tolerance_by_key": {
+      "risk_difference": 0.063,
+      "log_risk_ratio": 0.18
+    },
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "risk_difference_miss_99th": 0.0478,
+        "log_risk_ratio_miss_99th": 0.1313
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The tolerances separate the effect from zero (RD 0.146, log RR 0.363). Measured by harness/causal_examples.test.py, running python.py on seeds 0 to 99."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "transform(d, treated = 1)",
+      "Ainv %*% crossprod(psi) %*% t(Ainv)"
+    ],
+    "python": [
+      "d.assign(treated=1)",
+      "Ainv @ (psi.T @ psi) @ Ainv.T"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}

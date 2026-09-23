@@ -1,0 +1,50 @@
+{
+  "method": "propensity-score-matching-att",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: ATT = 2 + 2.0 E[severity | treated], integrated by fixture.truth_att() and checked with scipy quad",
+    "att": 2.6830523409745948
+  },
+  "agreement": {
+    "claim": "both engines build the same matched set and report the same ATT, pair-clustered SE and balance",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 in every key; the Python greedy matcher reproduces MatchIt's 733 pairs exactly. Local R had MatchIt 4.8.0; CI installs 4.7.2 from the snapshot. harness/causal_examples.test.py replays the greedy order by brute force, checks the caliper and that no control is reused, and requires balance under 0.1 after matching (0.06) from over 0.3 before (0.50)."
+  },
+  "recovery": {
+    "claim": "the ATT is close to the fixture's",
+    "tolerance_estimate": 0.44,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "att_miss_99th": 0.3358
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The ATT and ATE differ by 0.68; the tolerance keeps them apart. A first fixture (900 patients, a stronger propensity model) dropped 46 treated at the caliper on average and its miss (0.53) could not tell the ATT from the ATE. Measured by harness/causal_examples.test.py, running python.py on seeds 0 to 99."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "link = \"linear.logit\"",
+      "caliper = 0.2",
+      "m.order = \"largest\"",
+      "estimand = \"ATT\"",
+      "cluster = ~subclass"
+    ],
+    "python": [
+      "np.log(p / (1 - p))",
+      "0.2 * np.std(dist, ddof=1)",
+      "np.argsort(-dist[treated], kind=\"stable\")",
+      "\"groups\": md[\"subclass\"]"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "overlap-weights-ato",
+  "title": "Overlap weights for the effect in the overlap population (ATO)",
+  "summary": "Weights of 1 - e for the treated and e for the controls, which balance covariate means exactly and cannot be extreme, with a standard error from the stacked estimating equations.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.propensity_score",
+  "sizing": {
+    "calc": "none",
+    "_why": "The effective sample size under overlap weighting depends on the propensity distribution; no catalog form takes it. Simulation."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: overlap weights 1 - e (treated) and e (controls) from a logistic propensity model; the weighted difference in means.",
+    "Both: the SE from the stacked M-estimation sandwich over the propensity coefficients and the two weighted means, so the estimation of the score is included. The HC0 sandwich with the weights treated as known is reported beside it (0.186 against 0.130 here; for the ATO it is not guaranteed to be conservative).",
+    "Written out in both languages; R's PSweight implements the same estimator and variance."
+  ],
+  "_ato_not_ate": "Overlap weights target the population in which treatment was closest to a coin toss. Here the ATO is 2.25 and the ATE 2.00; report it as the ATO.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "ATO-overlap-weights-stacked-sandwich"
+    ]
+  }
+}

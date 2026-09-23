@@ -1,0 +1,72 @@
+{
+  "id": "aipw-doubly-robust",
+  "title": "Augmented inverse-probability weighting (AIPW): a doubly robust effect",
+  "summary": "A risk difference that is consistent if either the propensity model or the outcome model is right, with an influence-function standard error.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.propensity_score",
+  "sizing": {
+    "calc": "twoProportions",
+    "_note": "Sized as a two-group risk comparison; the unadjusted form is conservative when the working models are prognostic."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: logistic propensity and outcome models; mu1 = mean(m1 + A (Y - m1) / e), mu0 = mean(m0 + (1 - A)(Y - m0) / (1 - e)); unstabilized, untrimmed.",
+    "Both: SE = sd of the influence function / sqrt(n), ignoring the estimation of the two models; valid when both are right, and to be checked by bootstrap otherwise.",
+    "Written out in both languages; R's AIPW and tmle packages add cross-fitting and flexible models around the same estimator."
+  ],
+  "_double_robustness": "Over 100 seeds, with the propensity model reduced to an intercept, AIPW's bias is -0.002 and weighting alone +0.125; with the outcome model reduced to treatment only, AIPW's bias is -0.002 and g-computation alone +0.125. harness/causal_examples.test.py asserts both.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "AIPW-logistic-IF-SE"
+    ]
+  }
+}

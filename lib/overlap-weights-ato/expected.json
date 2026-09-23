@@ -1,0 +1,45 @@
+{
+  "method": "overlap-weights-ato",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: ATO = E[e(1 - e) x effect] / E[e(1 - e)], integrated by fixture.truth_ato() and checked with scipy quad",
+    "ato": 2.253959795748304
+  },
+  "agreement": {
+    "claim": "both engines report the same ATO, stacked-sandwich SE and balance",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 in every key. harness/causal_examples.test.py requires the weighted SMD to be 0 (exact balance), rebuilds the sandwich with numerical derivatives (agreeing to 1e-7), and shows the weights-as-known SE differs."
+  },
+  "recovery": {
+    "claim": "the ATO is close to the fixture's",
+    "tolerance_estimate": 0.18,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "ato_miss_99th": 0.1347
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The ATO and ATE differ by 0.25. At 1,500 patients and noise SD 2 the miss (0.32) exceeded that; the fixture uses 3,000 and SD 1. Measured by harness/causal_examples.test.py, running python.py on seeds 0 to 99."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "w <- ifelse(a == 1, 1 - e, e)",
+      "Ainv %*% crossprod(psi) %*% t(Ainv)"
+    ],
+    "python": [
+      "w = np.where(a == 1, 1 - e, e)",
+      "Ainv @ (psi.T @ psi) @ Ainv.T"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}
