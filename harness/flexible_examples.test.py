@@ -10,6 +10,7 @@ import importlib.util
 import io
 import json
 import math
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -25,7 +26,19 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(100)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+
+
+def rank_quantile(misses):
+    """The recovery statistic: the quantile at the same ORDER STATISTIC as the 99th percentile of 100 draws.
+
+    np.quantile(q=0.99) over 100 misses lands just above the second-largest; over 50 it lands halfway to
+    the largest, which is stricter than the calibration the tolerances were set from. The level
+    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n (owner decision E6,
+    2026-09-23).
+    """
+    n = len(misses)
+    return float(np.quantile(misses, (n - 1.99) / (n - 1)))
 
 
 def load(name):
@@ -51,7 +64,7 @@ def python_output(name):
 
 
 def miss99(estimates, truth):
-    return float(np.quantile([abs(e - truth) for e in estimates], 0.99))
+    return rank_quantile([abs(e - truth) for e in estimates])
 
 
 # --- multinomial ---------------------------------------------------------------------------------
