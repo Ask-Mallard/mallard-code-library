@@ -1,0 +1,39 @@
+{
+  "method": "crossover-trial-two-period",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: B minus A = -3, period 2 adds 4, no carryover",
+    "treatment_effect": -3.0
+  },
+
+  "agreement": {
+    "claim": "both engines report the same period-adjusted effect and interval",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits. harness/longitudinal_examples.test.py checks against a regression of the period difference on sequence, and shows the paired B-minus-A comparison ignoring period (-1.98 here) differs from the adjusted -2.55; over 100 seeds its mean bias is 0.73, close to the expected 4 x 10 / 60 = 0.67."
+  },
+
+  "recovery": {
+    "claim": "the treatment effect is close to the fixture's",
+    "tolerance_estimate": 1.65,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "treatment_effect_miss_99th": 1.241 },
+      "tolerance": 1.65,
+      "limits": "Measured by harness/longitudinal_examples.test.py over seeds 0 to 99 of this generator."
+    }
+  },
+
+  "must_appear": {
+    "r": ["diff ~ factor(sequence, levels = c(\"BA\", \"AB\"))", "/ 2"],
+    "python": ["(ba.mean() - ab.mean()) / 2", "equal_var=True"]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}
