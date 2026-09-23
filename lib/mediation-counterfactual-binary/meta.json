@@ -1,0 +1,73 @@
+{
+  "id": "mediation-counterfactual-binary",
+  "title": "Causal mediation with a binary outcome (natural direct and indirect effects)",
+  "summary": "Natural direct and indirect effects on the risk-difference scale by the mediation formula, with a treatment-by-mediator interaction and a stacked-sandwich standard error.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "assignment": [
+      "nonrandomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.mediation",
+  "sizing": {
+    "calc": "none",
+    "_why": "Mediation needs its own simulation-based power assessment; no catalog form applies (Statistical correctness rule)."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Both: logistic mediator and outcome models, the outcome model WITH the treatment x mediator interaction.",
+    "Both: E[Y(a, M(a*))] by the mediation formula, summed exactly over the binary mediator and averaged over the covariate; no simulation, so the result is reproducible.",
+    "Both: SE from the stacked sandwich over both models' scores and the three potential risks.",
+    "Not Baron-Kenny or product-of-coefficients: invalid with a binary outcome (non-collapsible odds ratio, no interaction). The difference-method log OR is reported only to show the gap."
+  ],
+  "_assumptions": "No unmeasured confounding of treatment-outcome, mediator-outcome and treatment-mediator, and no mediator-outcome confounder affected by treatment. Plan a sensitivity analysis for the mediator-outcome assumption.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "mediation-formula-binaryM-interaction-stacked"
+    ]
+  }
+}

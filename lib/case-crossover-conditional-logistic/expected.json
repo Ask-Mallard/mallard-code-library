@@ -1,0 +1,45 @@
+{
+  "method": "case-crossover-conditional-logistic",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: the event window is chosen with probability proportional to exp(log(2.5) x exposure)",
+    "log_or": 0.9162907318741551
+  },
+  "agreement": {
+    "claim": "both engines report the same conditional log OR and SE, and the unmatched comparator",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: at most 2.2e-9 after pinning Newton in Python (5.4e-5 with ConditionalLogit's default). harness/instrument_examples.test.py finds the exact conditional MLE by Newton's method (agreeing to 1e-8), and over 100 seeds shows ordinary logistic regression ignoring the matching is attenuated by more than 0.1."
+  },
+  "recovery": {
+    "claim": "the estimates are close to the fixture's",
+    "tolerance_estimate": 0.34,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "log_or_miss_99th": 0.2553
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The tolerance separates the effect from zero. Measured by harness/instrument_examples.test.py, running python.py on seeds 0 to 99."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "strata(patient)",
+      "method = \"exact\""
+    ],
+    "python": [
+      "groups=d[\"patient\"]",
+      "method=\"newton\""
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}
