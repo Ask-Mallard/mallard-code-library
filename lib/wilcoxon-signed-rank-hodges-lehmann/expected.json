@@ -1,0 +1,39 @@
+{
+  "method": "wilcoxon-signed-rank-hodges-lehmann",
+  "fixture": "fixture.csv",
+
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+
+  "truth": {
+    "source": "the fixture's data-generating process: Laplace changes, symmetric about +3",
+    "pseudomedian_change": 3.0
+  },
+
+  "agreement": {
+    "claim": "both engines report the same pseudo-median, exact interval, V statistic and exact p-value",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: 0 at ten significant digits on every key. harness/comparisons_examples.test.py checks that the null distribution Python builds totals 2^45 and reproduces scipy's exact p-value, and that scipy's own statistic (min(W+, W-) = 228) is not R's V."
+  },
+
+  "recovery": {
+    "claim": "the pseudo-median change is close to the centre the fixture was built with",
+    "tolerance_estimate": 1.7,
+    "calibration": {
+      "seeds": 100,
+      "measured": { "pseudomedian_change_miss_99th": 1.288 },
+      "tolerance": 1.7,
+      "limits": "Measured by harness/comparisons_examples.test.py over seeds 0 to 99 of this generator. Laplace changes have heavy tails, which is why the spread is wide for 45 pairs."
+    }
+  },
+
+  "must_appear": {
+    "r": ["wilcox.test(d$after, d$before, paired = TRUE, exact = TRUE, conf.int = TRUE"],
+    "python": ["ranks[change > 0].sum()", "method=\"exact\""]
+  },
+
+  "engines": {
+    "r": { "executed": true },
+    "python": { "executed": true }
+  }
+}

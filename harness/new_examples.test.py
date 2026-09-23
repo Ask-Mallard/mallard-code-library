@@ -85,7 +85,14 @@ if __name__ == '__main__':
         calibration.append(max(abs(fit.params[0]),abs(fit.params[1]-1)))
     assert np.quantile(calibration,.99) < .25
     print(json.dumps({'survey':{'se_correct':domain[1],'se_deleted_psus':wrong[1],'recovery_miss_99th':float(np.quantile(misses,.99))},'prediction':{'pairwise_auc':auc,'calibration_miss_99th':float(np.quantile(calibration,.99))},'seeds':100,'result':'pass'},indent=2))
-    # The descriptive entries' controls run from here because CI's controls step already calls this
-    # file; listing descriptive_examples.test.py in verify.yml directly needs a workflow-scoped
-    # change, and a control CI never runs is decoration. check_call fails this file if they fail.
-    subprocess.check_call([__import__('sys').executable, str(Path(__file__).with_name('descriptive_examples.test.py'))])
+    # Every other harness/*_examples.test.py runs from here, because CI's controls step already calls
+    # this file; listing each in verify.yml needs a workflow-scoped change, and a control CI never
+    # runs is decoration. Discovered by pattern so a new batch's controls cannot be left out, and
+    # the count is printed so an empty discovery is visible. check_call fails this file if any fails.
+    here = Path(__file__).resolve()
+    batches = sorted(p for p in here.parent.glob('*_examples.test.py') if p != here)
+    assert batches, 'no *_examples.test.py control files were discovered'
+    for path in batches:
+        print(f'running {path.name}')
+        subprocess.check_call([__import__('sys').executable, str(path)])
+    print(f'{len(batches)} example control files passed')
