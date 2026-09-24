@@ -15,7 +15,7 @@
     "calc": "none"
   },
   "_marginal_not_conditional": "GEE estimates the POPULATION-AVERAGE odds ratio. mixed-effects-logistic-clustered estimates the CLUSTER-CONDITIONAL one, and on the same data those are different numbers -- the marginal is attenuated toward the null. Neither is a better version of the other and a plan must say which it wants. That is why this entry's fixture generates the marginal model directly rather than through a random intercept: asking GEE to recover a conditional parameter would measure the attenuation and call it error.",
-  "_few_clusters": "This fixture has 90 clusters. The sandwich variance is a large-sample estimator and is biased DOWNWARD with few clusters -- CLAUDE.md's rule warns under 30 and blocks under 15 unless a small-sample approach is named. An entry demonstrating the sandwich on 12 clusters would be modelling the practice the product warns about. Small-sample corrections (Mancl-DeRouen, Kauermann-Carroll, Fay-Graubard) are a separate entry and are not in geepack.",
+  "_few_clusters": "This fixture has 90 clusters. The sandwich variance is a large-sample estimator and is biased DOWNWARD with few clusters: under about 30 a small-sample correction should be named, and under 15 it is essential. An entry demonstrating the sandwich on 12 clusters would be modelling the practice it warns against. Small-sample corrections (Mancl-DeRouen, Kauermann-Carroll, Fay-Graubard) are a separate entry and are not in geepack.",
   "packages": {
     "r": { "geepack": "1.3.13" },
     "python": { "statsmodels": "0.14.2", "pandas": "2.2.2", "numpy": "1.26.4", "scipy": "1.13.1" }  },

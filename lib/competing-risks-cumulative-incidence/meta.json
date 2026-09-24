@@ -16,7 +16,7 @@
 
   "sizing": { "calc": "none", "_why": "There is no closed form in the catalog for a cumulative incidence comparison, and borrowing the log-rank form would size a different quantity. Gray's test has its own literature; sizing one is a simulation." },
 
-  "_this_is_the_entry_the_others_point_at": "CLAUDE.md's statistical rules name this failure directly: where death competes with the event of interest, a Kaplan-Meier curve is not merely off-message, it censors the competing death and overstates cumulative incidence. This entry is that error with numbers on it, and it computes the wrong estimator alongside the right one so the gap is in the output.",
+  "_this_is_the_entry_the_others_point_at": "Where death competes with the event of interest, a Kaplan-Meier curve is not merely off-message: it censors the competing death and overstates cumulative incidence. This entry is that error with numbers on it, and it computes the wrong estimator alongside the right one so the gap is in the output.",
 
   "_no_effect_measure": "summaryMeasure is `other`: this estimates a CURVE. A subdistribution hazard ratio is Fine-Gray and a cause-specific hazard ratio is a Cox model on cause 1 with cause 2 censored -- different questions, both out of scope here.",
 

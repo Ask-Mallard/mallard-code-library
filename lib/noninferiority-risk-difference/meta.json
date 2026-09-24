@@ -1,0 +1,72 @@
+{
+  "id": "noninferiority-risk-difference",
+  "title": "Noninferiority analysis of a risk difference against a margin",
+  "summary": "The risk difference with Newcombe's interval compared with a prespecified noninferiority margin, in the intention-to-treat and per-protocol populations.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.noninferiority",
+  "sizing": {
+    "calc": "none",
+    "_why": "Noninferiority has no catalog form on purpose: it is sized on the margin, by the margin-based method named in prose."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Newcombe's hybrid score interval (method 10) for the difference (new - standard); R written out, Python statsmodels confint_proportions_2indep(method='newcomb'); the Wald lower limit beside it.",
+    "Noninferior if the lower limit of the two-sided 95% interval lies above the prespecified margin (-0.10 here).",
+    "Both intention-to-treat and per-protocol analyses reported."
+  ],
+  "_itt_not_conservative": "In a noninferiority trial ITT is not conservative: deviations pull the difference towards 0. On this fixture ITT concludes noninferiority (lower limit -0.091) and per-protocol does not (-0.106).",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "riskDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "newcombe-margin-itt-pp"
+    ]
+  }
+}

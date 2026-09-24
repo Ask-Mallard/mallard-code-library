@@ -27,7 +27,7 @@
         "corrected_minus_external_slope_miss_99th": 0.5695
       },
       "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
-      "limits": "Wide by nature: a single development sample of 300 estimates its own optimism imprecisely. The check that the correction works is the mean-bias assertion over the seeds (corrected within half the apparent optimism, for AUC and slope). Measured by harness/prediction_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic (owner decisions E5, E6)."
+      "limits": "Wide by nature: a single development sample of 300 estimates its own optimism imprecisely. The check that the correction works is the mean-bias assertion over the seeds (corrected within half the apparent optimism, for AUC and slope). Measured by harness/prediction_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic."
     }
   },
   "must_appear": {

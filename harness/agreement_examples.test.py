@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for batch H-2 (agreement, reliability and decision curves).
+"""Controls and fixed-seed calibration for the agreement, reliability and decision-curve entries.
 
 weighted-kappa-agreement, intraclass-correlation, bland-altman-limits, decision-curve-analysis. Each
 fixture regenerates byte for byte and each truth is recomputed independently (kappa from the joint
@@ -8,8 +8,7 @@ confusion table. Negative controls over the seeds: percent agreement exceeds kap
 absolute agreement when raters differ; the methods correlate above 0.9 while their bias is clearly not
 0; the model beats treating everyone at thresholds 0.2 and 0.3.
 
-SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration (owner decisions E5,
-E6). Run with --measure to print the numbers.
+SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration. Run with --measure to print the numbers.
 """
 import contextlib
 import csv
@@ -31,11 +30,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
-    """The quantile at the same order statistic as the 99th percentile of 100 draws (owner decision E6)."""
+    """The quantile at the same order statistic as the 99th percentile of 100 draws."""
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))
 

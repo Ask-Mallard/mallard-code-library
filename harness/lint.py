@@ -163,7 +163,15 @@ def main(argv=None) -> int:
         print("  structural lint passed: every pinned string each entry declared is present in the")
         print("  code rather than only in the prose beside it. Passing here is never a claim that")
         print("  the analysis is right, in either language.")
-    return 1 if problems else 0
+
+    # The repository-level checks run from here because CI already calls this file; giving each its
+    # own workflow step needs a workflow-scoped change. Each prints its own result.
+    import catalogue
+    import public_surface
+    repo = root.resolve().parent
+    stale = catalogue.main(["--readme", str(repo / "README.md"), "--lib", str(root), "--check"])
+    surface = public_surface.main(["--repo", str(repo)])
+    return 1 if (problems or stale or surface) else 0
 
 
 if __name__ == "__main__":

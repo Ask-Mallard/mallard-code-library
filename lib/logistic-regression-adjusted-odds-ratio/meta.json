@@ -21,7 +21,7 @@
   "learn": "analysis.logistic_regression",
   "sizing": {
     "calc": "twoProportions",
-    "_why": "The effect-based form for a binary outcome compared between two groups. It sizes the MARGINAL two-group comparison while this entry estimates a CONDITIONAL odds ratio, which is a real limitation of the available catalog rather than a match: with covariates in the model the conditional effect is further from the null than the marginal one, so this form is not automatically conservative. logisticEPV is a per-variable FLOOR under Statistical correctness and is not a substitute for an effect-based calculation; Riley (Stat Med 2019) is the modern route where a floor is genuinely what is wanted."
+    "_why": "The effect-based form for a binary outcome compared between two groups. It sizes the MARGINAL two-group comparison while this entry estimates a CONDITIONAL odds ratio, which is a real limitation of the available catalog rather than a match: with covariates in the model the conditional effect is further from the null than the marginal one, so this form is not automatically conservative. logisticEPV is a per-variable FLOOR and is not a substitute for an effect-based calculation; Riley (Stat Med 2019) is the modern route where a floor is genuinely what is wanted."
   },
   "packages": {
     "r": {},
