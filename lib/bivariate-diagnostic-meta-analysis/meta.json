@@ -16,11 +16,6 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
-  "learn": "analysis.dta_meta_analysis",
-  "sizing": {
-    "calc": "none",
-    "_why": "A meta-analysis is not sized."
-  },
   "packages": {
     "r": {
       "mada": "0.5.12"

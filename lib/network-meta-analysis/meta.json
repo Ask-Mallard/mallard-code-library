@@ -16,11 +16,6 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
-  "learn": "analysis.network_meta_analysis",
-  "sizing": {
-    "calc": "none",
-    "_why": "A network meta-analysis is not sized."
-  },
   "packages": {
     "r": {
       "netmeta": "3.6-1"

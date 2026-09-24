@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for batch I-2 (evidence synthesis).
+"""Controls and fixed-seed calibration for the evidence-synthesis entries.
 
 random-effects-meta-analysis, bivariate-diagnostic-meta-analysis (R only), network-meta-analysis. Each
 fixture regenerates byte for byte. Oracles: the REML tau^2 maximizes the restricted log-likelihood and
@@ -8,8 +8,8 @@ independent R implementation of the same REML model); the network estimates are 
 Hartung-Knapp interval covers the mean effect at least as often as DerSimonian-Laird's z interval; the
 network estimator is unbiased. Recovery: each entry on its own seeds (the R-only entry through r.R).
 
-SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration (owner decisions E5,
-E6). Locally, MALLARD_R_LIBS may name an R library to put first. Run with --measure to print the numbers.
+SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration. Locally,
+MALLARD_R_LIBS may name an R library to put first. Run with --measure to print the numbers.
 """
 import contextlib
 import csv
@@ -30,11 +30,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
-    """The quantile at the same order statistic as the 99th percentile of 100 draws (owner decision E6)."""
+    """The quantile at the same order statistic as the 99th percentile of 100 draws, at any number of draws."""
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))
 

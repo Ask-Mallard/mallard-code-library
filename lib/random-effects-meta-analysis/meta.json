@@ -16,11 +16,6 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
-  "learn": "analysis.meta_analysis",
-  "sizing": {
-    "calc": "none",
-    "_why": "A meta-analysis is not sized; its information size can be compared with the size a single adequate trial would need."
-  },
   "packages": {
     "r": {
       "metafor": "5.0-1"
