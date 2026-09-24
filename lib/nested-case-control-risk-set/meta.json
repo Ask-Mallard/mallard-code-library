@@ -19,7 +19,7 @@
   "learn": "design.nested_case_control",
   "sizing": {
     "calc": "none",
-    "_why": "A matched or nested case-control has no form in the sizing catalog and must not borrow one (Statistical correctness rule)."
+    "_why": "A matched or nested case-control has no form in the sizing catalog and must not borrow one."
   },
   "packages": {
     "r": {

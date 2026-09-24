@@ -30,7 +30,7 @@ Confidence intervals need a bootstrap of the whole procedure; this entry is chec
 
 ## R only
 
-By owner decision (E3, 2026-09-23) target trial emulation is included with a truth check only. The control
+Target trial emulation is included with a truth check only, so this entry makes no agreement claim. The control
 file re-implements the procedure in numpy and must reproduce r.R's output, and recomputes the truth with a
 second Monte Carlo seed.
 

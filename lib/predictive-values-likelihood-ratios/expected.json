@@ -33,7 +33,7 @@
         "log_lr_negative_miss_99th": 0.3904
       },
       "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
-      "limits": "Each tolerance separates its value from the null (PPV and NPV from the prevalence and its complement; log LRs from 0). Measured by harness/diagnostic_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic (owner decisions E5, E6)."
+      "limits": "Each tolerance separates its value from the null (PPV and NPV from the prevalence and its complement; log LRs from 0). Measured by harness/diagnostic_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic."
     }
   },
   "must_appear": {

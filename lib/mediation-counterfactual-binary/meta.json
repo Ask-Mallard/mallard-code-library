@@ -19,7 +19,7 @@
   "learn": "analysis.mediation",
   "sizing": {
     "calc": "none",
-    "_why": "Mediation needs its own simulation-based power assessment; no catalog form applies (Statistical correctness rule)."
+    "_why": "Mediation needs its own simulation-based power assessment; no catalog form applies."
   },
   "packages": {
     "r": {},

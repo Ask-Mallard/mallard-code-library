@@ -1,7 +1,7 @@
 """Seeded fixture for a cluster-randomised binary outcome with a random intercept.
 
 Exposure is assigned AT THE CLUSTER LEVEL, which is the case where clustering actually bites and
-the one Mallard's evaluation bank calls "cluster-randomized trial, binary outcome". Individual-level
+the cluster-randomized trial with a binary outcome. Individual-level
 exposure inside clusters would be a much weaker test: the cluster random effect would then be
 nearly orthogonal to it and an analysis ignoring clustering would still land near the truth.
 

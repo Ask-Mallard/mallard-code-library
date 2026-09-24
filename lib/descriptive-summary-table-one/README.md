@@ -44,7 +44,6 @@ log-normal with a median of 3.32 days and the same in both groups.
 ## Learn page
 
 The Learn page this entry names, `analysis.descriptive_statistics`, is planned but not yet published.
-Ask Mallard will not show this entry until it is.
 
 ## Verification
 

@@ -96,8 +96,8 @@ the outcome makes the two working correlations target genuinely different estima
 this entry's subject.
 
 **Ninety clusters**, not twelve. The sandwich is a large-sample estimator and is biased downward
-when clusters are few — CLAUDE.md warns under 30 and blocks under 15 unless a small-sample approach
-is named. An entry demonstrating the sandwich on a dozen clusters would be modelling the practice
+when clusters are few; fewer than about 30 clusters calls for a named small-sample correction, and
+fewer than 15 makes one essential. An entry demonstrating the sandwich on a dozen clusters would be modelling the practice
 the product warns about. Mancl-DeRouen, Kauermann-Carroll and Fay-Graubard corrections are not in
 `geepack` and belong to a separate entry.
 

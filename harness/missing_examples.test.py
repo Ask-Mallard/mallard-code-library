@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for category G (missing data and bias).
+"""Controls and fixed-seed calibration for the missing-data and bias entries.
 
 multiple-imputation-chained-equations (R only), delta-adjusted-tipping-point, e-value-quantitative-bias,
 inverse-probability-censoring-weights. Each fixture regenerates byte for byte and each truth is
@@ -10,7 +10,7 @@ the IPCW sandwich is rebuilt with numerical derivatives. Negative controls over 
 naive analysis is biased.
 
 SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the full calibration each expected.json
-records (owner decision E5, 2026-09-23). Run with --measure to print the numbers. Locally, MALLARD_R_LIBS
+records. Run with --measure to print the numbers. Locally, MALLARD_R_LIBS
 may name an R library to put first on the path.
 """
 import contextlib
@@ -41,8 +41,7 @@ def rank_quantile(misses):
 
     np.quantile(q=0.99) over 100 misses lands just above the second-largest; over 50 it lands halfway to
     the largest, which is stricter than the calibration the tolerances were set from. The level
-    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n (owner decision E6,
-    2026-09-23).
+    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n.
     """
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))

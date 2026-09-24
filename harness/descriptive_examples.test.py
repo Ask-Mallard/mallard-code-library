@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
@@ -42,8 +42,7 @@ def rank_quantile(misses):
 
     np.quantile(q=0.99) over 100 misses lands just above the second-largest; over 50 it lands halfway to
     the largest, which is stricter than the calibration the tolerances were set from. The level
-    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n (owner decision E6,
-    2026-09-23).
+    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n.
     """
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))

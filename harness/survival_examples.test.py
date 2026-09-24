@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for the survival entries in batch D-1.
+"""Controls and fixed-seed calibration for the survival entries.
 
 cox-time-varying-exposure, cause-specific-cox, restricted-mean-survival-time,
 weibull-accelerated-failure-time. Every oracle here is computed from scratch in numpy/scipy (partial
@@ -25,7 +25,7 @@ from check import parse_harness_block  # noqa: E402
 
 warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
@@ -33,8 +33,7 @@ def rank_quantile(misses):
 
     np.quantile(q=0.99) over 100 misses lands just above the second-largest; over 50 it lands halfway to
     the largest, which is stricter than the calibration the tolerances were set from. The level
-    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n (owner decision E6,
-    2026-09-23).
+    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n.
     """
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))

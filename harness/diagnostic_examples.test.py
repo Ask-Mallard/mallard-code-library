@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for batch H-1 (diagnostic accuracy and calibration).
+"""Controls and fixed-seed calibration for the diagnostic accuracy and calibration entries.
 
 roc-auc-delong, comparing-two-diagnostic-tests, predictive-values-likelihood-ratios,
 calibration-slope-intercept. Each fixture regenerates byte for byte and each truth is recomputed
@@ -9,8 +9,7 @@ rule from the estimated sensitivity and specificity. Negative controls over the 
 at the threshold chosen on the data is optimistic; the paired SE of the AUC difference is below the
 unpaired one; the intercept of the slope model is not calibration-in-the-large.
 
-SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration (owner decisions E5,
-E6). Run with --measure to print the numbers.
+SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration. Run with --measure to print the numbers.
 """
 import contextlib
 import csv
@@ -32,11 +31,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
-    """The quantile at the same order statistic as the 99th percentile of 100 draws (owner decision E6)."""
+    """The quantile at the same order statistic as the 99th percentile of 100 draws."""
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))
 

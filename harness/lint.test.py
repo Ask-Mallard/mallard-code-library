@@ -127,6 +127,61 @@ model = sm.GEE(y, X, groups=g, cov_struct=Exchangeable())
         check("declaring a language whose file is missing is flagged",
               any("does not exist" in p for p in probs), probs)
 
+        print("public-surface check")
+        import public_surface
+        # Positive controls: lines exactly as they stood in this repository before the check.
+        leaked = [
+            "    (n - 1.99) / (n - 1) is exactly 0.99 at n = 100 and the same position at any n (owner decision E6,",
+            "when clusters are few — CLAUDE.md warns under 30 and blocks under 15 unless a small-sample approach",
+            "This id names the planned page (Ask Mallard docs/specs/code-library-expansion-2026-09-23.md, section 7).",
+            "    \"schema prompt warns about: 'silently different defaults are how two correct-looking\",",
+            "the one Mallard's evaluation bank calls \"cluster-randomized trial, binary outcome\". Individual-level",
+            '"""Controls and fixed-seed calibration for batch F-3.',
+            "Claude-Session: https://claude.ai/code/session_01WiV7D9QqVVBRKZ5PUmjPwW",
+        ]
+        for line in leaked:
+            check(f"flags: {line.strip()[:60]}", public_surface.scan_text(line) != [])
+        # Negative controls: ordinary lines in this repository that share a word with a pattern.
+        clean = [
+            '    spec = importlib.util.spec_from_file_location(name, ROOT / "lib" / name / "fixture.py")',
+            'print(rbind(sensitivity = sens, specificity = spec))',
+            '      "Licensor" shall mean the copyright owner or entity authorized by',
+            "    batches = sorted(p for p in here.parent.glob('*_examples.test.py') if p != here)",
+            "SEEDS = range(int(os.environ.get(\"MALLARD_SEEDS\", \"50\")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration",
+            "# and unweighted tests answer different questions, and a plan that names \"the log-rank test\" means",
+        ]
+        for line in clean:
+            check(f"stays silent: {line.strip()[:60]}", public_surface.scan_text(line) == [])
+
+        print("README list of entries")
+        import catalogue
+        lib = Path(tmp) / "cat" / "lib"
+        for eid, title, eng in [("b-entry", "Beta method", {"r": "executed", "python": "executed"}),
+                                ("a-entry", "Alpha method", {"r": "executed", "python": "not-applicable"})]:
+            (lib / eid).mkdir(parents=True)
+            (lib / eid / "meta.json").write_text(json.dumps({"id": eid, "title": title, "engines": eng}))
+        readme = Path(tmp) / "cat" / "README.md"
+        readme.write_text(f"intro\n{catalogue.START}\nold\n{catalogue.END}\noutro\n")
+        args = ["--readme", str(readme), "--lib", str(lib)]
+        check("a stale list fails --check", catalogue.main(args + ["--check"]) == 1)
+        catalogue.main(args)
+        text = readme.read_text()
+        check("after writing, --check passes", catalogue.main(args + ["--check"]) == 0)
+        check("text outside the markers is kept", text.startswith("intro\n") and text.endswith("\noutro\n"))
+        check("an R-only entry says R only", "| Alpha method | R |" in text, text)
+        check("a two-engine entry names both", "| Beta method | R and Python |" in text, text)
+        check("the count line counts both kinds", "**2 entries.** 1 run in both" in text, text)
+        (lib / "a-entry" / "meta.json").write_text(json.dumps(
+            {"id": "a-entry", "title": "Alpha method", "engines": {"r": "executed", "python": "executed"}}))
+        check("changing an entry's engines makes the list stale", catalogue.main(args + ["--check"]) == 1)
+        (lib / "a-entry" / "meta.json").write_text(json.dumps(
+            {"id": "a-entry", "title": "Alpha method", "engines": {"r": "executed", "python": "skipped"}}))
+        try:
+            catalogue.main(args + ["--check"])
+            check("an unknown engine state stops generation", False)
+        except SystemExit:
+            check("an unknown engine state stops generation", True)
+
     print()
     if FAILURES:
         print(f"{len(FAILURES)} control(s) failed")
