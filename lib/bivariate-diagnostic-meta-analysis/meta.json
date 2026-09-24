@@ -7,7 +7,7 @@
       "diagnostic"
     ],
     "summaryMeasure": [
-      "sensitivity"
+      "sensitivitySpecificity"
     ],
     "assignment": [
       "notApplicable"
@@ -40,7 +40,7 @@
       "binary"
     ],
     "summaryMeasure": [
-      "sensitivity"
+      "sensitivitySpecificity"
     ],
     "effectScale": [
       "summaryPoint"
