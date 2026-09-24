@@ -19,7 +19,7 @@
   "learn": "analysis.noninferiority",
   "sizing": {
     "calc": "none",
-    "_why": "Noninferiority has no catalog form on purpose (Statistical correctness rule): it is sized on the margin, by the margin-based method named in prose."
+    "_why": "Noninferiority has no catalog form on purpose: it is sized on the margin, by the margin-based method named in prose."
   },
   "packages": {
     "r": {},

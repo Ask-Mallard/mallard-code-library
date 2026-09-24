@@ -1,4 +1,4 @@
-"""Controls and fixed-seed calibration for batch I-1 (noninferiority, multiplicity, SPC, bootstrap).
+"""Controls and fixed-seed calibration for the trial-analysis entries (noninferiority, multiplicity, SPC, bootstrap).
 
 noninferiority-risk-difference, multiplicity-adjustment, statistical-process-control,
 bootstrap-percentile-bca. Each fixture regenerates byte for byte. Oracles: Holm and Benjamini-Hochberg
@@ -9,8 +9,7 @@ difference sits closer to 0 than the per-protocol one; unadjusted testing of the
 rejects at least one far more often than Holm; the u-chart signals after the rate rises and rarely
 before; the bootstrap intervals cover the true ratio at close to the nominal rate.
 
-SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration (owner decisions E5,
-E6). Run with --measure to print the numbers.
+SEEDS: 50 by default, as CI runs it; MALLARD_SEEDS=100 for the recorded calibration. Run with --measure to print the numbers.
 """
 import contextlib
 import csv
@@ -29,11 +28,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check import parse_harness_block  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration (owner decisions E5, E6)
+SEEDS = range(int(os.environ.get("MALLARD_SEEDS", "50")))  # 50 in CI; MALLARD_SEEDS=100 reproduces the recorded calibration
 
 
 def rank_quantile(misses):
-    """The quantile at the same order statistic as the 99th percentile of 100 draws (owner decision E6)."""
+    """The quantile at the same order statistic as the 99th percentile of 100 draws, at any number of draws."""
     n = len(misses)
     return float(np.quantile(misses, (n - 1.99) / (n - 1)))
 
