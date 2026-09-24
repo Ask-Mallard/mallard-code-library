@@ -1,0 +1,73 @@
+{
+  "id": "random-effects-meta-analysis",
+  "title": "Random-effects meta-analysis: REML with Hartung-Knapp",
+  "summary": "The mean log odds ratio across trials with a REML estimate of between-trial variance, the Hartung-Knapp interval and a prediction interval.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.meta_analysis",
+  "sizing": {
+    "calc": "none",
+    "_why": "A meta-analysis is not sized; its information size can be compared with the size a single adequate trial would need."
+  },
+  "packages": {
+    "r": {
+      "metafor": "5.0-1"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Log odds ratios with Woolf variances (escalc measure = 'OR'; no zero cells, so no continuity correction).",
+    "tau^2 by REML (convergence threshold 1e-12); the mean with the Hartung-Knapp interval (test = 'knha', t on k - 1 df); prediction interval; DerSimonian-Laird with a z interval beside it. Python maximizes the same restricted likelihood; statsmodels' combine_effects has no REML with Hartung-Knapp."
+  ],
+  "_read": "Random effects estimate the MEAN of a distribution of true effects; report tau^2 and the prediction interval, which is usually much wider than the confidence interval.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "effectScale": [
+      "meanOfTrueEffects"
+    ],
+    "samplingStructure": [
+      "studyLevel"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "reml-hartung-knapp-woolf"
+    ]
+  }
+}

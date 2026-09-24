@@ -1,0 +1,45 @@
+{
+  "method": "random-effects-meta-analysis",
+  "fixture": "fixture.csv",
+  "_why_two_claims": "AGREEMENT asks whether the engines compute the same thing; RECOVERY asks whether they compute the right thing. Neither implies the other.",
+  "truth": {
+    "source": "the fixture's data-generating process: trial log ORs ~ N(-0.4, 0.2^2)",
+    "log_or": -0.4
+  },
+  "agreement": {
+    "claim": "both engines report the same mean, HK interval, tau^2, I^2, Q, prediction interval and DL comparator",
+    "tolerance_estimate": 1e-06,
+    "tolerance_se": 1e-06,
+    "_note": "Observed spread on the committed fixture: at most 7e-7 (I^2 on the percentage scale). Local R had metafor 5.2.1; CI installs 5.0-1. harness/synthesis_examples.test.py checks tau^2 maximizes the restricted log-likelihood and the HK SE formula, and measures coverage over the seeds (HK 0.92, DL-z 0.91 over 100)."
+  },
+  "recovery": {
+    "claim": "the estimates are close to the fixture's",
+    "tolerance_estimate": 0.27,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "log_or_miss_99th": 0.2066
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "The tolerance separates the mean (-0.4) from zero. Measured by harness/synthesis_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic (owner decisions E5, E6)."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "method = \"REML\", test = \"knha\"",
+      "measure = \"OR\""
+    ],
+    "python": [
+      "neg_restricted_loglik",
+      "np.sum(w * (y - mu) ** 2) / k1"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": true
+    }
+  }
+}

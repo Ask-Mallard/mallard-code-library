@@ -1,0 +1,69 @@
+{
+  "id": "bivariate-diagnostic-meta-analysis",
+  "title": "Bivariate random-effects meta-analysis of diagnostic accuracy (Reitsma)",
+  "summary": "Joint pooling of logit sensitivity and logit specificity across studies with their between-study correlation, by REML.",
+  "estimand": {
+    "target": [
+      "diagnostic"
+    ],
+    "summaryMeasure": [
+      "sensitivity"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.dta_meta_analysis",
+  "sizing": {
+    "calc": "none",
+    "_why": "A meta-analysis is not sized."
+  },
+  "packages": {
+    "r": {
+      "mada": "0.5.12"
+    },
+    "python": {}
+  },
+  "pinned_defaults": [
+    "mada::reitsma (bivariate normal on logit sensitivity and logit false positive rate, REML); specificity = 1 - FPR.",
+    "No zero cells in the fixture, so no continuity correction."
+  ],
+  "_python_not_applicable": "Python's standard stack has no bivariate random-effects meta-analysis. The entry is R only; the control file refits the same model with metafor::rma.mv (struct = 'UN') and requires agreement to 1e-5, and recovery is measured by running r.R on the seeds.",
+  "_correlation": "With 20 studies the between-study correlation is poorly estimated (-0.02 here against a true -0.4); report it with that caution.",
+  "engines": {
+    "r": "executed",
+    "python": "not-applicable"
+  },
+  "compatibility": {
+    "target": [
+      "diagnostic"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "sensitivity"
+    ],
+    "effectScale": [
+      "summaryPoint"
+    ],
+    "samplingStructure": [
+      "studyLevel"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "reitsma-reml"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "network-meta-analysis",
+  "title": "Network meta-analysis (frequentist, random effects)",
+  "summary": "Combined direct and indirect estimates for three treatments from two-arm trials, with a common between-trial variance and the between-design inconsistency Q.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "analysis.network_meta_analysis",
+  "sizing": {
+    "calc": "none",
+    "_why": "A network meta-analysis is not sized."
+  },
+  "packages": {
+    "r": {
+      "netmeta": "3.6-1"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "netmeta with sm = 'OR', reference A, random effects with method.tau = 'DL' (generalised DerSimonian-Laird); common-effect estimates and Q, with its between-design (inconsistency) component.",
+    "Python: for two-arm trials netmeta's estimator is weighted least squares on the contrasts; written out, tau^2 = (Q - df) / (tr(W) - tr(W X (X'WX)^-1 X'W)) floored at 0."
+  ],
+  "_assumptions": "Consistency (direct and indirect evidence agree) and transitivity (trials similar in effect modifiers). Report the inconsistency test; rankings (P-scores, SUCRA) come after effects with intervals.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "effectScale": [
+      "networkConsistent"
+    ],
+    "samplingStructure": [
+      "studyLevel"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "netmeta-generalised-dl"
+    ]
+  }
+}
