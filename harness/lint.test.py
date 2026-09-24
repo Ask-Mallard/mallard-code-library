@@ -170,10 +170,20 @@ model = sm.GEE(y, X, groups=g, cov_struct=Exchangeable())
         check("text outside the markers is kept", text.startswith("intro\n") and text.endswith("\noutro\n"))
         check("an R-only entry says R only", "| Alpha method | R |" in text, text)
         check("a two-engine entry names both", "| Beta method | R and Python |" in text, text)
-        check("the count line counts both kinds", "**2 entries.** 1 run in both" in text, text)
+        check("the count line counts both kinds",
+              "**2 entries.** 1 are executed in both R and Python and carry both claims; 1 are executed in one language" in text, text)
         (lib / "a-entry" / "meta.json").write_text(json.dumps(
             {"id": "a-entry", "title": "Alpha method", "engines": {"r": "executed", "python": "executed"}}))
         check("changing an entry's engines makes the list stale", catalogue.main(args + ["--check"]) == 1)
+        # `not-executed` is a state metadata.py accepts (the file exists and CI does not run it). An
+        # earlier catalogue rejected it, which would have failed CI on a valid entry.
+        (lib / "a-entry" / "meta.json").write_text(json.dumps(
+            {"id": "a-entry", "title": "Alpha method", "engines": {"r": "executed", "python": "not-executed"}}))
+        catalogue.main(args)
+        text = readme.read_text()
+        check("a not-executed language is accepted and named as not run",
+              "| Alpha method | R (Python present, not run) |" in text, text)
+        check("and it does not count as executed", "1 are executed in one language" in text, text)
         (lib / "a-entry" / "meta.json").write_text(json.dumps(
             {"id": "a-entry", "title": "Alpha method", "engines": {"r": "executed", "python": "skipped"}}))
         try:
