@@ -4,7 +4,7 @@
   "summary": "Ridge logistic regression with a cross-validated penalty, and Harrell's bootstrap correction of the apparent AUC and calibration slope, checked against an external validation cohort.",
   "estimand": {
     "target": [
-      "prediction"
+      "predictive"
     ],
     "summaryMeasure": [
       "auc"
@@ -44,7 +44,7 @@
   },
   "compatibility": {
     "target": [
-      "prediction"
+      "predictive"
     ],
     "outcomeType": [
       "binary"

@@ -41,6 +41,9 @@
     "python": "executed"
   },
   "compatibility": {
+    "framing": [
+      "noninferiority"
+    ],
     "target": [
       "causal"
     ],

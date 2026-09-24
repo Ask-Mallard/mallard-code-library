@@ -31,8 +31,8 @@
   "engines": { "r": "executed", "python": "executed" },
   "compatibility": {
     "target": ["causal"],
-    "outcomeType": ["binary", "continuous"],
-    "summaryMeasure": ["riskDifference", "meanDifference"],
+    "outcomeType": ["binary"],
+    "summaryMeasure": ["riskDifference"],
     "effectScale": ["marginal"],
     "samplingStructure": ["clustered"],
     "competingEvents": [false],

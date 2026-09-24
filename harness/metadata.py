@@ -12,6 +12,13 @@ import subprocess
 
 FILES = {"r": "r.R", "python": "python.py"}
 COMPATIBILITY_KEYS = {"target", "outcomeType", "summaryMeasure", "effectScale", "samplingStructure", "competingEvents", "repeatedMeasures", "missingData", "variant"}
+# Ask Mallard's typed estimand vocabulary (src/estimand.js TARGETS and FRAMINGS). A profile value
+# outside it can never equal a plan's estimand, so the entry would ship unreachable and nothing
+# would say so: three prediction entries once typed "prediction" against the app's "predictive".
+TARGETS = {"causal", "associational", "descriptive", "predictive", "diagnostic", "prognostic", "agreement"}
+# Optional. The app admits an entry with no framing only for superiority, estimation and description
+# aims, so a margin-based example must name its framing and an ordinary one must not claim it.
+FRAMINGS = {"superiority", "noninferiority", "equivalence", "estimation", "description"}
 
 
 def declarations(root):
@@ -20,11 +27,15 @@ def declarations(root):
         meta = json.loads(path.read_text())
         expected = json.loads(path.with_name("expected.json").read_text())
         compatibility = meta.get("compatibility")
-        if not isinstance(compatibility, dict) or set(compatibility) != COMPATIBILITY_KEYS:
+        if not isinstance(compatibility, dict) or set(compatibility) - {"framing"} != COMPATIBILITY_KEYS:
             raise ValueError(f"{path}: incomplete typed compatibility profile")
         for key, values in compatibility.items():
             if not isinstance(values, list) or not values or any(type(v) is not (bool if key in ("competingEvents", "repeatedMeasures") else str) for v in values):
                 raise ValueError(f"{path}: invalid compatibility values for {key}")
+        if not set(compatibility["target"]) <= TARGETS:
+            raise ValueError(f"{path}: compatibility target outside the app's estimand vocabulary")
+        if "framing" in compatibility and not set(compatibility["framing"]) <= FRAMINGS:
+            raise ValueError(f"{path}: compatibility framing outside the app's estimand vocabulary")
         states = meta.get("engines", {})
         for lang, filename in FILES.items():
             state = states.get(lang)

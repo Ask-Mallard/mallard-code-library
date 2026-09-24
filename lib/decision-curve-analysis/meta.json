@@ -4,7 +4,7 @@
   "summary": "Net benefit of treating by a model's predicted risk at prespecified thresholds, against treating everyone and treating no one.",
   "estimand": {
     "target": [
-      "prediction"
+      "predictive"
     ],
     "summaryMeasure": [
       "netBenefit"
@@ -41,7 +41,7 @@
   },
   "compatibility": {
     "target": [
-      "prediction"
+      "predictive"
     ],
     "outcomeType": [
       "binary"

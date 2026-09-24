@@ -4,7 +4,7 @@
   "summary": "External validation of a published model's calibration: the calibration slope, the intercept with the slope fixed at 1, and the observed-to-expected ratio.",
   "estimand": {
     "target": [
-      "prediction"
+      "predictive"
     ],
     "summaryMeasure": [
       "calibration"
@@ -43,7 +43,7 @@
   },
   "compatibility": {
     "target": [
-      "prediction"
+      "predictive"
     ],
     "outcomeType": [
       "binary"
