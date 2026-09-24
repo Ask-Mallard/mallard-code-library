@@ -1,0 +1,71 @@
+{
+  "id": "multiplicity-adjustment",
+  "title": "Multiplicity adjustment: Holm, Hochberg and Benjamini-Hochberg",
+  "summary": "Adjusted p-values for a family of ten secondary outcomes, controlling the family-wise error rate (Holm, Hochberg) or the false discovery rate (Benjamini-Hochberg).",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "learn": "concept.multiplicity",
+  "sizing": {
+    "calc": "twoMeans",
+    "_note": "Size each outcome at the adjusted alpha it will be tested at (for Bonferroni-type control, alpha / m)."
+  },
+  "packages": {
+    "r": {},
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "Welch's t-test per outcome; R p.adjust(method = 'holm' / 'hochberg' / 'BH'); Python statsmodels multipletests(method = 'holm' / 'simes-hochberg' / 'fdr_bh').",
+    "The family (ten secondary outcomes) and the error rate are named before looking."
+  ],
+  "_which": "Holm controls the family-wise error rate under any dependence; Hochberg is more powerful but needs independence or positive dependence; Benjamini-Hochberg controls the false discovery rate. Over 100 seeds, testing the seven null outcomes unadjusted rejected at least one 30% of the time, Holm 6%, BH 13% (BH does not control FWER, by design).",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "continuous"
+    ],
+    "summaryMeasure": [
+      "meanDifference"
+    ],
+    "effectScale": [
+      "marginal"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "holm-hochberg-bh-welch"
+    ]
+  }
+}

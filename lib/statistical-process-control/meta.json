@@ -1,0 +1,74 @@
+{
+  "id": "statistical-process-control",
+  "title": "Statistical process control: u-, p- and individuals charts",
+  "summary": "Control charts for an infection rate, a readmission proportion and mean length of stay, with limits set from a baseline and applied forward.",
+  "estimand": {
+    "target": [
+      "descriptive"
+    ],
+    "summaryMeasure": [
+      "rate"
+    ],
+    "assignment": [
+      "notApplicable"
+    ],
+    "clustered": false,
+    "repeatedMeasures": true,
+    "competingEvents": false
+  },
+  "learn": "analysis.spc_run_charts",
+  "sizing": {
+    "calc": "none",
+    "_why": "Control charts are not sized; the baseline needs enough periods (20 to 25 is common) for stable limits."
+  },
+  "packages": {
+    "r": {
+      "qcc": "2.7"
+    },
+    "python": {
+      "statsmodels": "0.14.2",
+      "pandas": "2.2.2",
+      "numpy": "1.26.4",
+      "scipy": "1.13.1"
+    }
+  },
+  "pinned_defaults": [
+    "u-chart for counts over exposure, p-chart for proportions, individuals (XmR) chart with sigma = mean moving range / 1.128; 3-sigma limits; baseline months 1 to 12 applied to all 24. R qcc (newdata for months 13 to 24); Python written out.",
+    "A signal is a point beyond a limit; run rules are not applied."
+  ],
+  "_baseline": "Limits from a 12-month baseline are themselves uncertain: over 100 seeds the steady p- and individuals charts gave 0.47 false signals per 48 chart-months (about 1% per point against the nominal 0.27%), and the u-chart signalled before the rise in 5% of seeds. Use 20 to 25 baseline points where possible.",
+  "_rare_events": "A first fixture with 2 to 3 infections a month never signalled when the rate doubled: SPC is insensitive to changes in rare events at 3-sigma. The fixture uses a larger exposure and a rise from 2 to 5 per 1,000 catheter-days.",
+  "engines": {
+    "r": "executed",
+    "python": "executed"
+  },
+  "compatibility": {
+    "target": [
+      "descriptive"
+    ],
+    "outcomeType": [
+      "count"
+    ],
+    "summaryMeasure": [
+      "rate"
+    ],
+    "effectScale": [
+      "processLevel"
+    ],
+    "samplingStructure": [
+      "timeSeries"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      true
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "u-p-xmr-3sigma-baseline12"
+    ]
+  }
+}
