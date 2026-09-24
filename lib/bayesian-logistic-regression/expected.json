@@ -1,0 +1,43 @@
+{
+  "method": "bayesian-logistic-regression",
+  "fixture": "fixture.csv",
+  "_why_one_claim": "R only, truth check only (E3); check.py records agreement as untested. RECOVERY asks whether the posterior mean is close to the parameter the fixture used; harness/bayes_examples.test.py adds a Laplace approximation as the oracle.",
+  "truth": {
+    "source": "the fixture's data-generating process: the treatment's conditional log odds ratio is 0.6",
+    "treatment_log_or": 0.6
+  },
+  "agreement": {
+    "claim": "not tested: one engine",
+    "tolerance_estimate": 0.0001,
+    "tolerance_se": 0.0001,
+    "_note": "In place of a second language, harness/bayes_examples.test.py compares the posterior mean and SD with a Laplace approximation (agreement within 0.03 and 10%; observed 0.002 and 0.4%), and requires R-hat below 1.01 and an effective sample size above 1,000 on the committed fixture."
+  },
+  "recovery": {
+    "claim": "the posterior mean is close to the fixture's log odds ratio",
+    "tolerance_estimate": 0.52,
+    "calibration": {
+      "seeds": 100,
+      "measured": {
+        "treatment_log_or_miss_99th": 0.3993,
+        "credible_interval_coverage": 0.95
+      },
+      "rule": "about 1.3 times the measured 99th percentile miss, rounded up",
+      "limits": "A first fixture of 300 patients missed by 0.65, more than the effect; the fixture uses 1,000. Measured by harness/bayes_examples.test.py over seeds 0 to 99 (MALLARD_SEEDS=100); CI reruns it on seeds 0 to 49 at the same order statistic."
+    }
+  },
+  "must_appear": {
+    "r": [
+      "prior_sd <- c(5, 2.5, 2.5)",
+      "dnorm(b, 0, prior_sd, log = TRUE)",
+      "log(runif(1)) < lc - lp"
+    ]
+  },
+  "engines": {
+    "r": {
+      "executed": true
+    },
+    "python": {
+      "executed": false
+    }
+  }
+}

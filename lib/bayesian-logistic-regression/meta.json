@@ -1,0 +1,62 @@
+{
+  "id": "bayesian-logistic-regression",
+  "title": "Bayesian logistic regression with stated priors",
+  "summary": "The posterior distribution of a treatment's log odds ratio under stated weakly informative priors, sampled by MCMC, with a credible interval, the posterior probability of benefit, and sampler diagnostics.",
+  "estimand": {
+    "target": [
+      "causal"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "assignment": [
+      "randomized"
+    ],
+    "clustered": false,
+    "repeatedMeasures": false,
+    "competingEvents": false
+  },
+  "packages": {
+    "r": {},
+    "python": {}
+  },
+  "pinned_defaults": [
+    "Priors: normal(0, 2.5) on each coefficient, normal(0, 5) on the intercept, stated and justified; a sceptical-prior sensitivity analysis where the conclusion could depend on it.",
+    "Sampler: random-walk Metropolis written out in R, 4 chains of 5,000 draws after 1,000 warm-up, dispersed starts, proposal covariance 2.4^2 / p times the maximum-likelihood covariance, set.seed(20261206). In practice use Stan (rstanarm::stan_glm or brms) with the same model and priors.",
+    "Reported: posterior mean and SD, 95% equal-tailed credible interval, P(log OR > 0), Gelman-Rubin R-hat, effective sample size, acceptance rate; the MLE beside them."
+  ],
+  "_python_not_applicable": "Bayesian regression is included with a truth check only. Markov chains cannot be matched draw for draw across languages. The control file checks the posterior against a Laplace approximation computed in Python (mode and inverse Hessian), checks R-hat and effective sample size, and measures recovery and credible-interval coverage over the seeds by running r.R.",
+  "engines": {
+    "r": "executed",
+    "python": "not-applicable"
+  },
+  "compatibility": {
+    "target": [
+      "causal"
+    ],
+    "outcomeType": [
+      "binary"
+    ],
+    "summaryMeasure": [
+      "oddsRatio"
+    ],
+    "effectScale": [
+      "conditional"
+    ],
+    "samplingStructure": [
+      "independent"
+    ],
+    "competingEvents": [
+      false
+    ],
+    "repeatedMeasures": [
+      false
+    ],
+    "missingData": [
+      "completeData"
+    ],
+    "variant": [
+      "metropolis-4chains-normal-priors"
+    ]
+  }
+}
