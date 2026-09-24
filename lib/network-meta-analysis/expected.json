@@ -12,7 +12,7 @@
     "claim": "both engines report the same random-effects estimates and SEs, common-effect estimate, tau^2, Q and inconsistency Q",
     "tolerance_estimate": 1e-06,
     "tolerance_se": 1e-06,
-    "_note": "Observed spread on the committed fixture: 0, including tau^2 = 0.0437 (the fixture's seed was chosen so that tau^2 > 0 and the estimator is exercised). Local R had netmeta 3.7.0; CI installs 3.6-1. harness/synthesis_examples.test.py checks the estimates are exactly consistent, that the network SE for C vs B (0.105) beats the direct-only SE (0.150), and that the estimator is unbiased over the seeds."
+    "_note": "Observed spread on the committed fixture: 0, including tau^2 = 0.0437 (the fixture's seed was chosen so that tau^2 > 0 and the estimator is exercised). Both written-out engines reproduce netmeta 3.7.0 to 1e-10 (checked locally; netmeta cannot load on the CI runner). harness/synthesis_examples.test.py checks the estimates are exactly consistent, that the network SE for C vs B (0.105) beats the direct-only SE (0.150), and that the estimator is unbiased over the seeds."
   },
   "recovery": {
     "claim": "the estimates are close to the fixture's",
@@ -35,8 +35,8 @@
   },
   "must_appear": {
     "r": [
-      "method.tau = \"DL\"",
-      "reference.group = \"A\""
+      "(q - df) / (sum(w) - sum(diag(H)))",
+      "1 / (s2 + tau2)"
     ],
     "python": [
       "(q - df) / (np.sum(w) - np.trace(H))"

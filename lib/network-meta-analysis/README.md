@@ -20,12 +20,14 @@ For C vs B the network's common-effect SE is 0.105, against 0.150 from the four 
 
 ## The model
 
-`netmeta` (Rücker 2012): for two-arm trials, weighted least squares on the trial contrasts; a common τ²
-by the generalised DerSimonian-Laird estimator; random effects. The Python file writes it out.
+`netmeta`'s model (Rücker 2012): for two-arm trials, weighted least squares on the trial contrasts; a
+common τ² by the generalised DerSimonian-Laird estimator; random effects. Both files write it out and
+reproduce `netmeta` 3.7.0 to 1e-10 on this fixture; `netmeta` itself cannot load on the CI runner (its
+dependency igraph needs a missing system library). With multi-arm trials, use `netmeta`.
 
 ## Verification
 
 | Engine | Status |
 |---|---|
-| R (netmeta 3.6-1 in CI) | executed in CI |
+| R (written out; matches netmeta locally) | executed in CI |
 | Python (written out) | executed in CI |

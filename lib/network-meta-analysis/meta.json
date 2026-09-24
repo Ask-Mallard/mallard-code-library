@@ -17,9 +17,7 @@
     "competingEvents": false
   },
   "packages": {
-    "r": {
-      "netmeta": "3.6-1"
-    },
+    "r": {},
     "python": {
       "statsmodels": "0.14.2",
       "pandas": "2.2.2",
@@ -28,8 +26,8 @@
     }
   },
   "pinned_defaults": [
-    "netmeta with sm = 'OR', reference A, random effects with method.tau = 'DL' (generalised DerSimonian-Laird); common-effect estimates and Q, with its between-design (inconsistency) component.",
-    "Python: for two-arm trials netmeta's estimator is weighted least squares on the contrasts; written out, tau^2 = (Q - df) / (tr(W) - tr(W X (X'WX)^-1 X'W)) floored at 0."
+    "netmeta's model (Rucker 2012) for two-arm trials, written out in both languages: weighted least squares on the trial contrasts over the basic parameters (B and C against the reference A); tau^2 = (Q - df) / (tr(W) - tr(W X (X'WX)^-1 X'W)) floored at 0 (generalised DerSimonian-Laird); random effects; the common-effect estimates, Q and its between-design (inconsistency) component.",
+    "Both reproduce netmeta::netmeta(sm = 'OR', method.tau = 'DL', reference.group = 'A') to 1e-10 on this fixture, checked with netmeta 3.7.0. netmeta is not called in CI: it depends on igraph, whose compiled library needs a system library the CI runner lacks. With multi-arm trials use netmeta, which handles their correlation."
   ],
   "_assumptions": "Consistency (direct and indirect evidence agree) and transitivity (trials similar in effect modifiers). Report the inconsistency test; rankings (P-scores, SUCRA) come after effects with intervals.",
   "engines": {
