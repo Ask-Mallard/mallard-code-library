@@ -14,8 +14,9 @@ reported as a posterior distribution.
 
 ## What to report
 
-- **The priors, and why.** Here normal(0, 2.5) on each coefficient: weakly informative on the log-odds
-  scale, ruling out implausibly huge odds ratios without favouring a direction. Add a sensitivity analysis
+- **The priors, and why.** Here normal(0, 2.5) on each coefficient and normal(0, 5) on the
+  intercept: weakly informative on the log-odds scale, ruling out implausibly huge odds ratios without
+  favouring a direction. Add a sensitivity analysis
   under a sceptical prior when the conclusion could depend on the prior.
 - **The posterior**: mean and SD, a credible interval, and the probability of benefit (or of a clinically
   important effect), not a p-value.
