@@ -1,7 +1,7 @@
 {
   "id": "conditional-logistic-matched-case-control",
   "title": "Conditional logistic regression for a matched case-control study",
-  "summary": "Estimates the exposure odds ratio conditional on the matched sets, eliminating the matching factor from the likelihood rather than adjusting for it.",
+  "summary": "Estimates the exposure odds ratio conditional on the matched sets, eliminating the matching factor from the likelihood rather than adjusting for it. When the matched sets are risk sets (controls drawn from those still at risk at each case's event time, as in a nested case-control study), this conditional odds ratio estimates the cohort's hazard (rate) ratio, with no rare-disease assumption.",
   "_keying": "Keyed on the TYPED ESTIMAND and the method, never on what generated code calls itself. Measured 2026-09-06: 26 R blocks in the corpus carried 26 distinct analysis headers with zero repeats, because a header is a study-specific description. Roughly 18 methods sit behind those 26 blocks.",
   "estimand": {
     "target": [
@@ -56,7 +56,8 @@
       "matchedConditional"
     ],
     "samplingStructure": [
-      "matched"
+      "matched",
+      "nestedCaseControl"
     ],
     "competingEvents": [
       false

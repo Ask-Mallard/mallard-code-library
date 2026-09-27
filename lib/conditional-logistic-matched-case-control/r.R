@@ -3,6 +3,10 @@
 # Estimates the exposure odds ratio conditional on the matched sets. The matching factor is
 # ELIMINATED from the likelihood rather than adjusted for, so it must not appear as a covariate:
 # adding it would be conditioning on the thing already conditioned on.
+#
+# When the matched sets are risk sets (controls drawn from those still at risk at each case's event
+# time, as in a nested case-control study), this conditional odds ratio estimates the cohort's hazard
+# (rate) ratio, with no rare-disease assumption.
 
 library(survival)
 

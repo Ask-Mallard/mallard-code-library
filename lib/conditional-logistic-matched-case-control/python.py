@@ -2,6 +2,10 @@
 #
 # The Python equivalent of survival::clogit. statsmodels calls it ConditionalLogit, and it
 # conditions on the group rather than estimating a coefficient per stratum.
+#
+# When the matched sets are risk sets (controls drawn from those still at risk at each case's event
+# time, as in a nested case-control study), this conditional odds ratio estimates the cohort's hazard
+# (rate) ratio, with no rare-disease assumption.
 
 import numpy as np
 import pandas as pd

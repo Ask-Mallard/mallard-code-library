@@ -4,7 +4,8 @@
   "summary": "The cohort hazard ratio from controls sampled from each case's risk set, by conditional logistic regression on the matched sets.",
   "estimand": {
     "target": [
-      "causal"
+      "causal",
+      "associational"
     ],
     "summaryMeasure": [
       "hazardRatio"
@@ -43,7 +44,8 @@
   },
   "compatibility": {
     "target": [
-      "causal"
+      "causal",
+      "associational"
     ],
     "outcomeType": [
       "timeToEvent"
