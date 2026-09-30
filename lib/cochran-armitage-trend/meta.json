@@ -14,7 +14,11 @@
 
   "learn": "analysis.dose_response",
 
-  "sizing": { "calc": "none", "_why": "The catalog has no trend-test form; sizing one needs the full pattern of proportions across groups and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "The catalog has no trend-test form; sizing one needs the full pattern of proportions across groups and is a simulation."
+  },
 
   "packages": {
     "r": {},

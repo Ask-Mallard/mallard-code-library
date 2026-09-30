@@ -19,7 +19,8 @@
   "learn": "design.target_trial",
   "sizing": {
     "calc": "none",
-    "_why": "An emulated trial's precision depends on the weights and the censoring pattern; simulation or a bootstrap of the whole procedure."
+    "approach": "bespoke-simulation",
+    "why": "An emulated trial's precision depends on the weights and the censoring pattern; simulation or a bootstrap of the whole procedure."
   },
   "packages": {
     "r": {},

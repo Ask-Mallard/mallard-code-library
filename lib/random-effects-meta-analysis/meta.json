@@ -16,6 +16,11 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
+  "sizing": {
+    "calc": "none",
+    "approach": "fixed-design",
+    "why": "The eligible trials determine the available information; report attainable precision, heterogeneity uncertainty and the prediction interval rather than retrospective power."
+  },
   "packages": {
     "r": {
       "metafor": "5.0-1"

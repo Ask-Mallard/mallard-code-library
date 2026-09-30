@@ -18,7 +18,8 @@
   },
   "learn": "concept.diagnostic_probability",
   "sizing": {
-    "calc": "dxAccuracy"
+    "calc": "dxAccuracy",
+    "approach": "precision"
   },
   "packages": {
     "r": {},

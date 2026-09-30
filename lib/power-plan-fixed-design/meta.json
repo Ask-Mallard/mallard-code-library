@@ -1,0 +1,19 @@
+{
+  "id": "power-plan-fixed-design",
+  "kind": "sizing",
+  "title": "Fixed-design power for interrupted time series and stepped-wedge trials",
+  "summary": "Attainable power for a prespecified interrupted-time-series grid by seeded simulation, and for a cross-sectional stepped-wedge design by the Hussey-Hughes nested-exchangeable GLS variance.",
+  "learn": "concept.power",
+  "sizing_calcs": ["interruptedTimeSeries", "steppedWedge"],
+  "engines": {"r": "executed", "python": "executed"},
+  "packages": {
+    "r": {},
+    "python": {"numpy": "1.26.4", "scipy": "1.13.1", "statsmodels": "0.14.2"}
+  },
+  "pinned_defaults": [
+    "Interrupted time series: seeded negative-binomial data generation and the prespecified quasi-Poisson segmented model; report attempted replicates, successful fits, failures and Monte Carlo standard error.",
+    "Interrupted time series: power is conditional on the fixed time grid and is an upper bound when residual serial autocorrelation is omitted.",
+    "Stepped wedge: cross-sectional sampling, equal cluster-period sizes, fixed period effects and a nested-exchangeable correlation; CAC defaults to one.",
+    "Stepped wedge: normal-reference power can be optimistic with few clusters; the output is attainable power at fixed clusters and periods, not an individual-level sample-size calculation."
+  ]
+}

@@ -75,6 +75,7 @@ jobs:
           python harness/check.test.py
           python harness/lint.test.py
           python harness/lint.py --root lib
+          python harness/power_plans.test.py
           python harness/new_examples.test.py
           python harness/iptw_scope.test.py
 

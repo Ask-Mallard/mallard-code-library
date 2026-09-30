@@ -14,7 +14,11 @@
 
   "learn": "design.case_cohort",
 
-  "sizing": { "calc": "none", "_why": "Case-cohort sizing depends on the subcohort fraction and the event rate, and is not in the catalog." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Case-cohort sizing depends on the subcohort fraction and the event rate, and is not in the catalog."
+  },
 
   "packages": {
     "r": { "survival": "3.8-11" },

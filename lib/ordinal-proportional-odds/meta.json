@@ -14,7 +14,11 @@
 
   "learn": "analysis.ordinal_regression",
 
-  "sizing": { "calc": "none", "_why": "Whitehead's formula for an ordinal outcome needs the anticipated distribution across categories and is not in the catalog; a binary-split form would size a different quantity." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Whitehead's formula for an ordinal outcome needs the anticipated distribution across categories and is not in the catalog; a binary-split form would size a different quantity."
+  },
 
   "packages": {
     "r": { "MASS": "7.3-66" },

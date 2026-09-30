@@ -1,0 +1,26 @@
+{
+  "method": "power-plan-guidance",
+  "fixture": "fixture.csv",
+  "truth": {
+    "source": "the five allowed non-power planning routes in sizing-routes.json",
+    "route_count": 5,
+    "numeric_sample_sizes": 0,
+    "routes_with_next_step": 5
+  },
+  "agreement": {
+    "claim": "R and Python preserve every planning route without inventing a numeric result",
+    "tolerance_estimate": 0,
+    "tolerance_se": 0,
+    "tolerance_by_key": {}
+  },
+  "recovery": {
+    "claim": "all five routes are present, have a next step and return no fabricated sample size",
+    "tolerance_estimate": 0,
+    "tolerance_by_key": {}
+  },
+  "must_appear": {
+    "r": ["powerCalculated=FALSE", "sampleSizeCalculated=FALSE", "requiredInputs=strsplit("],
+    "python": ["\"powerCalculated\": False", "\"sampleSizeCalculated\": False", "required_inputs.split("]
+  },
+  "engines": {"r": {"executed": true}, "python": {"executed": true}}
+}

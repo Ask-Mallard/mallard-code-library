@@ -14,7 +14,11 @@
 
   "learn": "analysis.mixed_effects",
 
-  "sizing": { "calc": "simulation", "_note": "Clustered count outcomes are sized on the number of clusters and the between-cluster variation; simulation." },
+  "sizing": {
+    "calc": "simulation",
+    "approach": "bespoke-simulation",
+    "note": "Clustered count outcomes are sized on the number of clusters and the between-cluster variation; simulation."
+  },
 
   "packages": {
     "r": { "lme4": "2.0-6" },

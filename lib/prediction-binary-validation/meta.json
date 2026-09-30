@@ -22,7 +22,9 @@
     "These are point estimates for uncensored, independent, unweighted observations; real evaluation also needs uncertainty, a calibration curve and a clinical-use assessment."
   ],
   "sizing": {
-    "calc": "none"
+    "calc": "none",
+    "approach": "precision",
+    "why": "External validation is sized for precision of calibration, observed-to-expected ratio, discrimination and net benefit under the anticipated outcome rate; events-per-variable is not the validation criterion."
   },
   "estimand": {
     "target": [

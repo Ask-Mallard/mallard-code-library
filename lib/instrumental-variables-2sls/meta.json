@@ -19,7 +19,8 @@
   "learn": "design.mendelian_randomization",
   "sizing": {
     "calc": "none",
-    "_why": "IV power depends on the instrument's strength (the first-stage R squared) as well as the effect; the catalog forms ignore it and would over-promise by a large factor. Simulation, or an MR power calculator."
+    "approach": "bespoke-simulation",
+    "why": "IV power depends on the instrument's strength (the first-stage R squared) as well as the effect; the catalog forms ignore it and would over-promise by a large factor. Simulation, or an MR power calculator."
   },
   "packages": {
     "r": {

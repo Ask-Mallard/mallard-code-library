@@ -14,7 +14,11 @@
 
   "learn": "analysis.nonparametric",
 
-  "sizing": { "calc": "none", "_why": "No signed-rank form is in the catalog; sizing one needs an assumed distribution of the changes, which is a simulation or a stated efficiency approximation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "No signed-rank form is in the catalog; sizing one needs an assumed distribution of the changes, which is a simulation or a stated efficiency approximation."
+  },
 
   "packages": {
     "r": {},

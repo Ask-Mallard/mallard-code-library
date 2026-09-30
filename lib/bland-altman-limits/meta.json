@@ -19,7 +19,8 @@
   "learn": "analysis.agreement",
   "sizing": {
     "calc": "none",
-    "_why": "Method-comparison sample size is set by the precision wanted for the limits of agreement (Lu et al. 2016); no catalog form takes it."
+    "approach": "precision",
+    "why": "Method-comparison sample size is set by the precision wanted for the limits of agreement (Lu et al. 2016); no catalog form takes it."
   },
   "packages": {
     "r": {},

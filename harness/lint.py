@@ -167,11 +167,19 @@ def main(argv=None) -> int:
     # The repository-level checks run from here because CI already calls this file; giving each its
     # own workflow step needs a workflow-scoped change. Each prints its own result.
     import catalogue
+    import power_plans
     import public_surface
     repo = root.resolve().parent
     stale = catalogue.main(["--readme", str(repo / "README.md"), "--lib", str(root), "--check"])
+    try:
+        power_plans.resolved_plans(repo)
+        print("  every analysis and declared future sizing route resolves to code and Learn guidance")
+        power = 0
+    except ValueError as exc:
+        print(f"  FAIL {exc}")
+        power = 1
     surface = public_surface.main(["--repo", str(repo)])
-    return 1 if (problems or stale or surface) else 0
+    return 1 if (problems or stale or power or surface) else 0
 
 
 if __name__ == "__main__":

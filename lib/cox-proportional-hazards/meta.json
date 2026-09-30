@@ -14,7 +14,10 @@
 
   "learn": "analysis.cox",
 
-  "sizing": { "calc": "logrank" },
+  "sizing": {
+    "calc": "logrank",
+    "approach": "analytic-power"
+  },
 
   "_competing_events_are_a_different_entry": "This entry assumes NO competing event. Where death competes with the event of interest, a cause-specific or Fine-Gray model is required and a Kaplan-Meier curve is not merely off-message: it censors the competing death and overstates cumulative incidence. competingEvents is false above for that reason, and a plan typing it true must not be routed here.",
 

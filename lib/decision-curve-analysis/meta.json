@@ -19,7 +19,8 @@
   "learn": "analysis.prediction_performance",
   "sizing": {
     "calc": "none",
-    "_why": "Decision curves are not sized on their own; the model's validation sample size governs."
+    "approach": "not-applicable",
+    "why": "Decision curves are not sized on their own; the model's validation sample size governs."
   },
   "packages": {
     "r": {},

@@ -16,7 +16,8 @@
 
   "sizing": {
     "calc": "twoMeans",
-    "_why": "The effect-based calculation for a two-arm mean difference. linearSPV is a subjects-per-variable FLOOR and is not a substitute for it: a floor says how many rows a model of this width needs before its coefficients are stable, not how many the study needs to detect the difference it is powered for."
+    "approach": "analytic-power",
+    "why": "The effect-based calculation for a two-arm mean difference. linearSPV is a subjects-per-variable FLOOR and is not a substitute for it: a floor says how many rows a model of this width needs before its coefficients are stable, not how many the study needs to detect the difference it is powered for."
   },
 
   "_clustering_is_a_different_entry": "clustered is false above. A robust sandwich standard error is NOT cluster-robust: it corrects for unequal variance between observations and assumes they are independent. Where observations share a ward, clinic or patient, the correction needed is by CLUSTER, and this entry must not be routed to such a plan.",

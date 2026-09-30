@@ -18,7 +18,8 @@
   },
   "learn": "analysis.interrupted_time_series",
   "sizing": {
-    "calc": "interruptedTimeSeries"
+    "calc": "interruptedTimeSeries",
+    "approach": "fixed-design"
   },
   "packages": {
     "r": {

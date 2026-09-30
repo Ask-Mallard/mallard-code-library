@@ -15,7 +15,11 @@
   "learn": "analysis.recurrent_events",
   "_learn_page_pending": "No Learn page on askmallard.com covers recurrent events yet. `learn` names the page that is planned for it.",
 
-  "sizing": { "calc": "none", "_why": "Sizing recurrent events needs the event rate and its between-person variation; the Poisson forms in the catalog ignore the variation and under-size the study." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Sizing recurrent events needs the event rate and its between-person variation; the Poisson forms in the catalog ignore the variation and under-size the study."
+  },
 
   "packages": {
     "r": { "survival": "3.8-11" },

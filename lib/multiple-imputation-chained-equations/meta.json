@@ -21,7 +21,8 @@
   "learn": "analysis.multiple_imputation",
   "sizing": {
     "calc": "none",
-    "_why": "Imputation does not change what a study is sized for; size the complete-data analysis and inflate for the expected missing fraction."
+    "approach": "not-applicable",
+    "why": "Imputation does not change what a study is sized for; size the complete-data analysis and inflate for the expected missing fraction."
   },
   "packages": {
     "r": {

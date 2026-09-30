@@ -14,7 +14,10 @@
 
   "learn": "analysis.t_test_anova",
 
-  "sizing": { "calc": "anovaKGroups" },
+  "sizing": {
+    "calc": "anovaKGroups",
+    "approach": "analytic-power"
+  },
 
   "packages": {
     "r": {},

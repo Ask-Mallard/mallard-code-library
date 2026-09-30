@@ -1,0 +1,20 @@
+{
+  "id": "power-plan-core",
+  "kind": "sizing",
+  "title": "Power and precision planning for standard study designs",
+  "summary": "A typed dispatcher for the standard analytic power, precision and model-floor calculations used by Ask Mallard plans. Rule-based outputs are labelled floors and never reported as power.",
+  "learn": "concept.power",
+  "sizing_calcs": ["twoMeans", "paired", "oneMean", "twoProportions", "oneProportion", "correlation", "logrank", "logisticEPV", "linearSPV", "dxAccuracy", "agreementKappa", "anovaKGroups", "proportionPrecision", "noninferiorityProportions"],
+  "engines": {"r": "executed", "python": "executed"},
+  "packages": {
+    "r": {},
+    "python": {"scipy": "1.13.1"}
+  },
+  "pinned_defaults": [
+    "Means use the exact two-sided noncentral t distribution; the normal approximation is used only to start the integer search.",
+    "Two-proportion planning uses a pooled null variance and unpooled alternative variance; noninferiority uses a one-sided alpha and unpooled assumed rates.",
+    "Diagnostic accuracy, kappa and a single proportion are precision calculations, not hypothesis-test power.",
+    "Events-per-variable and subjects-per-variable are labelled rule-of-thumb floors. They do not set a final target when an effect- or precision-based requirement is available.",
+    "No attrition or missing-data inflation is applied inside these functions; it is a separate, visible plan assumption."
+  ]
+}

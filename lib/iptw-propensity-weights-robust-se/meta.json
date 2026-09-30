@@ -12,7 +12,9 @@
   },
   "learn": "analysis.propensity_score",
   "sizing": {
-    "calc": "none"
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Effective sample size and variance depend on the propensity-score distribution, overlap, weight estimation and any trimming rule; an unweighted two-group formula does not size the weighted estimand."
   },
   "_ate_not_att": "IPTW as written here targets the AVERAGE TREATMENT EFFECT: the effect if everyone were treated against everyone untreated. Matching without replacement targets the effect among the TREATED, and on confounded data those are different numbers rather than two routes to one. The fixture's truth is the ATE, computed from the data-generating process before any estimator exists, so an entry that quietly compared it against an ATT estimator would be scoring the wrong quantity.",
   "_the_weights_are_estimated_and_the_sandwich_does_not_know_that": "Every standard error here treats the propensity score as fixed. It was estimated, and accounting for that -- an M-estimation stack over both stages, or a bootstrap of the whole procedure -- gives a NARROWER interval. The sandwich is therefore conservative rather than correct, which is the safe direction and is not the same thing. Named here and in every file, because an entry that reported it as exact would be teaching the error it exists to prevent.",

@@ -19,7 +19,8 @@
   "learn": "design.difference_in_differences",
   "sizing": {
     "calc": "none",
-    "_why": "Sizing a DiD needs the number of units, periods, the within-unit correlation and the pre-period variance; no catalog form takes them. Simulation."
+    "approach": "bespoke-simulation",
+    "why": "Sizing a DiD needs the number of units, periods, the within-unit correlation and the pre-period variance; no catalog form takes them. Simulation."
   },
   "packages": {
     "r": {

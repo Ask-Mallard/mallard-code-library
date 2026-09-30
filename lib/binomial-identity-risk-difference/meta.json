@@ -14,7 +14,10 @@
 
   "learn": "concept.absolute_relative",
 
-  "sizing": { "calc": "twoProportions" },
+  "sizing": {
+    "calc": "twoProportions",
+    "approach": "analytic-power"
+  },
 
   "packages": {
     "r": {},

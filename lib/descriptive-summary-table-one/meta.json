@@ -15,7 +15,11 @@
   "learn": "analysis.descriptive_statistics",
   "_learn_page_pending": "No Learn page on askmallard.com covers descriptive statistics and Table 1 yet. `learn` names the page that is planned for it.",
 
-  "sizing": { "calc": "none", "_why": "A Table 1 describes the sample the study already has; it is not sized." },
+  "sizing": {
+    "calc": "none",
+    "approach": "not-applicable",
+    "why": "A Table 1 describes the sample the study already has; it is not sized."
+  },
 
   "packages": {
     "r": {},

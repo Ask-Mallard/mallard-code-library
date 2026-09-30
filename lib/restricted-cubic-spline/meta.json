@@ -14,7 +14,11 @@
 
   "learn": "analysis.splines",
 
-  "sizing": { "calc": "none", "_why": "A spline is a modelling choice for an exposure, not a comparison the catalog sizes." },
+  "sizing": {
+    "calc": "none",
+    "approach": "not-applicable",
+    "why": "A spline is a modelling choice for an exposure, not a comparison the catalog sizes."
+  },
 
   "packages": {
     "r": {},

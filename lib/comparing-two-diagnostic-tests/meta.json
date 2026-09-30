@@ -19,7 +19,8 @@
   "learn": "analysis.roc",
   "sizing": {
     "calc": "none",
-    "_why": "Comparing correlated AUCs or paired sensitivities needs the between-test correlation; no catalog form takes it."
+    "approach": "precision",
+    "why": "Comparing correlated AUCs or paired sensitivities needs the between-test correlation; no catalog form takes it."
   },
   "packages": {
     "r": {

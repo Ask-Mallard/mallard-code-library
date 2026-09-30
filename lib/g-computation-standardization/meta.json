@@ -19,7 +19,8 @@
   "learn": "analysis.g_computation",
   "sizing": {
     "calc": "twoProportions",
-    "_note": "Sized as a two-group risk comparison; adjusting for prognostic covariates usually improves precision, so the unadjusted form is conservative."
+    "approach": "analytic-power",
+    "note": "Sized as a two-group risk comparison; adjusting for prognostic covariates usually improves precision, so the unadjusted form is conservative."
   },
   "packages": {
     "r": {},

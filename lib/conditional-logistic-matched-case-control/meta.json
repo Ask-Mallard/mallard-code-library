@@ -21,7 +21,8 @@
   "learn": "design.matched_case_control",
   "sizing": {
     "calc": "none",
-    "_why": "A matched or nested case-control has no closed-form sample-size formula among the standard two-group ones and must not borrow one: the paired formula is for a continuous mean difference. The honest route is the discordant-set method (Dupont 1988); epiR::epi.sscc implements it in R."
+    "approach": "bespoke-simulation",
+    "why": "A matched or nested case-control has no closed-form sample-size formula among the standard two-group ones and must not borrow one: the paired formula is for a continuous mean difference. The honest route is the discordant-set method (Dupont 1988); epiR::epi.sscc implements it in R."
   },
   "packages": {
     "r": {

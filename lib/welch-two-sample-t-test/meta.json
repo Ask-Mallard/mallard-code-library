@@ -14,7 +14,10 @@
 
   "learn": "analysis.t_test_anova",
 
-  "sizing": { "calc": "twoMeans" },
+  "sizing": {
+    "calc": "twoMeans",
+    "approach": "analytic-power"
+  },
 
   "_anova_is_not_in_this_entry": "The Learn page it serves covers t-tests AND analysis of variance. This entry is the two-group comparison only. A k-group one-way analysis is a separate fixture and a separate default worth pinning (R's oneway.test does NOT assume equal variance while aov does), and folding it in here would give one entry two estimands and one fixture two jobs.",
 

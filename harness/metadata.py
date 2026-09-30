@@ -26,16 +26,30 @@ def declarations(root):
     for path in sorted(Path(root).glob("*/meta.json")):
         meta = json.loads(path.read_text())
         expected = json.loads(path.with_name("expected.json").read_text())
-        compatibility = meta.get("compatibility")
-        if not isinstance(compatibility, dict) or set(compatibility) - {"framing"} != COMPATIBILITY_KEYS:
-            raise ValueError(f"{path}: incomplete typed compatibility profile")
-        for key, values in compatibility.items():
-            if not isinstance(values, list) or not values or any(type(v) is not (bool if key in ("competingEvents", "repeatedMeasures") else str) for v in values):
-                raise ValueError(f"{path}: invalid compatibility values for {key}")
-        if not set(compatibility["target"]) <= TARGETS:
-            raise ValueError(f"{path}: compatibility target outside the app's estimand vocabulary")
-        if "framing" in compatibility and not set(compatibility["framing"]) <= FRAMINGS:
-            raise ValueError(f"{path}: compatibility framing outside the app's estimand vocabulary")
+        if not path.with_name("fixture.py").exists():
+            raise ValueError(f"{path}: fixture.py is required so the committed fixture is reproducible")
+        kind = meta.get("kind", "analysis")
+        if kind == "analysis":
+            compatibility = meta.get("compatibility")
+            if not isinstance(compatibility, dict) or set(compatibility) - {"framing"} != COMPATIBILITY_KEYS:
+                raise ValueError(f"{path}: incomplete typed compatibility profile")
+            for key, values in compatibility.items():
+                if not isinstance(values, list) or not values or any(type(v) is not (bool if key in ("competingEvents", "repeatedMeasures") else str) for v in values):
+                    raise ValueError(f"{path}: invalid compatibility values for {key}")
+            if not set(compatibility["target"]) <= TARGETS:
+                raise ValueError(f"{path}: compatibility target outside the app's estimand vocabulary")
+            if "framing" in compatibility and not set(compatibility["framing"]) <= FRAMINGS:
+                raise ValueError(f"{path}: compatibility framing outside the app's estimand vocabulary")
+        elif kind == "sizing":
+            calcs = meta.get("sizing_calcs")
+            if not isinstance(calcs, list) or not calcs or any(not isinstance(v, str) or not v for v in calcs):
+                raise ValueError(f"{path}: sizing entry needs non-empty sizing_calcs")
+            if len(calcs) != len(set(calcs)):
+                raise ValueError(f"{path}: sizing_calcs contains duplicates")
+            if "compatibility" in meta:
+                raise ValueError(f"{path}: sizing code must not advertise an analysis compatibility profile")
+        else:
+            raise ValueError(f"{path}: unknown entry kind {kind!r}")
         states = meta.get("engines", {})
         for lang, filename in FILES.items():
             state = states.get(lang)

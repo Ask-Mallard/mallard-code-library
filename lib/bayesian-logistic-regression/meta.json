@@ -16,6 +16,11 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Bayesian assurance depends on the prior, decision threshold and full outcome model; a frequentist two-group formula would not size the posterior decision this analysis reports."
+  },
   "packages": {
     "r": {},
     "python": {}

@@ -14,7 +14,11 @@
 
   "learn": "analysis.survival_extensions",
 
-  "sizing": { "calc": "none", "_why": "The catalog's log-rank form sizes a hazard ratio without a shape assumption; sizing a Weibull time ratio needs the shape and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "The catalog's log-rank form sizes a hazard ratio without a shape assumption; sizing a Weibull time ratio needs the shape and is a simulation."
+  },
 
   "packages": {
     "r": { "survival": "3.8-11" },

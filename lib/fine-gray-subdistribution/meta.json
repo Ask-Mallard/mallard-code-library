@@ -14,7 +14,11 @@
 
   "learn": "analysis.competing_risks",
 
-  "sizing": { "calc": "none", "_why": "Sizing a Fine-Gray comparison needs the cumulative incidences of both causes and is a simulation; the log-rank form sizes a different quantity." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Sizing a Fine-Gray comparison needs the cumulative incidences of both causes and is a simulation; the log-rank form sizes a different quantity."
+  },
 
   "packages": {
     "r": { "cmprsk": "2.2-12" },

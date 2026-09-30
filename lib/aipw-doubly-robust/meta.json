@@ -19,7 +19,8 @@
   "learn": "analysis.propensity_score",
   "sizing": {
     "calc": "twoProportions",
-    "_note": "Sized as a two-group risk comparison; the unadjusted form is conservative when the working models are prognostic."
+    "approach": "analytic-power",
+    "note": "Sized as a two-group risk comparison; the unadjusted form is conservative when the working models are prognostic."
   },
   "packages": {
     "r": {},

@@ -14,7 +14,10 @@
 
   "learn": "analysis.chi_square",
 
-  "sizing": { "calc": "twoProportions" },
+  "sizing": {
+    "calc": "twoProportions",
+    "approach": "analytic-power"
+  },
 
   "_unadjusted_on_purpose": "This is the crude table. Nothing here adjusts for anything, so it estimates a causal contrast only where the exposure was randomised or the plan can defend exchangeability without covariates. Where adjustment is needed the entry to use is logistic regression or the modified Poisson model, not this one with a covariate bolted on.",
 

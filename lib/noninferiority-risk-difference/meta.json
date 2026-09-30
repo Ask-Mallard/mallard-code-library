@@ -18,8 +18,9 @@
   },
   "learn": "analysis.noninferiority",
   "sizing": {
-    "calc": "none",
-    "_why": "Noninferiority has no catalog form on purpose: it is sized on the margin, by the margin-based method named in prose."
+    "calc": "noninferiorityProportions",
+    "approach": "analytic-power",
+    "note": "Use the prespecified risk-difference margin, one-sided alpha and clinically justified direction of harm; do not size this analysis as an ordinary superiority comparison."
   },
   "packages": {
     "r": {},

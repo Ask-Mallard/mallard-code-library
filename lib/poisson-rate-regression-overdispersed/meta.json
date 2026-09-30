@@ -14,7 +14,10 @@
 
   "learn": "analysis.count_regression",
 
-  "sizing": { "calc": "twoProportions" },
+  "sizing": {
+    "calc": "twoProportions",
+    "approach": "analytic-power"
+  },
 
   "_clustering_is_a_different_entry": "clustered is false above. A robust sandwich standard error here corrects for the variance not matching the mean and still assumes patients are INDEPENDENT. Where patients share a ward or clinic, or where one patient contributes several rows, the correction has to be BY CLUSTER and this entry must not be routed to such a plan.",
 

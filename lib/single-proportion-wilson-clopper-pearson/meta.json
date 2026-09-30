@@ -14,7 +14,10 @@
 
   "learn": "design.prevalence",
 
-  "sizing": { "calc": "proportionPrecision" },
+  "sizing": {
+    "calc": "proportionPrecision",
+    "approach": "precision"
+  },
 
   "packages": {
     "r": { "binom": "1.1-2" },

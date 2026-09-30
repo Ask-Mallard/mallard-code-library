@@ -16,6 +16,11 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
+  "sizing": {
+    "calc": "none",
+    "approach": "fixed-design",
+    "why": "The number and size of eligible diagnostic studies are normally fixed by the evidence base; report attainable precision and the stability of between-study covariance estimates rather than retrospective power."
+  },
   "packages": {
     "r": {
       "mada": "0.5.12"

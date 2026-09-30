@@ -1,0 +1,17 @@
+{
+  "id": "power-plan-guidance",
+  "kind": "sizing",
+  "title": "Planning guidance when an ordinary power calculation is not valid",
+  "summary": "Executable R and Python templates that carry precision, fixed-design, rule-of-thumb, bespoke-simulation and not-applicable routes into code without fabricating a sample size.",
+  "learn": "concept.power",
+  "sizing_calcs": ["precision", "fixed-design", "rule-of-thumb", "bespoke-simulation", "not-applicable", "simulation"],
+  "engines": {"r": "executed", "python": "executed"},
+  "packages": {"r": {}, "python": {}},
+  "pinned_defaults": [
+    "No numeric sample size or power is returned unless a validated route-specific calculator is supplied.",
+    "Every record states why ordinary power is invalid, the inputs still needed, and the next action.",
+    "A bespoke simulation must report its seed, attempted replicates, successful fits, failed fits, estimated power and Monte Carlo standard error.",
+    "A fixed dataset is assessed with attainable precision or a prespecified minimum detectable effect, never retrospective observed power.",
+    "A rule of thumb is a floor and never the final recommendation when an effect- or precision-based method is available."
+  ]
+}
