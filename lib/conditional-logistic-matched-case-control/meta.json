@@ -57,8 +57,7 @@
       "matchedConditional"
     ],
     "samplingStructure": [
-      "matched",
-      "nestedCaseControl"
+      "matched"
     ],
     "competingEvents": [
       false
