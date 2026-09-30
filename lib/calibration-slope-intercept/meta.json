@@ -19,7 +19,8 @@
   "learn": "concept.calibration",
   "sizing": {
     "calc": "none",
-    "_why": "Validation sample size is set by the precision of the calibration slope and O/E (Riley et al. 2021); no catalog form takes it."
+    "approach": "precision",
+    "why": "Validation sample size is set by the precision of the calibration slope and O/E (Riley et al. 2021); no catalog form takes it."
   },
   "packages": {
     "r": {},

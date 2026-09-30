@@ -14,7 +14,11 @@
 
   "learn": "analysis.count_regression",
 
-  "sizing": { "calc": "none", "_why": "The catalog's rate forms assume Poisson variance. Sizing a negative binomial comparison needs the dispersion as an input, which the catalog does not take; using a Poisson form under-sizes the study." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "The catalog's rate forms assume Poisson variance. Sizing a negative binomial comparison needs the dispersion as an input, which the catalog does not take; using a Poisson form under-sizes the study."
+  },
 
   "packages": {
     "r": { "MASS": "7.3-66" },

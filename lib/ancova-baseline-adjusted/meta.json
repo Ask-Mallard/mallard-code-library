@@ -14,7 +14,11 @@
 
   "learn": "analysis.ancova",
 
-  "sizing": { "calc": "twoMeans", "_note": "The two-means form is conservative for ANCOVA: adjusting for a baseline with correlation r to the outcome shrinks the required size by about (1 - r^2)." },
+  "sizing": {
+    "calc": "twoMeans",
+    "approach": "analytic-power",
+    "note": "The two-means form is conservative for ANCOVA: adjusting for a baseline with correlation r to the outcome shrinks the required size by about (1 - r^2)."
+  },
 
   "packages": {
     "r": {},

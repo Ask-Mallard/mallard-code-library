@@ -15,7 +15,11 @@
   "learn": "analysis.multinomial_regression",
   "_learn_page_pending": "No Learn page on askmallard.com covers multinomial regression yet. `learn` names the page that is planned for it.",
 
-  "sizing": { "calc": "none", "_why": "No multinomial form is in the catalog; sizing needs the anticipated distribution across all categories in each group and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "No multinomial form is in the catalog; sizing needs the anticipated distribution across all categories in each group and is a simulation."
+  },
 
   "packages": {
     "r": { "nnet": "7.3-21" },

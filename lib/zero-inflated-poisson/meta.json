@@ -14,7 +14,11 @@
 
   "learn": "analysis.count_regression",
 
-  "sizing": { "calc": "none", "_why": "No zero-inflated form is in the catalog; sizing needs both the structural-zero probability and the count distribution and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "No zero-inflated form is in the catalog; sizing needs both the structural-zero probability and the count distribution and is a simulation."
+  },
 
   "packages": {
     "r": { "pscl": "1.5.9" },

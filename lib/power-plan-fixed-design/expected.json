@@ -1,0 +1,37 @@
+{
+  "method": "power-plan-fixed-design",
+  "fixture": "fixture.csv",
+  "truth": {
+    "source": "R 4.6.1 fixed-seed interrupted-time-series reference run and the independently derived nested-exchangeable GLS equations stated in README.md",
+    "its_power": 0.25,
+    "its_attempted": 500,
+    "its_successful": 500,
+    "its_failed": 0,
+    "its_seed": 20260915,
+    "sw_power": 0.2677609769,
+    "sw_se": 0.0373032669,
+    "sw_sizeForTarget": 143,
+    "sw_ceiling": 1.0
+  },
+  "agreement": {
+    "claim": "R and Python agree within prespecified Monte Carlo uncertainty for the simulation and tightly for the deterministic GLS calculation",
+    "tolerance_estimate": 1e-08,
+    "tolerance_se": 1e-08,
+    "tolerance_by_key": {
+      "its_power": 0.06,
+      "its_mcse": 0.01
+    }
+  },
+  "recovery": {
+    "claim": "the fixed-seed simulation is near its reference operating characteristic and the stepped-wedge outputs equal the GLS reference",
+    "tolerance_estimate": 1e-08,
+    "tolerance_by_key": {
+      "its_power": 0.06
+    }
+  },
+  "must_appear": {
+    "r": ["set.seed(seed)", "rnbinom(", "family=quasipoisson", "successful", "mcse", "stepped_wedge_variance("],
+    "python": ["np.random.default_rng(seed)", "rng.gamma(", "sm.GLM(", "scale=\"X2\"", "successful", "mcse", "stepped_wedge_variance("]
+  },
+  "engines": {"r": {"executed": true}, "python": {"executed": true}}
+}

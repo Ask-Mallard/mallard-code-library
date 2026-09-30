@@ -19,7 +19,8 @@
   "learn": "design.regression_discontinuity",
   "sizing": {
     "calc": "none",
-    "_why": "RD power depends on the density of patients near the cut-off and the bandwidth; the rdpower package does it, no catalog form does."
+    "approach": "bespoke-simulation",
+    "why": "RD power depends on the density of patients near the cut-off and the bandwidth; the rdpower package does it, no catalog form does."
   },
   "packages": {
     "r": {

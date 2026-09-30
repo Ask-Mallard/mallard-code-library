@@ -19,7 +19,8 @@
   "learn": "analysis.roc",
   "sizing": {
     "calc": "dxAccuracy",
-    "_note": "Sized on the precision of sensitivity and specificity at the intended threshold, or on the AUC's interval width (Hanley-McNeil)."
+    "approach": "precision",
+    "note": "Sized on the precision of sensitivity and specificity at the intended threshold, or on the AUC's interval width (Hanley-McNeil)."
   },
   "packages": {
     "r": {

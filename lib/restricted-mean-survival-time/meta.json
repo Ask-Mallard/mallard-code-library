@@ -14,7 +14,11 @@
 
   "learn": "analysis.survival_extensions",
 
-  "sizing": { "calc": "none", "_why": "No RMST form is in the catalog; sizing needs the survival curves up to tau and the censoring pattern and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "No RMST form is in the catalog; sizing needs the survival curves up to tau and the censoring pattern and is a simulation."
+  },
 
   "packages": {
     "r": { "survival": "3.8-11" },

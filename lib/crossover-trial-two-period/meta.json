@@ -14,7 +14,11 @@
 
   "learn": "design.crossover",
 
-  "sizing": { "calc": "paired", "_note": "A crossover's within-patient comparison is sized like a paired design, using the SD of the within-patient differences." },
+  "sizing": {
+    "calc": "paired",
+    "approach": "analytic-power",
+    "note": "A crossover's within-patient comparison is sized like a paired design, using the SD of the within-patient differences."
+  },
 
   "packages": {
     "r": {},

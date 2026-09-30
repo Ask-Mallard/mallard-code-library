@@ -20,7 +20,8 @@
   "learn": "design.nested_case_control",
   "sizing": {
     "calc": "none",
-    "_why": "A matched or nested case-control has no form in the sizing catalog and must not borrow one."
+    "approach": "bespoke-simulation",
+    "why": "A matched or nested case-control has no form in the sizing catalog and must not borrow one."
   },
   "packages": {
     "r": {

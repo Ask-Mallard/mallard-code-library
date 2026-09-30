@@ -15,7 +15,11 @@
   "learn": "analysis.quantile_regression",
   "_learn_page_pending": "No Learn page on askmallard.com covers quantile regression yet. `learn` names the page that is planned for it.",
 
-  "sizing": { "calc": "none", "_why": "No quantile-regression form is in the catalog; sizing needs the outcome's density at the median and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "No quantile-regression form is in the catalog; sizing needs the outcome's density at the median and is a simulation."
+  },
 
   "packages": {
     "r": { "quantreg": "6.1" },

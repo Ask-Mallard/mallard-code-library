@@ -171,7 +171,7 @@ model = sm.GEE(y, X, groups=g, cov_struct=Exchangeable())
         check("an R-only entry says R only", "| Alpha method | R |" in text, text)
         check("a two-engine entry names both", "| Beta method | R and Python |" in text, text)
         check("the count line counts both kinds",
-              "**2 entries.** 1 are executed in both R and Python and carry both claims; 1 are executed in one language" in text, text)
+              "**2 analysis entries and 0 sizing-code entries.** 1 are executed in both R and Python and carry both claims; 1 are executed in one language" in text, text)
         (lib / "a-entry" / "meta.json").write_text(json.dumps(
             {"id": "a-entry", "title": "Alpha method", "engines": {"r": "executed", "python": "executed"}}))
         check("changing an entry's engines makes the list stale", catalogue.main(args + ["--check"]) == 1)

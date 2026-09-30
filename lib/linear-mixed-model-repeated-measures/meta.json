@@ -14,7 +14,11 @@
 
   "learn": "analysis.repeated_measures",
 
-  "sizing": { "calc": "none", "_why": "Sizing a slope difference needs the number of visits, their spacing and the within-patient correlation; no catalog form takes them. Simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Sizing a slope difference needs the number of visits, their spacing and the within-patient correlation; no catalog form takes them. Simulation."
+  },
 
   "packages": {
     "r": { "lme4": "2.0-6" },

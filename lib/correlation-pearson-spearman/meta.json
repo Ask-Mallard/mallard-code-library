@@ -14,7 +14,10 @@
 
   "learn": "analysis.correlation",
 
-  "sizing": { "calc": "correlation" },
+  "sizing": {
+    "calc": "correlation",
+    "approach": "analytic-power"
+  },
 
   "packages": {
     "r": {},

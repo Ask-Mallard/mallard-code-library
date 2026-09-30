@@ -14,7 +14,10 @@
 
   "learn": "design.stepped_wedge",
 
-  "sizing": { "calc": "steppedWedge" },
+  "sizing": {
+    "calc": "steppedWedge",
+    "approach": "fixed-design"
+  },
 
   "packages": {
     "r": { "lme4": "2.0-6" },

@@ -14,7 +14,11 @@
 
   "learn": "analysis.competing_risks",
 
-  "sizing": { "calc": "none", "_why": "The log-rank form counts all events; under competing risks the events of the cause of interest are fewer and depend on the competing rate. Sizing needs both hazards and is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "The log-rank form counts all events; under competing risks the events of the cause of interest are fewer and depend on the competing rate. Sizing needs both hazards and is a simulation."
+  },
 
   "packages": {
     "r": { "survival": "3.8-11" },

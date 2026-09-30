@@ -18,7 +18,8 @@
   },
   "learn": "design.controlled_before_after",
   "sizing": {
-    "calc": "interruptedTimeSeries"
+    "calc": "interruptedTimeSeries",
+    "approach": "fixed-design"
   },
   "packages": {
     "r": {

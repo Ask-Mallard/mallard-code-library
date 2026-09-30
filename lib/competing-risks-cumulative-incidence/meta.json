@@ -14,7 +14,11 @@
 
   "learn": "analysis.competing_risks",
 
-  "sizing": { "calc": "none", "_why": "There is no closed form in the catalog for a cumulative incidence comparison, and borrowing the log-rank form would size a different quantity. Gray's test has its own literature; sizing one is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "There is no closed form in the catalog for a cumulative incidence comparison, and borrowing the log-rank form would size a different quantity. Gray's test has its own literature; sizing one is a simulation."
+  },
 
   "_this_is_the_entry_the_others_point_at": "Where death competes with the event of interest, a Kaplan-Meier curve is not merely off-message: it censors the competing death and overstates cumulative incidence. This entry is that error with numbers on it, and it computes the wrong estimator alongside the right one so the gap is in the output.",
 

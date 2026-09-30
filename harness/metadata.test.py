@@ -7,7 +7,7 @@ from metadata import declarations
 
 root = Path(__file__).resolve().parent.parent / "lib"
 declarations(root)  # Byte-faithful negative control: the whole committed library.
-cases = ("missing-state", "contradictory-state", "conflicting-version", "missing-source", "missing-compatibility", "unknown-target", "unknown-framing")
+cases = ("missing-state", "contradictory-state", "conflicting-version", "missing-source", "missing-fixture-generator", "missing-compatibility", "unknown-target", "unknown-framing")
 for case in cases:
     with tempfile.TemporaryDirectory() as tmp:
         target = Path(tmp) / "lib"
@@ -22,6 +22,8 @@ for case in cases:
             value["packages"]["r"]["survival"] = "0.0"
         elif case == "missing-source":
             path.with_name("r.R").unlink()
+        elif case == "missing-fixture-generator":
+            path.with_name("fixture.py").unlink()
         elif case == "unknown-target":
             value["compatibility"]["target"] = ["prediction"]
         elif case == "unknown-framing":

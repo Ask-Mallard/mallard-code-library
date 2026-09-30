@@ -14,7 +14,11 @@
 
   "learn": "analysis.cluster_robust",
 
-  "sizing": { "calc": "simulation", "_note": "A cluster trial is sized on the number of clusters; see the design-effect and simulation guidance." },
+  "sizing": {
+    "calc": "simulation",
+    "approach": "bespoke-simulation",
+    "note": "A cluster trial is sized on the number of clusters; see the design-effect and simulation guidance."
+  },
 
   "packages": {
     "r": { "clubSandwich": "0.7.0" },

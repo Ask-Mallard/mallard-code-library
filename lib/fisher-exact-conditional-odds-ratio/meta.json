@@ -14,7 +14,10 @@
 
   "learn": "analysis.chi_square",
 
-  "sizing": { "calc": "twoProportions" },
+  "sizing": {
+    "calc": "twoProportions",
+    "approach": "analytic-power"
+  },
 
   "packages": {
     "r": {},

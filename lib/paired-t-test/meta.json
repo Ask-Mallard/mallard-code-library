@@ -14,7 +14,10 @@
 
   "learn": "analysis.t_test_anova",
 
-  "sizing": { "calc": "paired" },
+  "sizing": {
+    "calc": "paired",
+    "approach": "analytic-power"
+  },
 
   "packages": {
     "r": {},

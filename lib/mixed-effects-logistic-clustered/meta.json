@@ -16,7 +16,8 @@
 
   "sizing": {
     "calc": "simulation",
-    "_why": "A clustered design is sized by SIMULATION, not by a closed form. Reporting an unclustered two-group formula or a per-variable floor as THE method for a clustered design is a documented error. requiredN is null for simulation on purpose: the alternative to a wrong number is no number."
+    "approach": "bespoke-simulation",
+    "why": "A clustered design is sized by SIMULATION, not by a closed form. Reporting an unclustered two-group formula or a per-variable floor as THE method for a clustered design is a documented error. requiredN is null for simulation on purpose: the alternative to a wrong number is no number."
   },
 
   "packages": {

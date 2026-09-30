@@ -14,7 +14,11 @@
 
   "learn": "analysis.cluster_robust",
 
-  "sizing": { "calc": "simulation", "_note": "A cluster trial is sized by simulation or a design-effect calculation on the number of clusters; the individual two-proportions form is wrong." },
+  "sizing": {
+    "calc": "simulation",
+    "approach": "bespoke-simulation",
+    "note": "A cluster trial is sized by simulation or a design-effect calculation on the number of clusters; the individual two-proportions form is wrong."
+  },
 
   "packages": {
     "r": {},

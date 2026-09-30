@@ -19,7 +19,8 @@
   "learn": "concept.attrition",
   "sizing": {
     "calc": "twoProportions",
-    "_note": "Sized as the two-arm comparison, inflated for expected dropout; weighting costs some precision beyond that."
+    "approach": "analytic-power",
+    "note": "Sized as the two-arm comparison, inflated for expected dropout; weighting costs some precision beyond that."
   },
   "packages": {
     "r": {},

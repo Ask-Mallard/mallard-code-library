@@ -19,7 +19,8 @@
   "learn": "design.case_crossover",
   "sizing": {
     "calc": "none",
-    "_why": "Case-crossover power depends on the exposure prevalence and the number of referent windows (a matched-set calculation); no catalog form takes them, and the matched case-control rule forbids borrowing the paired form."
+    "approach": "bespoke-simulation",
+    "why": "Case-crossover power depends on the exposure prevalence and the number of referent windows (a matched-set calculation); no catalog form takes them, and the matched case-control rule forbids borrowing the paired form."
   },
   "packages": {
     "r": {

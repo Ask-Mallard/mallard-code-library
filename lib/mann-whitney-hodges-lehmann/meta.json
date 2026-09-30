@@ -14,7 +14,11 @@
 
   "learn": "analysis.nonparametric",
 
-  "sizing": { "calc": "none", "_why": "No rank-test form is in the catalog. Sizing a Wilcoxon comparison needs an assumed distribution shape (or an asymptotic relative efficiency adjustment to a t-test size), which is a simulation or a stated approximation, not a formula to borrow." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "No rank-test form is in the catalog. Sizing a Wilcoxon comparison needs an assumed distribution shape (or an asymptotic relative efficiency adjustment to a t-test size), which is a simulation or a stated approximation, not a formula to borrow."
+  },
 
   "packages": {
     "r": {},

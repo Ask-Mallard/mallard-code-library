@@ -1,0 +1,156 @@
+{
+  "_comment": "Canonical power-plan routes. Every analysis meta.json selects one calc and approach accepted here. The route supplies the code, Learn page, required inputs, and next action; the analysis supplies any method-specific limitation.",
+  "routes": {
+    "twoMeans": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["meaningful mean difference", "standard deviation", "two-sided alpha", "target power", "allocation ratio"],
+      "nextStep": "Replace the synthetic inputs with sourced study assumptions and rerun the exact noncentral-t calculation."
+    },
+    "paired": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["meaningful within-pair mean difference", "standard deviation of the paired differences", "two-sided alpha", "target power"],
+      "nextStep": "Source the variability of the paired differences, not the marginal standard deviation, and rerun the exact noncentral-t calculation."
+    },
+    "oneMean": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["meaningful difference from the reference", "standard deviation", "two-sided alpha", "target power"],
+      "nextStep": "Replace the synthetic assumptions with sourced values and rerun the exact noncentral-t calculation."
+    },
+    "twoProportions": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["proportion in each group", "two-sided alpha", "target power", "allocation ratio"],
+      "nextStep": "Use defensible group risks on the estimand's scale and assess a plausible range rather than one optimistic pair."
+    },
+    "oneProportion": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["null proportion", "expected proportion", "two-sided alpha", "target power"],
+      "nextStep": "Use a clinically meaningful departure from the null and rerun the calculation over a plausible expected range."
+    },
+    "correlation": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["correlation to detect", "two-sided alpha", "target power"],
+      "nextStep": "Justify the target correlation before using the Fisher-z calculation."
+    },
+    "logrank": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["hazard ratio", "overall event probability", "two-sided alpha", "target power", "allocation ratio"],
+      "nextStep": "Calculate the required event count first, then translate it to enrollment using a sourced event probability and follow-up plan."
+    },
+    "logisticEPV": {
+      "approach": "rule-of-thumb",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["candidate parameter count", "event proportion"],
+      "nextStep": "Treat the result as a minimum stability floor, then use an effect-based calculation or modern prediction-model criteria for the final target."
+    },
+    "linearSPV": {
+      "approach": "rule-of-thumb",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["candidate parameter count"],
+      "nextStep": "Treat the result as a minimum stability floor, not power, and compare it with the effect- or precision-based requirement."
+    },
+    "dxAccuracy": {
+      "approach": "precision",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["anticipated sensitivity", "anticipated specificity", "condition prevalence", "confidence-interval half-width", "two-sided alpha"],
+      "nextStep": "Size the diseased and non-diseased groups separately and use the larger enrollment requirement."
+    },
+    "agreementKappa": {
+      "approach": "precision",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["anticipated kappa", "positive-category prevalence", "confidence-interval half-width", "two-sided alpha"],
+      "nextStep": "State the category prevalence and target interval width; agreement precision changes sharply when one category is rare."
+    },
+    "anovaKGroups": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "concept.power",
+      "requiredInputs": ["number of groups", "Cohen's f", "two-sided alpha", "target power"],
+      "nextStep": "Justify the omnibus effect size and rerun the noncentral-F calculation before allocating participants across groups."
+    },
+    "proportionPrecision": {
+      "approach": "precision",
+      "entry": "power-plan-core",
+      "learn": "concept.precision_planning",
+      "requiredInputs": ["anticipated proportion", "confidence-interval half-width", "two-sided alpha", "intraclass correlation when clustered", "cluster count or average cluster size when clustered"],
+      "nextStep": "Plan around the interval width the study must deliver and include the design effect when observations are clustered."
+    },
+    "interruptedTimeSeries": {
+      "approach": "fixed-design",
+      "entry": "power-plan-fixed-design",
+      "learn": "design.interrupted_time_series",
+      "requiredInputs": ["pre- and post-intervention time points", "one or two series", "baseline event rate", "level or trend change", "dispersion", "seasonality", "two-sided alpha"],
+      "nextStep": "Report attainable power for the fixed time grid with a deterministic simulation, its Monte Carlo error, and failed-fit count; do not turn it into a participant target."
+    },
+    "noninferiorityProportions": {
+      "approach": "analytic-power",
+      "entry": "power-plan-core",
+      "learn": "design.noninferiority",
+      "requiredInputs": ["reference risk", "new-treatment risk", "noninferiority margin", "direction of harm", "one-sided alpha", "target power", "allocation ratio"],
+      "nextStep": "Justify the margin clinically and historically, then report both intention-to-treat and per-protocol analysis requirements."
+    },
+    "steppedWedge": {
+      "approach": "fixed-design",
+      "entry": "power-plan-fixed-design",
+      "learn": "design.stepped_wedge",
+      "requiredInputs": ["number of clusters", "periods", "participants per cluster-period", "intraclass correlation", "cluster autocorrelation", "outcome scale and target effect", "two-sided alpha"],
+      "nextStep": "Report attainable power for the fixed cluster-period design and the cluster-period size required under the stated correlation structure."
+    },
+    "simulation": {
+      "approach": "bespoke-simulation",
+      "entry": "power-plan-guidance",
+      "learn": "concept.power",
+      "requiredInputs": ["typed analysis model", "complete data-generating mechanism", "design structure", "effect on the estimand's scale", "nuisance parameters", "missingness and convergence rules", "alpha", "target power"],
+      "nextStep": "Specify and review the data-generating process, then run a seeded simulation that reports successful fits, failures and Monte Carlo uncertainty."
+    }
+  },
+  "fallbacks": {
+    "precision": {
+      "entry": "power-plan-guidance",
+      "learn": "concept.precision_planning",
+      "requiredInputs": ["anticipated value or variability", "confidence level", "decision-relevant confidence-interval width"],
+      "nextStep": "Choose the confidence-interval width that would change the clinical or operational decision, then use a validated method for that estimand."
+    },
+    "fixed-design": {
+      "entry": "power-plan-guidance",
+      "learn": "concept.fixed_dataset_sizing",
+      "requiredInputs": ["fixed available count", "clinically meaningful effect", "nuisance parameters needed for precision or minimum-detectable-effect calculations"],
+      "nextStep": "Treat the available number as fixed and report attainable precision or a prespecified minimum detectable effect, never retrospective observed power."
+    },
+    "rule-of-thumb": {
+      "entry": "power-plan-guidance",
+      "learn": "concept.power",
+      "requiredInputs": ["candidate parameter count", "outcome-event count or rate", "an effect- or precision-based requirement for comparison"],
+      "nextStep": "Report the rule as a floor and obtain an effect-, precision- or modern model-based sizing calculation before setting the final target."
+    },
+    "bespoke-simulation": {
+      "entry": "power-plan-guidance",
+      "learn": "concept.power",
+      "requiredInputs": ["typed estimand and analysis model", "complete data-generating model", "design and nuisance parameters", "missingness and fit-failure rules", "alpha and target power"],
+      "nextStep": "Specify the full data-generating and analysis models, then run a seeded simulation with convergence failures and Monte Carlo uncertainty reported."
+    },
+    "not-applicable": {
+      "entry": "power-plan-guidance",
+      "learn": "concept.power",
+      "requiredInputs": ["the primary scientific analysis", "that analysis's effect or precision target"],
+      "nextStep": "Size the primary scientific analysis this procedure supports; do not calculate power for an interval method, sensitivity analysis or presentation step by itself."
+    }
+  }
+}

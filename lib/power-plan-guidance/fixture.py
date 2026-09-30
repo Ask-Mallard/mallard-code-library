@@ -1,0 +1,22 @@
+"""Reproduce the committed non-power planning-route scenarios with the standard library only."""
+
+import csv
+import io
+from pathlib import Path
+
+
+FIXTURE = '''approach,why,required_inputs,next_step
+precision,"The primary goal is an interval width rather than rejection of a null","anticipated value or variability; confidence level; useful interval width","Run the validated precision method for the estimand and report the interval-width target."
+fixed-design,"The number of participants studies or periods is already fixed","available count; clinically important effect; nuisance parameters","Report attainable precision or a prespecified minimum detectable effect without observed power."
+rule-of-thumb,"The rule describes a minimum model-capacity floor and not statistical power","number of candidate parameters; number or rate of outcome events","Compare the floor with an effect precision or modern model-based requirement and use the larger defensible target."
+bespoke-simulation,"The design and analysis have no validated closed form that preserves the estimand","full data-generating model; analysis model; design; nuisance parameters; alpha; target power","Run a seeded simulation and report successful fits failures power and Monte Carlo standard error."
+not-applicable,"This procedure supports another primary analysis and is not itself a scientific target","typed primary analysis and its effect or precision target","Size the primary scientific analysis rather than this supporting procedure."
+'''
+
+
+def rows():
+    yield from csv.DictReader(io.StringIO(FIXTURE))
+
+
+if __name__ == "__main__":
+    Path(__file__).with_name("fixture.csv").write_text(FIXTURE, encoding="utf-8")

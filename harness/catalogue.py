@@ -39,7 +39,10 @@ def entries(lib):
                 ran.append(LANG_NAMES[lang])
             elif state == "not-executed":
                 unrun.append(LANG_NAMES[lang])
-        out.append({"id": meta["id"], "title": meta["title"], "ran": ran, "unrun": unrun})
+        kind = meta.get("kind", "analysis")
+        if kind not in ("analysis", "sizing"):
+            raise SystemExit(f"{meta_path}: unknown entry kind {kind!r}")
+        out.append({"id": meta["id"], "title": meta["title"], "kind": kind, "ran": ran, "unrun": unrun})
     if not out:
         raise SystemExit(f"no entries found under {lib}")
     return out
@@ -59,7 +62,9 @@ def render(lib):
     both = sum(1 for e in rows if len(e["ran"]) == 2)
     one = sum(1 for e in rows if len(e["ran"]) == 1)
     none = len(rows) - both - one
-    summary = (f"**{len(rows)} entries.** {both} are executed in both R and Python and carry both "
+    analyses = sum(1 for e in rows if e["kind"] == "analysis")
+    sizing = len(rows) - analyses
+    summary = (f"**{analyses} analysis entries and {sizing} sizing-code entries.** {both} are executed in both R and Python and carry both "
                f"claims; {one} are executed in one language and carry the recovery claim alone, "
                "with the reason in the entry's `meta.json`.")
     if none:
@@ -69,11 +74,11 @@ def render(lib):
         "",
         summary,
         "",
-        "| Entry | What it estimates | Executed in |",
-        "|---|---|---|",
+        "| Entry | Kind | What it estimates or plans | Executed in |",
+        "|---|---|---|---|",
     ]
     for e in sorted(rows, key=lambda e: e["id"]):
-        lines.append(f"| [`{e['id']}`](lib/{e['id']}/) | {e['title']} | {executed_cell(e)} |")
+        lines.append(f"| [`{e['id']}`](lib/{e['id']}/) | {e['kind']} | {e['title']} | {executed_cell(e)} |")
     lines += ["", END]
     return "\n".join(lines)
 

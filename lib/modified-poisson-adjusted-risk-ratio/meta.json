@@ -20,7 +20,8 @@
   },
   "learn": "concept.absolute_relative",
   "sizing": {
-    "calc": "twoProportions"
+    "calc": "twoProportions",
+    "approach": "analytic-power"
   },
   "packages": {
     "r": {

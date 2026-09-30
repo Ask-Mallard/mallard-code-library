@@ -19,7 +19,8 @@
   "learn": "analysis.penalized_regression",
   "sizing": {
     "calc": "none",
-    "_why": "Prediction-model development is sized by the Riley et al. (2019) criteria (shrinkage, optimism, precision of the intercept); no catalog form implements them, and events-per-variable is only a floor."
+    "approach": "bespoke-simulation",
+    "why": "Prediction-model development is sized by the Riley et al. (2019) criteria (shrinkage, optimism, precision of the intercept); no catalog form implements them, and events-per-variable is only a floor."
   },
   "packages": {
     "r": {},

@@ -16,6 +16,11 @@
     "repeatedMeasures": false,
     "competingEvents": false
   },
+  "sizing": {
+    "calc": "none",
+    "approach": "fixed-design",
+    "why": "The available treatment network is fixed by eligible trials; report the precision and connectivity the network provides rather than inventing a participant target for a new study."
+  },
   "packages": {
     "r": {},
     "python": {

@@ -14,7 +14,10 @@
 
   "learn": "analysis.kaplan_meier",
 
-  "sizing": { "calc": "logrank" },
+  "sizing": {
+    "calc": "logrank",
+    "approach": "analytic-power"
+  },
 
   "_competing_events_must_not_come_here": "competingEvents is false above, and this is the entry where it matters most. Where death competes with the event of interest, a Kaplan-Meier curve is not merely off-message: it CENSORS the competing death and so overstates cumulative incidence. The cumulative incidence function is the estimator for that, and a plan typing competingEvents true must not be routed here.",
 

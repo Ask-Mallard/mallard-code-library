@@ -19,7 +19,8 @@
   "learn": "analysis.spc_run_charts",
   "sizing": {
     "calc": "none",
-    "_why": "Control charts are not sized; the baseline needs enough periods (20 to 25 is common) for stable limits."
+    "approach": "fixed-design",
+    "why": "Control charts are not sized; the baseline needs enough periods (20 to 25 is common) for stable limits."
   },
   "packages": {
     "r": {

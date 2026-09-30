@@ -19,7 +19,8 @@
   "learn": "analysis.matching",
   "sizing": {
     "calc": "none",
-    "_why": "Matching discards unmatched patients and targets the treated; sizing depends on the ratio of controls to treated and on the overlap, which no catalog form takes. Simulation."
+    "approach": "bespoke-simulation",
+    "why": "Matching discards unmatched patients and targets the treated; sizing depends on the ratio of controls to treated and on the overlap, which no catalog form takes. Simulation."
   },
   "packages": {
     "r": {

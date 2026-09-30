@@ -14,7 +14,10 @@
 
   "learn": "design.diagnostic_accuracy",
 
-  "sizing": { "calc": "dxAccuracy" },
+  "sizing": {
+    "calc": "dxAccuracy",
+    "approach": "precision"
+  },
 
   "packages": {
     "r": { "binom": "1.1-2" },

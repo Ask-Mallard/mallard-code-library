@@ -19,7 +19,8 @@
   "learn": "design.self_controlled",
   "sizing": {
     "calc": "none",
-    "_why": "SCCS sample size depends on the risk-window length relative to the observation period and the age-specific rates (Musonda 2006); no catalog form takes them."
+    "approach": "bespoke-simulation",
+    "why": "SCCS sample size depends on the risk-window length relative to the observation period and the age-specific rates (Musonda 2006); no catalog form takes them."
   },
   "packages": {
     "r": {},

@@ -1,0 +1,51 @@
+{
+  "method": "power-plan-core",
+  "fixture": "fixture.csv",
+  "truth": {
+    "source": "R 4.6.1 stats distributions and the published closed-form planning equations stated in README.md",
+    "twoMeans_n1": 64,
+    "twoMeans_n2": 64,
+    "twoMeans_total": 128,
+    "paired_total": 52,
+    "oneMean_total": 88,
+    "twoProportions_n1": 199,
+    "twoProportions_n2": 199,
+    "twoProportions_total": 398,
+    "oneProportion_total": 137,
+    "correlation_total": 85,
+    "logrank_events": 247,
+    "logrank_total": 412,
+    "logisticEPV_events": 120,
+    "logisticEPV_total": 600,
+    "linearSPV_total": 114,
+    "dxAccuracy_diseased": 196,
+    "dxAccuracy_nonDiseased": 139,
+    "dxAccuracy_total": 980,
+    "agreementKappa_total": 369,
+    "anovaKGroups_perGroup": 53,
+    "anovaKGroups_total": 159,
+    "proportionPrecision_total": 5950,
+    "noninferiorityProportions_nReference": 1345,
+    "noninferiorityProportions_nNew": 1345,
+    "noninferiorityProportions_total": 2690
+  },
+  "agreement": {
+    "claim": "R and Python return the same integer requirement for every standard analytic, precision and rule-of-thumb route",
+    "tolerance_estimate": 0,
+    "tolerance_se": 0,
+    "tolerance_by_key": {}
+  },
+  "recovery": {
+    "claim": "every result equals its independently computed R or published-equation reference value",
+    "tolerance_estimate": 0,
+    "tolerance_by_key": {}
+  },
+  "must_appear": {
+    "r": ["pt(-critical, df, ncp=ncp)", "qf(1-alpha", "10*round", "more clusters are required"],
+    "python": ["nct.cdf(-critical", "ncf.sf(critical", "10 * round", "more clusters are required"]
+  },
+  "engines": {
+    "r": {"executed": true},
+    "python": {"executed": true}
+  }
+}

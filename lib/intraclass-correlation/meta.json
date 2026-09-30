@@ -19,7 +19,8 @@
   "learn": "analysis.agreement",
   "sizing": {
     "calc": "none",
-    "_why": "ICC sample size depends on the number of raters and the ICC to rule out (Walter, Eliasziw and Donner 1998); no catalog form takes them."
+    "approach": "precision",
+    "why": "ICC sample size depends on the number of raters and the ICC to rule out (Walter, Eliasziw and Donner 1998); no catalog form takes them."
   },
   "packages": {
     "r": {

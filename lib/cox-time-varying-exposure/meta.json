@@ -14,7 +14,11 @@
 
   "learn": "analysis.time_varying",
 
-  "sizing": { "calc": "none", "_why": "Events under a time-varying exposure depend on when exposure starts; the log-rank form assumes fixed groups and would misstate the exposed person-time. Sizing is a simulation." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "Events under a time-varying exposure depend on when exposure starts; the log-rank form assumes fixed groups and would misstate the exposed person-time. Sizing is a simulation."
+  },
 
   "packages": {
     "r": { "survival": "3.8-11" },

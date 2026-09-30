@@ -14,7 +14,11 @@
 
   "learn": "analysis.chi_square",
 
-  "sizing": { "calc": "none", "_why": "The catalog's paired form is for a continuous outcome only; a paired binary outcome is sized from the expected discordant proportions, which has no form in the catalog." },
+  "sizing": {
+    "calc": "none",
+    "approach": "bespoke-simulation",
+    "why": "The catalog's paired form is for a continuous outcome only; a paired binary outcome is sized from the expected discordant proportions, which has no form in the catalog."
+  },
 
   "packages": {
     "r": {},

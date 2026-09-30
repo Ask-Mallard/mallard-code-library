@@ -19,7 +19,8 @@
   "learn": "analysis.sensitivity",
   "sizing": {
     "calc": "none",
-    "_why": "A sensitivity analysis is not sized."
+    "approach": "not-applicable",
+    "why": "An E-value is a sensitivity analysis, not a primary scientific target; size the outcome analysis whose robustness it will assess."
   },
   "packages": {
     "r": {

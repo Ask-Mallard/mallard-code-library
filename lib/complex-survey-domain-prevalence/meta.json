@@ -24,7 +24,9 @@
     "Missing values, nonpositive weights and unresolved lonely PSUs are rejected. Provider-specific interval and reliability rules remain necessary."
   ],
   "sizing": {
-    "calc": "none"
+    "calc": "none",
+    "approach": "precision",
+    "why": "A complex survey is sized for the precision of the weighted domain estimate under its strata, PSU, weight and design-effect assumptions; the independent-proportion form is not valid."
   },
   "estimand": {
     "target": [

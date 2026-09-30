@@ -19,7 +19,8 @@
   "learn": "analysis.bootstrap",
   "sizing": {
     "calc": "none",
-    "_why": "The bootstrap is an interval method, not a design; size for the comparison it summarizes."
+    "approach": "not-applicable",
+    "why": "The bootstrap is an interval method, not a design; size for the comparison it summarizes."
   },
   "packages": {
     "r": {},

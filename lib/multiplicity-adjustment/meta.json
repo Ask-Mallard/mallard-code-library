@@ -19,7 +19,8 @@
   "learn": "concept.multiplicity",
   "sizing": {
     "calc": "twoMeans",
-    "_note": "Size each outcome at the adjusted alpha it will be tested at (for Bonferroni-type control, alpha / m)."
+    "approach": "analytic-power",
+    "note": "Size each outcome at the adjusted alpha it will be tested at (for Bonferroni-type control, alpha / m)."
   },
   "packages": {
     "r": {},

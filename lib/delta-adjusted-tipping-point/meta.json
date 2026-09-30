@@ -19,7 +19,8 @@
   "learn": "analysis.sensitivity",
   "sizing": {
     "calc": "twoMeans",
-    "_note": "Sized as the primary two-arm comparison, inflated for the expected missing fraction."
+    "approach": "analytic-power",
+    "note": "Sized as the primary two-arm comparison, inflated for the expected missing fraction."
   },
   "packages": {
     "r": {},

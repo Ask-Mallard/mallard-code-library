@@ -19,7 +19,8 @@
   "learn": "analysis.propensity_score",
   "sizing": {
     "calc": "none",
-    "_why": "The effective sample size under overlap weighting depends on the propensity distribution; no catalog form takes it. Simulation."
+    "approach": "bespoke-simulation",
+    "why": "The effective sample size under overlap weighting depends on the propensity distribution; no catalog form takes it. Simulation."
   },
   "packages": {
     "r": {},

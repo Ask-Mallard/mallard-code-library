@@ -19,7 +19,8 @@
   "learn": "analysis.agreement",
   "sizing": {
     "calc": "none",
-    "_why": "Kappa sample size depends on the category prevalences and the kappa to rule out; no catalog form takes them."
+    "approach": "precision",
+    "why": "Kappa sample size depends on the category prevalences and the kappa to rule out; no catalog form takes them."
   },
   "packages": {
     "r": {

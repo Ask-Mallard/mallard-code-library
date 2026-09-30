@@ -14,7 +14,11 @@
 
   "learn": "concept.prevalence_incidence",
 
-  "sizing": { "calc": "none", "_why": "The catalog has no precision form for a single rate. Sizing one needs the expected number of events for a target interval width, which is a calculation the app does not offer; borrowing the proportion-precision form would size a different quantity." },
+  "sizing": {
+    "calc": "none",
+    "approach": "precision",
+    "why": "The catalog has no precision form for a single rate. Sizing one needs the expected number of events for a target interval width, which is a calculation the app does not offer; borrowing the proportion-precision form would size a different quantity."
+  },
 
   "packages": {
     "r": {},
