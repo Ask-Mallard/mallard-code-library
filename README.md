@@ -1,72 +1,73 @@
 # Mallard Code Library
 
-Tested, executable reference implementations of biostatistical analyses and study-size planning in
-R and Python.
+Open, runnable examples of statistical analyses and sample-size planning for clinical research,
+written in R and Python.
 
-Each entry explains one analysis or planning task, with R code, Python code wherever a faithful
-implementation exists, synthetic example data or planning inputs, and declared reference values
-and tolerances. The automated verification workflow runs on pushes and pull requests. It checks
-the declared outputs against those references and, where two languages ran, against each other; the list
-of entries below says which ran for each. The library is maintained by [Ask Mallard](https://askmallard.com), which uses these
-entries as reference implementations, and is published so anyone can read, run or reuse them.
+The library is maintained by [Ask Mallard](https://askmallard.com), an AI-assisted tool that helps
+clinicians plan research studies. This repository shares the statistical reference code used by
+Mallard so anyone can read, run and reuse it. You do not need a Mallard account or the app to use
+these examples.
 
-**This is not clinical or statistical advice.** A working implementation of a method says nothing
-about whether that method answers your question, whether your data meet its assumptions, or whether
-the right column reached the right argument. Have a statistician review any analysis that informs
-a study.
+The examples are for clinicians, trainees, researchers and analysts who want to understand a
+method, inspect its assumptions or adapt a worked example. Each comes with an explanation,
+synthetic example data and automated checks. All example data are artificial; this repository
+contains no real patient records.
 
-## Recent changes and verification snapshot
+[Browse the methods](#entries) · [Use an example](#using-an-entry) ·
+[Understand the checks](#how-code-is-validated)
 
-Checked on **7 October 2026** against main [`cb6a82c`](https://github.com/Ask-Mallard/mallard-code-library/commit/cb6a82c84b9005e9cae1214b0824c4cb41a793f5).
-The latest successful main [verification run, on 30 September 2026](https://github.com/Ask-Mallard/mallard-code-library/actions/runs/36704133683/job/109850251205),
-passed **89 entries: 86 analyses and 3 sizing entries**. Of these, 81 ran in both R and Python;
-8 ran in R only, with cross-language agreement explicitly reported as **UNTESTED**. This is a dated
-result for that revision, not a guarantee about a later revision or another dataset.
+## Using an entry
 
-- **Planning routes for every analysis.** [The September 30 addition](https://github.com/Ask-Mallard/mallard-code-library/pull/31)
-  connects all 86 analyses through [the sizing-route catalogue](sizing-routes.json) to
-  [standard power and precision calculations](lib/power-plan-core/),
-  [fixed-design power](lib/power-plan-fixed-design/), or
-  [explicit planning guidance](lib/power-plan-guidance/). A route may call for bespoke simulation
-  or explain why a procedure is not sized independently. Guidance deliberately returns no sample
-  size; a rule-of-thumb model-capacity floor is not a power calculation.
-- **More precise declarations of study fit.** [Compatibility updates](https://github.com/Ask-Mallard/mallard-code-library/pull/27)
-  restrict the cluster-summary entry to binary outcomes and a risk difference, and clarify
-  noninferiority framing and prediction targets. [Diagnostic meta-analysis](https://github.com/Ask-Mallard/mallard-code-library/pull/28)
-  now explicitly declares sensitivity and specificity as its paired measures.
-- **Risk-set sampling stays distinct from ordinary matched case-control sampling.**
-  [The latest correction](https://github.com/Ask-Mallard/mallard-code-library/pull/32) reserves
-  `nestedCaseControl` compatibility for [the risk-set entry](lib/nested-case-control-risk-set/).
-  These declarations help describe a method's scope; they do not establish that an application
-  selected the right method for a particular study.
+Each folder under [`lib/`](lib/) contains one analysis or planning example. Start with its
+`README.md`: it explains the question the method answers, its assumptions and its limits.
+Then inspect the example data and the code in the language you use. A
+[two-sample comparison of means](lib/welch-two-sample-t-test/) is one place to start;
+the [clinic-level analysis](lib/cluster-level-summary-analysis/) shows how a study's design
+changes the analysis.
 
-## What each entry claims
+Most entries contain these seven files:
 
-The checks address **two separate claims**, and neither implies the other. An entry can carry the
-agreement claim only when both languages were executed.
+| File | What it is for |
+|---|---|
+| `README.md` | The explanation of the method. `.md` means Markdown, plain text formatted for reading on GitHub. |
+| `r.R` | The analysis or planning code in R. |
+| `python.py` | The corresponding code in Python. `.py` identifies a Python program. |
+| `fixture.csv` | The saved synthetic example data or planning inputs. A “fixture” is a fixed example used in tests; `.csv` is a table of comma-separated values. |
+| `fixture.py` | The Python program that reproduces the example data or inputs. For random data, it uses a fixed seed so the example can be recreated. |
+| `expected.json` | The known answers or reference values, acceptable numerical differences and options the tests check. `.json` stores named values in a structured text format. |
+| `meta.json` | The method's identity, supported study designs, required package versions, analysis settings and planning guidance. |
 
-**Agreement.** Every executed language produces the same estimates from identical rows, to the
-tolerances recorded in the entry's `expected.json`. Given identical data, a real difference between
-two correct-looking implementations is almost always a package default, and those differ more often
-than people expect. `scipy.stats.ttest_ind` runs the pooled-variance test unless told otherwise,
-while R's `t.test` runs Welch's; SAS `PROC LOGISTIC` models the lower ordered value by default, so a
-0/1 outcome without `event='1'` inverts every odds ratio. Reading either file alone would not reveal
-this. Running both does.
+Some entries are R-only and omit `python.py`; `meta.json` explains why. Planning entries use
+example assumptions and scenarios rather than patient observations. To inspect the evidence behind
+an example, read its `fixture.py` and `expected.json` alongside the tests linked below.
 
-**Recovery.** For simulated analysis fixtures, those estimates are close to the parameters the
-synthetic data was generated from.
-This tolerance is looser, because an estimate carries sampling error, and it exists to catch
-implementations that agree with each other on the same wrong model. Planning entries instead check
-their declared reference calculations or guidance outputs; their passing result does not establish
-power for an actual study.
+To run an example, download or clone this repository and install R or Python with the package
+versions listed in the entry's `meta.json`. From the repository folder, run either language:
 
-Agreement alone passes identical mistakes; recovery alone passes a default mismatch smaller than
-sampling error. [The comparator](harness/check.py) reports the two separately and does not state the agreement
-claim at all when only one language ran.
+```bash
+cd lib/welch-two-sample-t-test
+Rscript r.R
+python python.py
+```
 
-**What no entry claims is that your analysis is correct.**
+You only need both languages if you want to compare their results. Each script prints its results
+and a `--- HARNESS ---` block that the automated tests read.
+
+Run the supplied example first. When adapting a copy for your own data, review the required columns,
+outcome coding and analysis settings rather than changing filenames alone. For example, identifying
+which column represents a clinic or a repeated measurement requires understanding the study design.
 
 ## Entries
+
+The table lists the available methods and the languages used in their automated checks. Some methods
+run only in R because a faithful Python implementation is unavailable or the random computations
+cannot be aligned across languages. Those entries have no cross-language agreement result.
+
+Study-size planning includes [standard power and precision calculations](lib/power-plan-core/),
+[fixed-design power](lib/power-plan-fixed-design/) and
+[guidance when an ordinary calculation is inappropriate](lib/power-plan-guidance/).
+Not every planning question has a single sample-size answer: some require a tailored simulation,
+and some procedures are not sized independently. A rule-of-thumb minimum is not a power calculation.
 
 <!-- catalogue:start (generated by harness/catalogue.py; do not edit by hand) -->
 
@@ -166,184 +167,115 @@ claim at all when only one language ran.
 
 <!-- catalogue:end -->
 
-An entry runs in R only when no Python package implements the method faithfully, or when its
-randomness cannot be aligned across languages (multiple imputation draws, for example). Writing
-Python that silently computed something different would be worse than having none.
+## How code is validated
 
-## Using an entry
+The [automated verification workflow](.github/workflows/verify.yml) runs on pushes and pull requests.
+It executes the available R and Python code on the saved examples and checks the results.
+[Verification results on GitHub](https://github.com/Ask-Mallard/mallard-code-library/actions/workflows/verify.yml)
+show the outcome for each tested revision.
 
-Each directory under `lib/` stands alone. The usual seven-file layout separates the explanation,
-the analysis, the example data and the checks. For example, open
-[`cluster-level-summary-analysis`](lib/cluster-level-summary-analysis/):
+Two checks answer different questions:
 
-| File | What it is and why it is there |
-|---|---|
-| [`README.md`](lib/cluster-level-summary-analysis/README.md) | The human-readable explanation: what the method estimates, its assumptions and its limits. `.md` means Markdown, plain text formatted for reading on GitHub. |
-| [`r.R`](lib/cluster-level-summary-analysis/r.R) | The analysis written in the R programming language. Here it averages outcomes within each clinic, then compares the clinic proportions. |
-| [`python.py`](lib/cluster-level-summary-analysis/python.py) | The corresponding analysis written in Python. `.py` identifies Python code; matching the R result checks for implementation differences. |
-| [`fixture.csv`](lib/cluster-level-summary-analysis/fixture.csv) | The saved synthetic example dataset. `.csv` is a table of comma-separated values, readable in a spreadsheet. Both languages read the same rows. |
-| [`fixture.py`](lib/cluster-level-summary-analysis/fixture.py) | The Python generator that reproduces those synthetic rows from a fixed random seed and known underlying effect. It creates the example; it does not analyse it. |
-| [`expected.json`](lib/cluster-level-summary-analysis/expected.json) | The declared truth or reference answers, separate agreement and recovery tolerances, and required code options. `.json` stores named values in a structured text format the checks can read. |
-| [`meta.json`](lib/cluster-level-summary-analysis/meta.json) | The method's identity, study-design compatibility, package versions, defaults, Learn reference and sizing guidance. These declarations describe the intended use; they do not check a real study's assumptions. |
+- **Agreement:** do R and Python give matching results from the same input? The permitted numerical
+  differences are recorded in each entry's `expected.json`. This helps detect differences in
+  implementation or software defaults. It is reported as untested when only one language runs.
+- **Recovery:** are estimates close to the known values used to generate the synthetic data,
+  within the stated tolerance? This tolerance allows for sampling variation. Planning examples
+  instead check reference calculations or expected guidance, including cases that return no
+  sample size.
 
-R-only entries omit `python.py` and explain why in `meta.json`. Sizing entries use synthetic
-planning scenarios rather than patient observations; their fixtures and expected outputs should be
-read in that light.
+Both matter. Two implementations can agree on the same mistake, while a small mismatch between
+implementations can still fall within the allowance for sampling variation. The
+[comparison script](harness/check.py) reports the checks separately.
 
-**Recommended reading order:** start with the entry's `README.md` to decide whether its question
-resembles yours. Next inspect `fixture.csv` and `meta.json` to understand the required data and
-declared design. Then read the R or Python implementation you intend to run. To audit the example's
-evidence, follow `fixture.py` to `expected.json` and the linked harness tests.
+Additional tests, where implemented, reproduce saved data exactly, compare results with independent
+formulas, repeat calculations on newly generated datasets and check that deliberately inappropriate
+analyses produce a detectable error. For example, the [clinic-level tests](harness/longitudinal_examples.test.py)
+compare a confidence interval with a separate formula and show how incorrectly treating patients
+from the same clinic as independent makes the interval too narrow. The
+[example tests](harness/new_examples.test.py) run these method-specific checks.
 
-To run one, install the package versions its `meta.json` pins, then run the files from inside the
-entry's directory:
+The test tools also have [checks of their own](harness/check.test.py).
+[Structural checks](harness/lint.py) look for required options in the code, and
+[package checks](harness/metadata.py) verify the declared installed versions. Using recorded package
+versions helps make results reproducible; these checks do not inspect every dependency in the environment.
+
+**What passing does and does not mean.** It provides evidence for the tested examples, methods and
+software versions. Testing depth varies by entry. Recovering an effect across repeated datasets
+is not the same as showing that a 95% confidence interval contains the truth 95% of the time; that
+requires a separate coverage study. The checks do not establish that your data satisfy a method's
+assumptions, that columns were mapped correctly, or that Mallard or another application chose the
+right analysis. They cannot guarantee correct results for every dataset. Have a statistician review
+an analysis that will inform a study.
+
+## Reproducing the checks
+
+The [workflow](.github/workflows/verify.yml) records the R and Python versions, package installation
+steps and full test sequence. It installs R packages from a dated snapshot and Python packages at
+the versions declared by the entries. Each entry's `expected.json` describes its reference values,
+tolerances and any recorded calibration.
+
+<details>
+<summary>Commands for running the checks locally</summary>
+
+After installing the required versions, run these commands from the repository folder in Bash.
+Start with the test tools' own controls and the structural checks:
 
 ```bash
-cd lib/cox-proportional-hazards
-Rscript r.R
-python python.py
+python harness/metadata.test.py
+python harness/metadata.py --installed
+python harness/check.test.py
+python harness/lint.test.py
+python harness/lint.py --root lib
+python harness/power_plans.test.py
+python harness/new_examples.test.py
+python harness/iptw_scope.test.py
 ```
 
-Each script prints its estimates and ends with a machine-readable `--- HARNESS ---` block. To use
-one on your own data, read the entry's README first, then replace the fixture with your data and the
-fixture's column names with yours. Keep the pinned options in the code: they are the part that took
-the checking to get right. Deciding which of your columns is the stratum, the cluster or the
-competing event is a judgement about your study, not a find and replace.
-
-## Running the checks
-
-CI means continuous integration: the automated checks on GitHub. The [verification workflow](.github/workflows/verify.yml)
-runs every available `r.R` and `python.py`, then passes their output to
-[the comparator](harness/check.py), which decides the declared claims. To reproduce the entry
-checks locally, install the versions each `meta.json` pins, then run the entries and the checker:
+Then run the entries and compare their outputs:
 
 ```bash
+fail=0
 for entry in lib/*/; do
   name=$(basename "$entry"); args=()
-  if [ -f "$entry/r.R" ]; then (cd "$entry" && Rscript r.R) > "/tmp/$name.r.txt" && args+=(--output "r=/tmp/$name.r.txt"); fi
-  if [ -f "$entry/python.py" ]; then (cd "$entry" && python python.py) > "/tmp/$name.py.txt" && args+=(--output "python=/tmp/$name.py.txt"); fi
-  python harness/check.py --entry "$entry" "${args[@]}"
+  if [ -f "$entry/r.R" ]; then
+    if (cd "$entry" && Rscript r.R) > "/tmp/$name.r.txt"; then
+      args+=(--output "r=/tmp/$name.r.txt")
+    else
+      fail=1
+    fi
+  fi
+  if [ -f "$entry/python.py" ]; then
+    if (cd "$entry" && python python.py) > "/tmp/$name.py.txt"; then
+      args+=(--output "python=/tmp/$name.py.txt")
+    else
+      fail=1
+    fi
+  fi
+  python harness/check.py --entry "$entry" "${args[@]}" || fail=1
 done
+(exit "$fail")
 ```
 
-The workflow first runs the harness's own controls and structural checks:
+`new_examples.test.py` discovers and runs the other `harness/*_examples.test.py` files. Many use
+50 seeds by default; `MALLARD_SEEDS=100` reproduces their recorded 100-seed calibrations. Some tests,
+including the survey and prediction controls in `new_examples.test.py`, use 100 seeds directly.
+See each test for its procedure. `MALLARD_R_LIBS` can name an R library to put first on the path.
 
-```bash
-python harness/metadata.test.py          # metadata checker controls
-python harness/metadata.py --installed  # declarations and actual installed package versions
-python harness/check.test.py            # the comparator's own controls
-python harness/lint.test.py             # structural checker controls
-python harness/lint.py --root lib       # options in code, catalogue freshness and public-surface check
-python harness/power_plans.test.py      # current analyses and declared future routes resolve
-python harness/new_examples.test.py    # calibration and negative controls
-python harness/iptw_scope.test.py       # stabilized-weight scope controls
-```
+The main R/Python comparison reads the saved CSV. Some tests separately regenerate the data in
+memory and require an exact match before generating further examples; they do not overwrite the
+saved dataset. Recovery tolerances and the amount of repeated testing are specific to each entry.
 
-`new_examples.test.py` also discovers and runs the other `harness/*_examples.test.py` files.
-Many of these calibration files use 50 seeds by default; set `MALLARD_SEEDS=100` to reproduce
-their recorded 100-seed calibrations. Counts and procedures vary: the survey and prediction controls
-in `new_examples.test.py` use 100 seeds directly. Consult the entry's `expected.json` and its tests
-for the actual coverage. `MALLARD_R_LIBS` may name an R library to put first on the path.
-
-## How the checks are built, and why
-
-**The checking tools have controls of their own.** [Comparator tests](harness/check.test.py) exercise
-passing and failing outputs, including missing fields and missing languages.
-[Metadata checks](harness/metadata.py) reconcile language declarations with files and check declared
-package versions. [Structural lint](harness/lint.py) checks that required option strings occur in code,
-rather than only in comments, and that the generated catalogue is current. These checks catch
-specific inconsistencies; they are not a proof of all the code's behaviour. [Sizing-route controls](harness/power_plans.test.py)
-also check that declared planning routes resolve to code and Learn guidance, and reject unsupported
-routes.
-
-**Tolerances are measured, not asserted.** Each `expected.json` records the tolerance for each
-output and how it was measured. Most agreement tolerances are 1e-4; some are wider where two
-optimisers or two variance estimators legitimately differ, and the observed difference is recorded
-beside the key. The first version of this README claimed 1e-6 everywhere, and the first real run
-refuted it: two conditional logistic implementations agreed to 5.6e-6 on the same likelihood, so
-1e-6 failed a correct pair. A tolerance chosen by assertion is calibrated against nothing.
-
-**Recovery tolerances are checked against repeated draws where implemented.** Many analysis
-entries record a 100-seed calibration and a tolerance above the observed 99th-percentile absolute
-error. Their CI controls typically repeat recovery over 50 seeds with an adjusted order statistic
-near the second-largest error. This is a finite simulation check, not a guarantee for future
-samples. Some entries have different checks or only the committed-fixture check; testing depth
-varies, so read the entry's `expected.json` and control file. **Effect recovery is not empirical
-95% confidence-interval coverage.** A coverage study would repeatedly calculate intervals and
-count how often they contain the truth; the cluster-summary recovery test does not do that.
-
-**Negative controls.** A tolerance loose enough to allow sampling error can be loose enough to pass
-the wrong estimator. Where implemented, controls also show that a deliberately inappropriate
-analysis produces a detectable error. Depending on the entry, that may be a biased estimate, an
-incorrect standard error or an interval that is too narrow, as in the cluster example below.
-
-**The data is committed, not regenerated in each language.** R's and NumPy's random streams differ,
-so "seed 42" gives two different datasets, and a cross-language comparison would then be measuring
-sampling variation while appearing to measure agreement. The generator is committed beside the data
-so it is reproducible. The main R/Python comparison reads the committed CSV. Some example controls
-separately regenerate it in memory and require byte-for-byte equality, then generate additional
-datasets for calibration; they do not replace the committed CSV.
-
-**The truth does not come from running this code.** An expected value recorded from the library's
-own output would pass against whatever the code produced. Instead each fixture is constructed so that
-the parameters it uses are the parameters the model estimates, and a published worked example is
-used wherever one exists.
-
-**Package versions are pinned.** An early run failed because statsmodels
-imported a private scipy helper that a newer scipy had removed: pinning the packages a file names
-while their dependencies float leaves the environment able to change. CI installs R packages from
-a dated snapshot and Python packages at the versions declared in `meta.json`, including declared
-dependency pins. The [installed-version check](harness/metadata.py) checks each declared package
-against its pin; it does not audit every transitive dependency in the environment.
-
-**Standard errors are checked independently.** In several entries one library's reported standard
-error was wrong while its estimate was right. Where the two languages disagree on a standard error,
-the entry computes an independent reference before deciding which to trust, and says so in its
-README.
-
-### A concrete example: 24 clinics, not 1,440 independent patients
-
-The [cluster-summary fixture](lib/cluster-level-summary-analysis/fixture.py) has 24 clinics with
-60 synthetic patients each, 12 clinics per arm. The generating model's mean risks are 0.35 and
-0.20, a true intervention-minus-control difference of **−0.15**, or 15 percentage points lower.
-Both implementations first calculate a proportion for each clinic and then use a pooled-variance
-t-test on those 24 proportions, with **22 degrees of freedom**. The target is the difference in
-average clinic proportions; it also equals the patient-average difference in this equal-size example.
-
-On the committed fixture, the [verified output](https://github.com/Ask-Mallard/mallard-code-library/actions/runs/36704133683/job/109850251205)
-is **−0.1708333333**, with a 95% interval from **−0.2390121433 to −0.1026545234**.
-That is an estimated reduction of 17.08 percentage points, with an interval from 10.27 to 23.90
-points lower. The [declared tolerances](lib/cluster-level-summary-analysis/expected.json) answer
-two different questions: R and Python must agree within **0.000001**; the estimated effect must
-be within **0.12** of the generating truth. The latter allows sampling error and is not the
-confidence-interval width.
-
-[The longitudinal controls](harness/longitudinal_examples.test.py) reproduce the CSV byte for byte,
-check the Python estimate and lower confidence limit against a separate pooled-t formula, and
-show that treating patients as independent gives an interval half-width of about **0.044**,
-compared with **0.068** when clinics are the analysis units. They also check effect recovery over
-50 seeds by default and confirm that the truth in `expected.json` matches the generator.
-The whole-library comparison separately checks R/Python agreement, while structural lint requires
-the clustering and pooled-variance options to remain present in each implementation.
-
-These layers support the declared implementation on these examples. They do not establish that
-real clinics satisfy the assumptions, that another dataset will behave the same way, that columns
-were mapped correctly, or that Ask Mallard selected or adapted the appropriate method. Library
-verification is separate from end-to-end evaluation of the application.
-
-## Fixtures are synthetic. Always.
-
-No real dataset, and no patient data of any kind, enters this repository.
+</details>
 
 ## Contributing
 
 Issues and pull requests are welcome. A new entry needs the applicable files above (with any absent
-language explained in `meta.json`), measured tolerances, a negative control, and CI passing in every
-language it claims. Run `python harness/catalogue.py`
-to update the list of entries above.
+language explained in `meta.json`), measured tolerances, a test of a deliberately inappropriate
+analysis and passing checks in every language it claims. Use synthetic data only.
+Run `python harness/catalogue.py` to update the generated list of entries.
 
 ## Licence
 
-Apache-2.0, with a NOTICE file. This code is meant to be pasted into other people's analyses, so the
-licence should not be the thing that stops them; Apache-2.0 stays permissive while adding an explicit
-patent grant.
+This library is available under [Apache-2.0](LICENSE), with a [NOTICE](NOTICE) file. You may reuse
+and adapt the code under those terms, including the licence and attribution requirements.
