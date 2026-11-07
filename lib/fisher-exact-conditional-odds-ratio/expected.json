@@ -36,5 +36,21 @@
   "engines": {
     "r": { "executed": true },
     "python": { "executed": true }
+  },
+
+  "r_reference": {
+    "r_version": "4.6.1",
+    "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
+    "packages": {},
+    "fixture_sha256": "79083bb23c9b021f3daa1a1e0f4434a168d5c9326785912646c250d2e2eae053",
+    "values": {
+      "odds_ratio": 5.6230877062,
+      "log_odds_ratio_lcl": 1.0828430119,
+      "log_odds_ratio_ucl": 2.4089523084,
+      "log_odds_ratio": 1.726880927,
+      "sample_odds_ratio": 5.6666666667,
+      "p_value": 8.6471952098e-09,
+      "n": 240.0
+    }
   }
 }

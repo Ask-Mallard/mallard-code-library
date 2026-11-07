@@ -1,0 +1,19 @@
+{
+  "Sample size and power": ["power-plan-core"],
+  "Descriptive summary (mean and SD, median and IQR)": ["descriptive-summary-table-one"],
+  "Chi-square 2x2 with Yates": ["chi-square-two-by-two"],
+  "Fisher's exact 2x2": ["fisher-exact-conditional-odds-ratio"],
+  "Independent t-test (Welch)": ["welch-two-sample-t-test"],
+  "Mann-Whitney U": ["mann-whitney-hodges-lehmann"],
+  "Paired t-test": ["paired-t-test"],
+  "Wilcoxon signed-rank": ["wilcoxon-signed-rank-hodges-lehmann"],
+  "Pearson correlation": ["correlation-pearson-spearman"],
+  "Spearman correlation": ["correlation-pearson-spearman"],
+  "Diagnostic test 2x2 (sensitivity, specificity, predictive values)": ["diagnostic-accuracy-wilson", "predictive-values-likelihood-ratios"],
+  "One-way ANOVA": ["one-way-anova-tukey"],
+  "Kruskal-Wallis": ["kruskal-wallis"],
+  "Multiple-comparison adjustment": ["multiplicity-adjustment"],
+  "Kaplan-Meier": ["kaplan-meier-logrank"],
+  "Cohen's kappa": ["weighted-kappa-agreement"],
+  "Bland-Altman": ["bland-altman-limits"]
+}

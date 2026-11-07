@@ -37,5 +37,21 @@
   "engines": {
     "r": { "executed": true },
     "python": { "executed": true }
+  },
+
+  "r_reference": {
+    "r_version": "4.6.1",
+    "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
+    "packages": {},
+    "fixture_sha256": "8bc90b73bd49dd09bd1b9adbb87884abcf5c6df4e5ec8eef0b7e60597b6d7a1c",
+    "values": {
+      "pearson_r": 0.449018652,
+      "pearson_lcl": 0.3111474233,
+      "pearson_ucl": 0.5683793637,
+      "spearman_rho": 0.4137481666,
+      "spearman_lcl": 0.2624806277,
+      "spearman_ucl": 0.5451677556,
+      "n": 150.0
+    }
   }
 }

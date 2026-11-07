@@ -16,6 +16,9 @@ contains no real patient records.
 [Browse the methods](#entries) · [Use an example](#using-an-entry) ·
 [Understand the checks](#how-code-is-validated)
 
+The [calculator coverage and formulas](CALCULATORS.md) map Ask Mallard's public calculators
+to runnable entries, their statistical references, and checks against saved R results.
+
 ## Using an entry
 
 Each folder under [`lib/`](lib/) contains one analysis or planning example. Start with its

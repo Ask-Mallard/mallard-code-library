@@ -47,5 +47,39 @@
   "engines": {
     "r": {"executed": true},
     "python": {"executed": true}
+  },
+
+  "r_reference": {
+    "r_version": "4.6.1",
+    "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
+    "packages": {},
+    "fixture_sha256": "c99aad2f59f9a597ce369ba602fe8233be952aba2f704aef1075aaf34681fa63",
+    "values": {
+      "twoMeans_n1": 64.0,
+      "twoMeans_n2": 64.0,
+      "twoMeans_total": 128.0,
+      "paired_total": 52.0,
+      "oneMean_total": 88.0,
+      "twoProportions_n1": 199.0,
+      "twoProportions_n2": 199.0,
+      "twoProportions_total": 398.0,
+      "oneProportion_total": 137.0,
+      "correlation_total": 85.0,
+      "logrank_events": 247.0,
+      "logrank_total": 412.0,
+      "logisticEPV_events": 120.0,
+      "logisticEPV_total": 600.0,
+      "linearSPV_total": 114.0,
+      "dxAccuracy_diseased": 196.0,
+      "dxAccuracy_nonDiseased": 139.0,
+      "dxAccuracy_total": 980.0,
+      "agreementKappa_total": 369.0,
+      "anovaKGroups_perGroup": 53.0,
+      "anovaKGroups_total": 159.0,
+      "proportionPrecision_total": 5950.0,
+      "noninferiorityProportions_nReference": 1345.0,
+      "noninferiorityProportions_nNew": 1345.0,
+      "noninferiorityProportions_total": 2690.0
+    }
   }
 }

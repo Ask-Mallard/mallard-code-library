@@ -35,5 +35,20 @@
   "engines": {
     "r": { "executed": true },
     "python": { "executed": true }
+  },
+
+  "r_reference": {
+    "r_version": "4.6.1",
+    "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
+    "packages": {},
+    "fixture_sha256": "39e6df9ff9099b1e031bbd04c3101097f9a662acbfdd0ebb639c50481f5d999a",
+    "values": {
+      "pseudomedian_change": 2.55385,
+      "pseudomedian_change_lcl": 1.173288,
+      "pseudomedian_change_ucl": 3.6172045,
+      "v_statistic": 807.0,
+      "p_value": 0.00078644744997,
+      "n": 45.0
+    }
   }
 }

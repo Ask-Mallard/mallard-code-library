@@ -50,5 +50,27 @@
     "python": {
       "executed": true
     }
+  },
+
+  "r_reference": {
+    "r_version": "4.6.1",
+    "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
+    "packages": {},
+    "fixture_sha256": "9f7b457ed5f3ca9e1e0f6e273c637b30f347ae7e786def3698254ecc51ea140f",
+    "values": {
+      "bias": 2.4528912133,
+      "bias_lcl": 1.6855164437,
+      "bias_ucl": 3.220265983,
+      "sd_difference": 4.7562350502,
+      "loa_lower": -6.869158187,
+      "loa_lower_lcl": -8.1982902765,
+      "loa_lower_ucl": -5.5400260976,
+      "loa_upper": 11.7749406137,
+      "loa_upper_lcl": 10.4458085243,
+      "loa_upper_ucl": 13.1040727032,
+      "proportional_bias_slope": -0.0171871284,
+      "correlation": 0.9598122996,
+      "n": 150.0
+    }
   }
 }
