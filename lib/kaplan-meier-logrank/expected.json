@@ -33,5 +33,18 @@
 
   "engines": {
     "r": { "executed": true },
-    "python": { "executed": true }  }
+    "python": { "executed": true }  },
+
+  "r_reference_pending": {
+    "status": "pending",
+    "r_version": "4.6.1",
+    "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
+    "packages": {
+      "survival": "3.8-11"
+    },
+    "reason": "The build environment predates access to the Posit package download host rspm-sync.rstudio.com. The exact declared package could not be installed in this task.",
+    "python_recovery": "passed",
+    "r_python_agreement_in_this_task": "UNTESTED",
+    "next_step": "Install the exact declared package in the updated environment, execute r.R and python.py on fixture.csv, record r_reference from R output, and run harness/check.py plus harness/calculator_examples.test.py. Remove this pending record after verification."
+  }
 }

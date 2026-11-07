@@ -1,12 +1,19 @@
 # Diagnostic accuracy with Wilson intervals
 
+**R calculator reference: PENDING.** Python recovery passed in this task. A saved R 4.6.1
+reference and R/Python agreement verification remain pending installation of `binom 1.1-2`
+from the Posit 2026-09-01 snapshot. The build environment predates access to the package
+download host. A subsequent task in the updated environment must produce the R values
+and run both languages through `harness/check.py`. No R reference values are supplied here;
+the existing recovery targets below describe the synthetic data-generating process.
+
 Sensitivity and specificity against a reference standard. Each is a **single proportion**, which is
 precisely the case where a Wilson or Clopper-Pearson interval is the right choice: the
 normal-approximation (Wald) interval degrades near 0 and 1 and can run outside [0, 1], which for an
 accuracy measure is visibly wrong on the page.
 
-**That licence does not extend anywhere else.** Wilson and Clopper-Pearson belong to a single
-proportion or rate. An odds ratio, a hazard ratio or any adjusted model estimate takes a
+**That license does not extend anywhere else.** Wilson and Clopper-Pearson belong to a single
+binomial proportion. An odds ratio, a hazard ratio or any adjusted model estimate takes a
 profile-likelihood or Wald interval, and a bootstrapped quantity takes a percentile or
 bias-corrected one.
 

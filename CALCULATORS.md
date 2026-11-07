@@ -28,6 +28,22 @@ The formulas and examples are covered by this repository's [Apache-2.0 license](
 
 ## Numerical references
 
+Fourteen entries have saved R 4.6.1 references and passed the R/Python agreement check.
+Three saved references are **pending**:
+
+| Entry | Required package | Current verification |
+|---|---|---|
+| `diagnostic-accuracy-wilson` | `binom 1.1-2` | Python recovery passed; R reference and R/Python agreement pending |
+| `kaplan-meier-logrank` | `survival 3.8-11` | Python recovery passed; R reference and R/Python agreement pending |
+| `weighted-kappa-agreement` | `irr 0.85` | Python recovery passed; R reference and R/Python agreement pending |
+
+Their READMEs and `expected.json` files explicitly record this status. The build environment
+predates access to Posit's package download host, `rspm-sync.rstudio.com`. A subsequent task
+in the updated environment must install the declared versions and record the actual R outputs.
+Existing recovery targets, tolerances, execution declarations and statistical assertions are retained.
+The reference test remains strict: it reports these three pending references as failures, while
+the other fourteen pass. No pending result is counted as tested agreement.
+
 The `r_reference` section of an entry's `expected.json`, when present, records R 4.6.1
 output from its committed fixture, the fixture's SHA-256 digest, and declared R package
 versions. These fixed numerical references supplement the existing simulated-parameter
@@ -46,6 +62,32 @@ apply to a mean difference, odds ratio, rank-based shift, correlation, survival 
 kappa, or limit of agreement. The table states the interval appropriate to each estimator.
 Power and precision planning use the assumptions documented by their entry; a rule-of-thumb
 model-size floor does not establish power.
+
+## R installation and verification
+
+R 4.6.1 was built natively on Debian 13 from the official
+`https://cloud.r-project.org/src/base/R-4/R-4.6.1.tar.gz` release archive
+(SHA-256 `4da6e61d2c0aac5f14a2e7e432cb5fcc269efe83da4293050ba7f03dff4e2cf4`).
+The build used Debian GCC/GFortran 14.2.0-19 and native development headers in a
+user-owned directory, with `--enable-R-shlib --with-x=no --with-blas=no --with-lapack=no`.
+R uses its own BLAS and LAPACK. The Fortran runtime libraries were linked explicitly;
+the installed interpreter's shared-library dependencies resolve on Debian 13.
+Version and numerical smoke checks and R's full `make check` passed.
+
+The Posit 2026-09-01 package index matches all 23 R package versions declared by the
+library. Installing those packages remains pending; bundled recommended packages do
+not satisfy later snapshot pins. In the updated environment, use source packages from
+`https://packagemanager.posit.co/cran/2026-09-01`, the same dated CRAN snapshot as CI's
+Ubuntu noble endpoint, and run `python harness/metadata.py --installed` to verify every pin.
+No interpreter version, package pin, existing tolerance or assertion was changed to
+make setup pass.
+
+All 17 calculator Python implementations passed recovery. Fourteen entries also passed
+both-language `harness/check.py` comparisons and comparisons with their saved R outputs.
+Metadata, comparator, lint and power-plan controls passed, as did structural lint over
+all 89 entries and 15 independent example-control suites, including the base-R Bayesian
+controls. The full `new_examples.test.py` run reaches the three pending reference failures.
+The installed-package check and IPTW scope check remain blocked by unavailable R packages.
 
 ## References
 
