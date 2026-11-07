@@ -3,7 +3,7 @@
   "kind": "sizing",
   "title": "Fixed-design power for interrupted time series and stepped-wedge trials",
   "summary": "Attainable power for a prespecified interrupted-time-series grid by seeded simulation, and for a cross-sectional stepped-wedge design by the Hussey-Hughes nested-exchangeable GLS variance.",
-  "learn": "concept.power",
+  "learn": "concept.choosing_sample_size_method",
   "sizing_calcs": ["interruptedTimeSeries", "steppedWedge"],
   "engines": {"r": "executed", "python": "executed"},
   "packages": {

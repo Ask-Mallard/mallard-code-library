@@ -3,7 +3,7 @@
   "kind": "sizing",
   "title": "Planning guidance when an ordinary power calculation is not valid",
   "summary": "Executable R and Python templates that carry precision, fixed-design, rule-of-thumb, bespoke-simulation and not-applicable routes into code without fabricating a sample size.",
-  "learn": "concept.power",
+  "learn": "concept.choosing_sample_size_method",
   "sizing_calcs": ["precision", "fixed-design", "rule-of-thumb", "bespoke-simulation", "not-applicable", "simulation"],
   "engines": {"r": "executed", "python": "executed"},
   "packages": {"r": {}, "python": {}},

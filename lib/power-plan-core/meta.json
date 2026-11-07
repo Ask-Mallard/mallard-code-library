@@ -3,7 +3,7 @@
   "kind": "sizing",
   "title": "Power and precision planning for standard study designs",
   "summary": "A typed dispatcher for the standard analytic power, precision and model-floor calculations used by Ask Mallard plans. Rule-based outputs are labelled floors and never reported as power.",
-  "learn": "concept.power",
+  "learn": "concept.choosing_sample_size_method",
   "sizing_calcs": ["twoMeans", "paired", "oneMean", "twoProportions", "oneProportion", "correlation", "logrank", "logisticEPV", "linearSPV", "dxAccuracy", "agreementKappa", "anovaKGroups", "proportionPrecision", "noninferiorityProportions"],
   "engines": {"r": "executed", "python": "executed"},
   "packages": {
