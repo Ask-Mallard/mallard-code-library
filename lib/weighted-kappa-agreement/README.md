@@ -1,11 +1,8 @@
 # Cohen's and quadratic-weighted kappa for two raters
 
-**R calculator reference: PENDING.** Python recovery passed in this task. A saved R 4.6.1
-reference and R/Python agreement verification remain pending installation of `irr 0.85`
-from the Posit 2026-09-01 snapshot. The build environment predates access to the package
-download host. A subsequent task in the updated environment must produce the R values
-and run both languages through `harness/check.py`. No R reference values are supplied here;
-the existing recovery targets below describe the synthetic data-generating process.
+**R calculator reference: verified.** `expected.json` records the fixture's R 4.6.1
+results with `irr 0.85` from the Posit 2026-09-01 snapshot. R and Python passed
+both recovery and agreement checks for the kappas and their standard errors.
 
 Two radiologists grade 300 patients on a 1 to 4 scale.
 

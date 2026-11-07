@@ -28,21 +28,27 @@ The formulas and examples are covered by this repository's [Apache-2.0 license](
 
 ## Numerical references
 
-Fourteen entries have saved R 4.6.1 references and passed the R/Python agreement check.
-Three saved references are **pending**:
+All 17 entries have saved R 4.6.1 references. The three references completed on
+November 7, 2026 use the exact declared packages:
 
 | Entry | Required package | Current verification |
 |---|---|---|
-| `diagnostic-accuracy-wilson` | `binom 1.1-2` | Python recovery passed; R reference and R/Python agreement pending |
-| `kaplan-meier-logrank` | `survival 3.8-11` | Python recovery passed; R reference and R/Python agreement pending |
-| `weighted-kappa-agreement` | `irr 0.85` | Python recovery passed; R reference and R/Python agreement pending |
+| `diagnostic-accuracy-wilson` | `binom 1.1-2` | R and Python recovery passed; agreement tested and passed |
+| `kaplan-meier-logrank` | `survival 3.8-11` | R and Python recovery passed; agreement tested and passed |
+| `weighted-kappa-agreement` | `irr 0.85` | R and Python recovery passed; agreement tested and passed |
 
-Their READMEs and `expected.json` files explicitly record this status. The build environment
-predates access to Posit's package download host, `rspm-sync.rstudio.com`. A subsequent task
-in the updated environment must install the declared versions and record the actual R outputs.
-Existing recovery targets, tolerances, execution declarations and statistical assertions are retained.
-The reference test remains strict: it reports these three pending references as failures, while
-the other fourteen pass. No pending result is counted as tested agreement.
+Their `expected.json` files record actual R outputs, with no pending reference records.
+Every emitted numeric value matches Python at the scripts' ten decimal places, including
+the Wilson bounds, Kaplan-Meier log-log bounds and log-rank statistic, and kappa standard
+errors. Existing recovery targets, tolerances, execution declarations and statistical
+assertions are retained.
+
+The calculator reference suite reports **15 passed and 2 failed**. Its exact version-string
+assertions compare `as.character(packageVersion(...))` with metadata: R normalizes
+`binom 1.1-2` to `1.1.2` and `survival 3.8-11` to `3.8.11`. The installed DESCRIPTION
+versions match the declared pins exactly. Both entries pass the separate, unchanged
+`harness/check.py` recovery and agreement checks. No version, check or assertion was
+changed to bypass these two reference-suite failures.
 
 The `r_reference` section of an entry's `expected.json`, when present, records R 4.6.1
 output from its committed fixture, the fixture's SHA-256 digest, and declared R package
@@ -74,20 +80,27 @@ R uses its own BLAS and LAPACK. The Fortran runtime libraries were linked explic
 the installed interpreter's shared-library dependencies resolve on Debian 13.
 Version and numerical smoke checks and R's full `make check` passed.
 
-The Posit 2026-09-01 package index matches all 23 R package versions declared by the
-library. Installing those packages remains pending; bundled recommended packages do
-not satisfy later snapshot pins. In the updated environment, use source packages from
+Fresh HTTPS connections succeeded with verified TLS to `cloud.r-project.org` (HTTP 200),
+`packagemanager.posit.co` (HTTP 307), and `rspm-sync.rstudio.com` (HTTP 200).
+The Posit 2026-09-01 source package index matches all 23 declared R package versions.
+Those packages and their dependencies were installed from
 `https://packagemanager.posit.co/cran/2026-09-01`, the same dated CRAN snapshot as CI's
-Ubuntu noble endpoint, and run `python harness/metadata.py --installed` to verify every pin.
-No interpreter version, package pin, existing tolerance or assertion was changed to
-make setup pass.
+Ubuntu noble endpoint, into a user-owned library. The package list was derived from
+`lib/*/meta.json`; source builds used the native toolchain, with private CMake for
+`nloptr`. Bundled recommended packages were superseded by the declared snapshot versions.
+`python harness/metadata.py --installed` passed all 23 R and eight Python version checks.
+No interpreter version, package pin, existing tolerance or assertion was changed.
 
-All 17 calculator Python implementations passed recovery. Fourteen entries also passed
-both-language `harness/check.py` comparisons and comparisons with their saved R outputs.
-Metadata, comparator, lint and power-plan controls passed, as did structural lint over
-all 89 entries and 15 independent example-control suites, including the base-R Bayesian
-controls. The full `new_examples.test.py` run reaches the three pending reference failures.
-The installed-package check and IPTW scope check remain blocked by unavailable R packages.
+The full library run passed `harness/check.py` for all 89 entries: 81 with R/Python
+agreement tested, including all 17 calculator entries, and eight declared R-only entries
+with recovery checked. Metadata (9), comparator (41), lint (39), power-plan (9), and IPTW scope (4)
+controls passed: 102 controls total. Structural lint passed over all 89 entries.
+Twenty of the 21 example-control suites passed at their default calibration settings,
+including the missing-data and base-R Bayesian controls. The calculator suite's two
+version-string failures described above cause `new_examples.test.py` to fail after
+its own survey and prediction controls and the agreement and Bayesian suites pass.
+The remaining example suites were run individually so that this failure did not hide
+their results. All checks and assertions are unchanged.
 
 ## References
 

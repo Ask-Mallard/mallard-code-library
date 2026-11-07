@@ -35,16 +35,23 @@
     "r": { "executed": true },
     "python": { "executed": true }  },
 
-  "r_reference_pending": {
-    "status": "pending",
+  "r_reference": {
     "r_version": "4.6.1",
     "snapshot": "https://packagemanager.posit.co/cran/__linux__/noble/2026-09-01",
     "packages": {
       "survival": "3.8-11"
     },
-    "reason": "The build environment predates access to the Posit package download host rspm-sync.rstudio.com. The exact declared package could not be installed in this task.",
-    "python_recovery": "passed",
-    "r_python_agreement_in_this_task": "UNTESTED",
-    "next_step": "Install the exact declared package in the updated environment, execute r.R and python.py on fixture.csv, record r_reference from R output, and run harness/check.py plus harness/calculator_examples.test.py. Remove this pending record after verification."
+    "fixture_sha256": "4c4bca4ef73fcad2001f615e562d5296e496e6f79569c4b2425ea0c303b8d6f0",
+    "values": {
+      "median_unexposed": 12.5,
+      "median_exposed": 6.5,
+      "surv_unexposed_12": 0.5142124974,
+      "surv_exposed_12": 0.2733146846,
+      "ci_lower_unexposed_12": 0.4633475752,
+      "ci_upper_unexposed_12": 0.5626696709,
+      "logrank_chisq": 54.0153480278,
+      "n_events": 656.0,
+      "n": 900.0
+    }
   }
 }

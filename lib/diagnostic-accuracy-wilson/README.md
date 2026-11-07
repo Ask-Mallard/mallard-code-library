@@ -1,11 +1,8 @@
 # Diagnostic accuracy with Wilson intervals
 
-**R calculator reference: PENDING.** Python recovery passed in this task. A saved R 4.6.1
-reference and R/Python agreement verification remain pending installation of `binom 1.1-2`
-from the Posit 2026-09-01 snapshot. The build environment predates access to the package
-download host. A subsequent task in the updated environment must produce the R values
-and run both languages through `harness/check.py`. No R reference values are supplied here;
-the existing recovery targets below describe the synthetic data-generating process.
+**R calculator reference: verified.** `expected.json` records the fixture's R 4.6.1
+results with `binom 1.1-2` from the Posit 2026-09-01 snapshot. R and Python passed
+both recovery and agreement checks, including all Wilson interval bounds.
 
 Sensitivity and specificity against a reference standard. Each is a **single proportion**, which is
 precisely the case where a Wilson or Clopper-Pearson interval is the right choice: the

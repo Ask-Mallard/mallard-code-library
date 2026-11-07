@@ -1,11 +1,8 @@
 # Kaplan-Meier estimation and the log-rank test
 
-**R calculator reference: PENDING.** Python recovery passed in this task. A saved R 4.6.1
-reference and R/Python agreement verification remain pending installation of `survival 3.8-11`
-from the Posit 2026-09-01 snapshot. The build environment predates access to the package
-download host. A subsequent task in the updated environment must produce the R values
-and run both languages through `harness/check.py`. No R reference values are supplied here;
-the existing recovery targets below describe the synthetic data-generating process.
+**R calculator reference: verified.** `expected.json` records the fixture's R 4.6.1
+results with `survival 3.8-11` from the Posit 2026-09-01 snapshot. R and Python passed
+both recovery and agreement checks, including the log-log interval and log-rank statistic.
 
 Estimates survival curves from partially observed follow-up, and compares two of them.
 
